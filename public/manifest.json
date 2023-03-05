@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "Summer Web Clipper",
+  "description": "Universal web clipper with ai generated summary.",
+  "version": "0.0.1",
+  "icons": {
+    "64": "icons/icon.png"
+  },
+  "permissions": [
+    "tabs",
+    "*://www.notion.so/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "content/index.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_action": {
+    "default_icon": {
+      "64": "icons/icon.png"
+    },
+    "default_popup": "popup/index.html",
+    "default_title": "Summer Web Clipper"
+  },
+  "options_ui": {
+    "page": "options/index.html"
+  },
+  "background": {
+    "scripts": [
+      "background/index.js"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "summer-web-clipper",
+  "version": "0.0.1",
+  "description": "Universal web clipper with AI generated summary.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merrickluo/summer-web-clipper.git"
+  },
+  "keywords": [
+    "web-clipper",
+    "ai"
+  ],
+  "author": "Merrick Luo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/merrickluo/summer-web-clipper/issues"
+  },
+  "homepage": "https://github.com/merrickluo/summer-web-clipper#readme",
+  "dependencies": {
+    "@mozilla/readability": "^0.4.2",
+    "@types/webextension-polyfill": "^0.10.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "uuid": "^9.0.0",
+    "webextension-polyfill": "^0.10.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "esbuild": "0.17.11",
+    "fs-extra": "^11.1.0"
+  }
+}
