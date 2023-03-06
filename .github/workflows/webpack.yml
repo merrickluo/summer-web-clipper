@@ -27,7 +27,7 @@ jobs:
         npm install
         npm run build
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with: 
         name: assets-for-download
         path: public
