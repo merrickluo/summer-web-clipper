@@ -1,4 +1,4 @@
-name: Pakcage
+name: Package for browser
 
 on:
   push:
