@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { runtime, tabs } from "webextension-polyfill";
 
 const Page = () => {
-  const [content, setContent] = useState("");
+  const [error, setError] = useState("");
   const [summary, setSummary] = useState("");
 
   useEffect(() => {
@@ -11,35 +11,39 @@ const Page = () => {
         active: true,
         lastFocusedWindow: true,
       });
-      const article = await tabs.sendMessage(tab[0].id, {
-        action: "parse",
-      });
+
+      if (!tab || tab.length <= 0) {
+        setError("Failed to query active tab, please try again later.");
+      }
+
+      const article = await tabs.sendMessage(tab[0].id!, { action: "parse" });
 
       fetchSummary(article);
-      setContent(article.content);
     };
 
-    const fetchSummary = async (article) => {
+    const fetchSummary = async ({
+      title,
+      textContent,
+    }: {
+      title: string;
+      textContent: string;
+    }) => {
       const data = await runtime.sendMessage({
         action: "summarize",
-        title: article.title,
-        content: article.textContent,
+        title: title,
+        content: textContent,
       });
       setSummary(data);
     };
 
     fetchContent();
-  }, [setContent, setSummary]);
+  }, [setError, setSummary]);
 
   return (
-    <div>
+    <div className="m-10 bg-red">
       <div>
         <h1>Summary</h1>
         <p>{summary}</p>
-      </div>
-      <div>
-        <h1>Content</h1>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     </div>
   );

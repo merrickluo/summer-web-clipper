@@ -7,7 +7,6 @@ const defaultUrl = "https://www.notion.so/api/v3/getCompletion";
 export class NotionSummarizer implements Summarizer {
   constructor(
     private spaceId: string,
-    private token: string,
     private url = defaultUrl,
     private model = defaultModel
   ) {}
@@ -42,7 +41,6 @@ export class NotionSummarizer implements Summarizer {
       method: "post",
       headers: {
         accept: "application/json",
-        cookie: `token_v2=${this.token};`,
         "content-type": "application/json",
       },
       body: JSON.stringify(payload),

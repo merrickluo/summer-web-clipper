@@ -16,7 +16,7 @@
         "*://*/*"
       ],
       "js": [
-        "content/index.js"
+        "dist/content.js"
       ],
       "run_at": "document_idle"
     }
@@ -25,15 +25,15 @@
     "default_icon": {
       "64": "icons/icon.png"
     },
-    "default_popup": "popup/index.html",
+    "default_popup": "popup.html",
     "default_title": "Summer Web Clipper"
   },
   "options_ui": {
-    "page": "options/index.html"
+    "page": "options.html"
   },
   "background": {
     "scripts": [
-      "background/index.js"
+      "dist/background.js"
     ]
   }
 }
