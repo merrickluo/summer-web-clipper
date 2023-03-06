@@ -8,6 +8,7 @@
   },
   "permissions": [
     "tabs",
+    "storage",
     "*://www.notion.so/*"
   ],
   "content_scripts": [

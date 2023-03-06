@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import { Summarizer } from "./summarizer";
+import { Either, Left, Right } from "../types";
+import { Summarizer } from "../summarizer";
 
 const defaultModel = "openai-3";
 const defaultUrl = "https://www.notion.so/api/v3/getCompletion";
@@ -11,7 +12,11 @@ export class NotionSummarizer implements Summarizer {
     private model = defaultModel
   ) {}
 
-  async summarize(title: string, content: string): Promise<string> {
+  async summarize(title: string, content: string): Promise<Either<string>> {
+    if (!this.spaceId) {
+      return Left(Error("space id not set"));
+    }
+
     const context = {
       type: "summarize",
       pageTitle: title,
@@ -26,14 +31,21 @@ export class NotionSummarizer implements Summarizer {
       context,
     };
 
-    const resp = await this.request(payload);
-    const text = await resp.text();
-    if (!resp.ok) {
-      throw "failed to summarize page: " + text;
+    let responseText: string;
+    try {
+      const resp = await this.request(payload);
+      responseText = await resp.text();
+      if (!resp.ok) {
+        return Left(
+          Error(`failed to generate summary: notion api ${resp.status}`)
+        );
+      }
+    } catch {
+      return Left(Error("failed to generate summary"));
     }
 
-    const lines = text.split("\n");
-    return lines.map(this.parseLine).join("");
+    const lines = responseText.split("\n");
+    return Right(lines.map(this.parseLine).join(""));
   }
 
   async request(payload: any): Promise<Response> {

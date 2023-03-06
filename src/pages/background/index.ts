@@ -1,14 +1,11 @@
+import { newNotionSummarizer } from "@src/lib/summarizer";
 import { runtime } from "webextension-polyfill";
-import { NotionSummarizer } from "../../lib/notion";
-
-const spaceId = "";
 
 runtime.onMessage.addListener(async (msg) => {
-  const summarizer = new NotionSummarizer(spaceId);
+  const summarizer = await newNotionSummarizer();
 
   switch (msg.action) {
     case "summarize":
-      const data = await summarizer.summarize(msg.title, msg.content);
-      return data;
+      return summarizer.summarize(msg.title, msg.content);
   }
 });

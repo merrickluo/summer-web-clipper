@@ -1,16 +1,12 @@
-import { Readability } from "@mozilla/readability";
+import { ParseDocumentCommand } from "@src/lib/constants";
+import { parseDocument } from "@src/lib/readbility";
 import { runtime } from "webextension-polyfill";
-
-const parseDocument = () => {
-  const doc = document.cloneNode(true) as Document;
-  const article = new Readability(doc).parse();
-
-  return article;
-};
 
 runtime.onMessage.addListener(async (msg) => {
   switch (msg.action) {
-    case "parse":
-      return parseDocument();
+    case ParseDocumentCommand.action:
+      return parseDocument(document);
   }
+
+  return null;
 });
