@@ -45,7 +45,7 @@ export class NotionSummarizer implements Summarizer {
     }
 
     const lines = responseText.split("\n");
-    return Right(lines.map(this.parseLine).join(""));
+    return Right(lines.map(this.parseLine).join("").trim());
   }
 
   async request(payload: any): Promise<Response> {
