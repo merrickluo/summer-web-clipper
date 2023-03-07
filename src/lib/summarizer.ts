@@ -14,6 +14,5 @@ const avaiableSummarizer = (): Summarizer[] => {
 export const newNotionSummarizer = async (): Promise<NotionSummarizer> => {
   const settings = await storage.local.get(notionSettingsKey);
 
-  console.log(settings);
   return new NotionSummarizer(settings[notionSettingsKey].spaceId);
 };
