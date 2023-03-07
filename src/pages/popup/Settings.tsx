@@ -21,15 +21,7 @@ const Settings = () => {
     loadSettings();
   }, [setSpaceId]);
 
-  return (
-    <div>
-      <input
-        onChange={handleSetNotionSpaceId}
-        type="text"
-        placeholder={spaceId || "notion space id"}
-      ></input>
-    </div>
-  );
+  return <div className=""></div>;
 };
 
 export default Settings;
