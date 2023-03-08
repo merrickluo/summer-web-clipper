@@ -1,12 +1,9 @@
-import { ParseDocumentCommand } from "@src/lib/constants";
+import { addMessageListener, ContentMessage } from "@src/lib/browser";
 import { parseDocument } from "@src/lib/readbility";
-import { runtime } from "webextension-polyfill";
 
-runtime.onMessage.addListener(async (msg) => {
+addMessageListener(async (msg: ContentMessage) => {
   switch (msg.action) {
-    case ParseDocumentCommand.action:
+    case "parse_document":
       return parseDocument(document);
   }
-
-  return null;
 });

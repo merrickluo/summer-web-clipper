@@ -1,4 +1,4 @@
-import { storage } from "webextension-polyfill";
+import { localStorageGet, localStorageSet } from "./browser";
 
 export interface Settings {
   selectedSummarizer?: string;
@@ -48,11 +48,10 @@ export const settingsReducer = (settings: Settings, action: SettingsAction) => {
   }
 };
 
-// await here to force throw for useQuery
 export const loadSettings = async (): Promise<Settings> => {
-  return (await storage.local.get()) as Settings;
+  return (await localStorageGet()) as Settings;
 };
 
 const saveSettings = async (settings: Settings) => {
-  return await storage.local.set(settings);
+  return localStorageSet(settings);
 };

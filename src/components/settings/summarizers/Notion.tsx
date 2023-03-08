@@ -1,13 +1,13 @@
 import Select from "@src/components/Select";
+import { sendMessage } from "@src/lib/browser";
 import { SyntheticEvent } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { useQuery } from "react-query";
-import { runtime } from "webextension-polyfill";
 import { SettingsFormProps } from "../types";
 
 const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { data: spaces } = useQuery("notion/spaces", async () => {
-    return runtime.sendMessage({ action: "notion/getSpaces" });
+    return sendMessage({ to: "background" }, { action: "notion/getSpaces" });
   });
 
   const handleSelectSpace = (event: SyntheticEvent<HTMLSelectElement>) => {

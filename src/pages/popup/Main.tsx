@@ -1,6 +1,4 @@
-import { ParseDocumentCommand } from "@src/lib/constants";
 import { Article } from "@src/lib/readbility";
-import { runtime, tabs } from "webextension-polyfill";
 import { SiOrg } from "react-icons/si";
 import { useQuery } from "react-query";
 import Summary from "./Summary";
@@ -8,32 +6,22 @@ import { BiRefresh } from "react-icons/bi";
 import { useMemo } from "react";
 import { loadSettings } from "@src/lib/settings";
 import { selectedSummarizer } from "@src/lib/summarizer";
+import { sendMessage } from "@src/lib/browser";
 
 const fetchArticle = async (): Promise<Article> => {
-  const tab = await tabs.query({
-    active: true,
-    lastFocusedWindow: true,
-  });
-
-  if (!tab || tab.length <= 0) {
-    throw "no active tab found";
-  }
-
-  if (!tab[0].id) {
-    throw "active tab has no id";
-  }
-
-  return await tabs.sendMessage(tab[0].id, ParseDocumentCommand);
+  return sendMessage({ to: "current_tab" }, { action: "parse_document" });
 };
 
 const fetchSummary = async (article: Article) => {
   // FIXME: don't understand why error all become Unexpected
   // is it not a Promise???
-  return await runtime.sendMessage({
-    action: "summarize",
-    title: article.title,
-    content: article.textContent,
-  });
+  return sendMessage(
+    { to: "background" },
+    {
+      action: "summarize",
+      payload: { title: article.title, content: article.textContent },
+    }
+  );
 };
 
 const Main = () => {

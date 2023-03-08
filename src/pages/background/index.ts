@@ -1,9 +1,9 @@
 import { fetchNotionSpaces } from "@src/lib/api/notion";
+import { addMessageListener, BackgroundMessage } from "@src/lib/browser";
 import { loadSettings } from "@src/lib/settings";
 import { selectedSummarizer } from "@src/lib/summarizer";
-import { runtime } from "webextension-polyfill";
 
-runtime.onMessage.addListener((msg): Promise<any> | undefined => {
+addMessageListener((msg: BackgroundMessage): Promise<any> => {
   switch (msg.action) {
     case "summarize":
       return new Promise(async (resolve, reject) => {
@@ -16,8 +16,8 @@ runtime.onMessage.addListener((msg): Promise<any> | undefined => {
         }
 
         const summary = await summarizer.summarize(
-          msg.title,
-          msg.content,
+          msg.payload.title,
+          msg.payload.content,
           settings.summarizers?.[summarizer.id]
         );
 
