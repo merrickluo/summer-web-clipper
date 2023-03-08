@@ -40,7 +40,7 @@ const Main = () => {
     <div className="p-3">
       <section>
         <div className="flex justify-between items-end">
-          <h1 className="font-bold ml-1 mt-1 max-w-xs">
+          <h1 className="text-base font-bold ml-1 mt-1 max-w-xs">
             {article.isLoading
               ? "Parsing page..."
               : article.isError
@@ -54,7 +54,7 @@ const Main = () => {
             }`}
           />
         </div>
-        <div className="w-full bg-white mt-2 p-2 rounded-lg border-1 border-gray-300">
+        <div className="w-full text-base bg-white mt-2 p-2 rounded-lg border-1 border-gray-300">
           <Summary summary={summary} valid={!!hasSelectedSummarizer} />
         </div>
       </section>
