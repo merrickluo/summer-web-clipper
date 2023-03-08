@@ -33,6 +33,7 @@ export const settingsReducer = (settings: Settings, action: SettingsAction) => {
       let summarizers = settings.summarizers || {};
 
       settings = {
+        ...settings,
         summarizers: {
           ...summarizers,
           notion: {
