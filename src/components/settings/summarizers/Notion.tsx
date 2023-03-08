@@ -38,7 +38,9 @@ const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
         </div>
         <div className="flex text-sm ml-4 mb-1 underline">
           <BiLinkExternal className="w-4 h-4" />
-          <a href="https://www.notion.so">Login to Notion</a>
+          <a href="https://www.notion.so" target="_blank">
+            Login to Notion
+          </a>
         </div>
       </div>
       <p className="text-xs text-gray-500 mt-2">
