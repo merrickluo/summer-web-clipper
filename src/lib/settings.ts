@@ -22,7 +22,10 @@ export const settingsReducer = (settings: Settings, action: SettingsAction) => {
     case "settings/ready":
       return action.payload as Settings;
     case "summarizer/select":
-      settings.selectedSummarizer = action.payload as string;
+      settings = {
+        ...settings,
+        selectedSummarizer: action.payload as string,
+      };
       // FIXME: this might fail, how to handle this?
       saveSettings(settings);
       return settings;

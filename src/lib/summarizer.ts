@@ -15,7 +15,5 @@ export interface Summarizer {
 export const avaiableSummarizers = [NotionSummarizer];
 
 export const selectedSummarizer = (settings: Settings) => {
-  return avaiableSummarizers.find((s) => {
-    s.id == settings.selectedSummarizer;
-  });
+  return avaiableSummarizers.find((s) => s.id == settings.selectedSummarizer);
 };
