@@ -1,5 +1,4 @@
 import { isProbablyReaderable, Readability } from "@mozilla/readability";
-import { Either, Left, Right } from "./types";
 
 export interface Article {
   title: string;
@@ -13,14 +12,14 @@ export interface Article {
   readable: boolean;
 }
 
-export const parseDocument = (doc: Document): Either<Article> => {
+export const parseDocument = (doc: Document): Article => {
   const readable = isProbablyReaderable(doc);
   const cloneDoc = document.cloneNode(true) as Document;
   const parsedDoc = new Readability(cloneDoc).parse();
 
   if (parsedDoc == null) {
-    return Left(Error("readability parse failed"));
+    throw "readability parse failed";
   }
 
-  return Right({ readable, ...parsedDoc });
+  return { readable, ...parsedDoc };
 };

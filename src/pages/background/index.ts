@@ -3,22 +3,27 @@ import { loadSettings } from "@src/lib/settings";
 import { selectedSummarizer } from "@src/lib/summarizer";
 import { runtime } from "webextension-polyfill";
 
-runtime.onMessage.addListener(async (msg) => {
+runtime.onMessage.addListener((msg): Promise<any> | undefined => {
   switch (msg.action) {
     case "summarize":
-      const settings = await loadSettings();
+      return new Promise(async (resolve, reject) => {
+        const settings = await loadSettings();
 
-      const summarizer = selectedSummarizer(settings);
-      if (!summarizer) {
-        throw "no available summarizer";
-      }
+        const summarizer = selectedSummarizer(settings);
+        if (!summarizer) {
+          reject("no available summarizer");
+          return;
+        }
 
-      return summarizer.summarize(
-        msg.title,
-        msg.content,
-        settings.summarizers?.[summarizer.name]
-      );
+        const summary = await summarizer.summarize(
+          msg.title,
+          msg.content,
+          settings.summarizers?.[summarizer.id]
+        );
+
+        resolve(summary);
+      });
     case "notion/getSpaces":
-      return await fetchNotionSpaces();
+      return fetchNotionSpaces();
   }
 });

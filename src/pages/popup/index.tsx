@@ -15,8 +15,7 @@ const settingsPage = "settings";
 const queryClient = new QueryClient();
 
 const Popup = () => {
-  // const [page, setPage] = useState(mainPage);
-  const [page, setPage] = useState(settingsPage);
+  const [page, setPage] = useState(mainPage);
 
   const handleSetPage = useCallback(
     (page: "main" | "settings") => {
