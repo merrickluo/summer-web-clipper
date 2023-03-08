@@ -12,7 +12,14 @@ import "./style.css";
 const mainPage = "main";
 const settingsPage = "settings";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    },
+  },
+});
 
 const Popup = () => {
   const [page, setPage] = useState(mainPage);
