@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AiTwotoneSetting, AiFillHome } from "react-icons/ai";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import Header from "./Header";
 import Main from "./Main";
@@ -11,8 +12,11 @@ import "./style.css";
 const mainPage = "main";
 const settingsPage = "settings";
 
+const queryClient = new QueryClient();
+
 const Popup = () => {
-  const [page, setPage] = useState(mainPage);
+  // const [page, setPage] = useState(mainPage);
+  const [page, setPage] = useState(settingsPage);
 
   const handleSetPage = useCallback(
     (page: "main" | "settings") => {
@@ -46,11 +50,15 @@ const Popup = () => {
   return (
     <main className="">
       <Header
-        subtitle="Clip with Summary"
+        subtitle={page === mainPage ? "Clip with Summary" : "Settings"}
         actions={page === mainPage ? mainPageActions : settingPageAction}
       />
-      {page === mainPage && <Main />}
-      {page === settingsPage && <Settings />}
+      <QueryClientProvider client={queryClient}>
+        <>
+          {page === mainPage && <Main />}
+          {page === settingsPage && <Settings />}
+        </>
+      </QueryClientProvider>
     </main>
   );
 };

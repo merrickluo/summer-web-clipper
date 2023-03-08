@@ -1,18 +1,21 @@
-import { storage } from "webextension-polyfill";
-import { notionSettingsKey } from "./constants";
-import { Either } from "./types";
-import { NotionSummarizer } from "./summarizer/notion";
+import { SettingsFormProps } from "@src/components/settings/types";
+import { FC } from "react";
+import { Settings } from "./settings";
+
+import NotionSummarizer from "./summarizer/notion";
 
 export interface Summarizer {
-  summarize(title: string, content: string): Promise<Either<string>>;
+  id: string;
+  name: string;
+  SettingsComp: FC<SettingsFormProps>;
+
+  summarize(title: string, content: string, options: any): Promise<string>;
 }
 
-const avaiableSummarizer = (): Summarizer[] => {
-  return [];
-};
+export const avaiableSummarizers = [NotionSummarizer];
 
-export const newNotionSummarizer = async (): Promise<NotionSummarizer> => {
-  const settings = await storage.local.get(notionSettingsKey);
-
-  return new NotionSummarizer(settings[notionSettingsKey].spaceId);
+export const selectedSummarizer = (settings: Settings) => {
+  return avaiableSummarizers.find((s) => {
+    s.id == settings.selectedSummarizer;
+  });
 };

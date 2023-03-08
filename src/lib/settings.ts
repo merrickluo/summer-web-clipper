@@ -1,6 +1,6 @@
 import { storage } from "webextension-polyfill";
 
-interface Settings {
+export interface Settings {
   selectedSummarizer?: string;
   summarizers?: Record<string, any>;
   exporters?: Record<string, any>;
@@ -11,7 +11,7 @@ export type SettingsActionType =
   | "summarizer/select"
   | "summarizer/notion/setSpaceId";
 
-interface SettingsAction {
+export interface SettingsAction {
   type: SettingsActionType;
   payload: any;
 }
@@ -28,23 +28,27 @@ export const settingsReducer = (settings: Settings, action: SettingsAction) => {
       return settings;
     case "summarizer/notion/setSpaceId":
       let summarizers = settings.summarizers || {};
-      summarizers.notion = {
-        spaceId: action.payload as string,
-        ...summarizers.notion,
+
+      settings = {
+        summarizers: {
+          ...summarizers,
+          notion: {
+            ...summarizers.notion,
+            spaceId: action.payload as string,
+          },
+        },
       };
 
-      settings.summarizers = summarizers;
       saveSettings(settings);
       return settings;
   }
 };
 
+// await here to force throw for useQuery
 export const loadSettings = async (): Promise<Settings> => {
-  const settings = await storage.local.get();
-
-  return settings as Settings;
+  return (await storage.local.get()) as Settings;
 };
 
 const saveSettings = async (settings: Settings) => {
-  return storage.local.set(settings);
+  return await storage.local.set(settings);
 };
