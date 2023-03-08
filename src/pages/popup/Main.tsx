@@ -15,7 +15,7 @@ const fetchArticle = async (): Promise<Article> => {
 const fetchSummary = async (article: Article) => {
   // FIXME: don't understand why error all become Unexpected
   // is it not a Promise???
-  return sendMessage(
+  return await sendMessage(
     { to: "background" },
     {
       action: "summarize",
