@@ -7,7 +7,7 @@ import { buildUrl } from "./helpers";
 
 const exportToOrgProtocol = ({ article, summary }: Clip, options: any) => {
   if (!options || !options.template) {
-    throw "missing org mode export template";
+    throw new Error("missing org mode export template");
   }
 
   const orgUrl = buildUrl(options.template, {

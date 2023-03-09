@@ -53,7 +53,7 @@ const getCurrentTab = async () => {
   });
 
   if (!tabs || tabs.length <= 0) {
-    throw "no active tab found";
+    throw new Error("no active tab found");
   }
 
   return tabs[0];

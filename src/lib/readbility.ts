@@ -21,7 +21,7 @@ export const parseDocument = (doc: Document): Article => {
   const parsedDoc = new Readability(cloneDoc).parse();
 
   if (parsedDoc == null) {
-    throw "readability parse failed";
+    throw new Error("readability parse failed");
   }
 
   return { url: window.location.href, readable, ...parsedDoc };

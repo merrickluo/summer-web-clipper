@@ -18,7 +18,7 @@ export const fetchNotionSpaces = async () => {
   const data = await notionPost("/getSpaces").then((r) => r.json());
 
   if (!data || Object.keys(data).length < 1) {
-    throw "failed to get notion spaces";
+    throw new Error("failed to get notion spaces");
   }
 
   const [key] = Object.keys(data);

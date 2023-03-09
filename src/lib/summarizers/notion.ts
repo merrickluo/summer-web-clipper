@@ -10,7 +10,7 @@ const summarize = async (
   options: any
 ): Promise<string> => {
   if (!options.spaceId) {
-    throw "space not set.";
+    throw new Error("space not set.");
   }
 
   const responseText = await getCompletion(

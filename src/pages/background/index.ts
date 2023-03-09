@@ -12,7 +12,7 @@ addMessageListener(async (msg: BackgroundMessage): Promise<any> => {
 
       const summarizer = selectedSummarizer(settings);
       if (!summarizer) {
-        throw "no available summarizer";
+        throw new Error("no available summarizer");
       }
 
       return await summarizer.summarize(
@@ -27,7 +27,7 @@ addMessageListener(async (msg: BackgroundMessage): Promise<any> => {
 
       const exporter = findExporter(exporterId);
       if (!exporter) {
-        throw "no matching exporter found";
+        throw new Error("no matching exporter found");
       }
 
       return await exporter.export(
