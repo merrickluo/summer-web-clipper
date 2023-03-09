@@ -2,7 +2,7 @@ import { SettingsFormProps } from "@components/types";
 import { FC } from "react";
 import { Settings } from "./settings";
 
-import NotionSummarizer from "./summarizer/notion";
+import NotionSummarizer from "./summarizers/notion";
 
 export interface Summarizer {
   id: string;

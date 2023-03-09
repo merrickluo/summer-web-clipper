@@ -1,7 +1,7 @@
 import { fetchNotionSpaces } from "@lib/api/notion";
 import { addMessageListener, BackgroundMessage } from "@lib/browser";
 import { loadSettings } from "@lib/settings";
-import { selectedSummarizer } from "@lib/summarizer";
+import { selectedSummarizer } from "@lib/summarizers";
 
 addMessageListener((msg: BackgroundMessage): Promise<any> => {
   switch (msg.action) {

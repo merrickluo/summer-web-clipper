@@ -1,6 +1,6 @@
 import Select from "@src/components/Select";
 import { Settings, settingsReducer } from "@lib/settings";
-import { avaiableSummarizers, selectedSummarizer } from "@lib/summarizer";
+import { avaiableSummarizers, selectedSummarizer } from "@lib/summarizers";
 import { useReducer, useCallback, SyntheticEvent, useMemo } from "react";
 
 const SettingsForm = ({ settings }: { settings: Settings }) => {

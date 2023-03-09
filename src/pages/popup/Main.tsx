@@ -5,7 +5,7 @@ import Summary from "./Summary";
 import { BiRefresh } from "react-icons/bi";
 import { useMemo } from "react";
 import { loadSettings } from "@lib/settings";
-import { selectedSummarizer } from "@lib/summarizer";
+import { selectedSummarizer } from "@lib/summarizers";
 import { sendMessage } from "@lib/browser";
 
 const fetchArticle = async (): Promise<Article> => {
