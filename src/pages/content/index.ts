@@ -1,5 +1,5 @@
-import { addMessageListener, ContentMessage } from "@src/lib/browser";
-import { parseDocument } from "@src/lib/readbility";
+import { addMessageListener, ContentMessage } from "@lib/browser";
+import { parseDocument } from "@lib/readbility";
 
 addMessageListener(async (msg: ContentMessage) => {
   switch (msg.action) {

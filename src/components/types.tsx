@@ -1,4 +1,4 @@
-import { Settings, SettingsAction } from "@src/lib/settings";
+import { Settings, SettingsAction } from "@lib/settings";
 
 export interface SettingsFormProps {
   settings: Settings;

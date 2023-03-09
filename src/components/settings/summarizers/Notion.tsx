@@ -1,9 +1,9 @@
-import Select from "@src/components/Select";
-import { sendMessage } from "@src/lib/browser";
+import Select from "@components/Select";
+import { sendMessage } from "@lib/browser";
 import { SyntheticEvent } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { useQuery } from "react-query";
-import { SettingsFormProps } from "../types";
+import { SettingsFormProps } from "@components/types";
 
 const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { data: spaces } = useQuery("notion/spaces", async () => {

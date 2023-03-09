@@ -1,4 +1,4 @@
-import { SettingsFormProps } from "@src/components/settings/types";
+import { SettingsFormProps } from "@components/types";
 import { FC } from "react";
 import { Settings } from "./settings";
 

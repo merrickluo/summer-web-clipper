@@ -1,4 +1,4 @@
-import { Settings, loadSettings } from "@src/lib/settings";
+import { Settings, loadSettings } from "@lib/settings";
 import { useQuery } from "react-query";
 
 import SettingsForm from "./SettingsForm";

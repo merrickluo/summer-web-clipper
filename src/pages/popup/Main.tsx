@@ -1,12 +1,12 @@
-import { Article } from "@src/lib/readbility";
+import { Article } from "@lib/readbility";
 import { SiOrg } from "react-icons/si";
 import { useQuery } from "react-query";
 import Summary from "./Summary";
 import { BiRefresh } from "react-icons/bi";
 import { useMemo } from "react";
-import { loadSettings } from "@src/lib/settings";
-import { selectedSummarizer } from "@src/lib/summarizer";
-import { sendMessage } from "@src/lib/browser";
+import { loadSettings } from "@lib/settings";
+import { selectedSummarizer } from "@lib/summarizer";
+import { sendMessage } from "@lib/browser";
 
 const fetchArticle = async (): Promise<Article> => {
   return sendMessage({ to: "current_tab" }, { action: "parse_document" });
