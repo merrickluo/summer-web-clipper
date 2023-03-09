@@ -9,9 +9,12 @@ export interface Article {
   length: number;
   excerpt: string;
   siteName: string;
+
   readable: boolean;
+  url: string;
 }
 
+// this needs to be run in content script
 export const parseDocument = (doc: Document): Article => {
   const readable = isProbablyReaderable(doc);
   const cloneDoc = document.cloneNode(true) as Document;
@@ -21,5 +24,5 @@ export const parseDocument = (doc: Document): Article => {
     throw "readability parse failed";
   }
 
-  return { readable, ...parsedDoc };
+  return { url: window.location.href, readable, ...parsedDoc };
 };

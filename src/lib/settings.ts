@@ -7,45 +7,56 @@ export interface Settings {
 }
 
 export type SettingsActionType =
-  | "settings/ready"
-  | "summarizer/select"
-  | "summarizer/notion/setSpaceId";
+  | "summarizers/select"
+  | "summarizers/notion/setSpaceId"
+  | "exporters/orgmode/setTemplate";
 
 export interface SettingsAction {
   type: SettingsActionType;
   payload: any;
 }
 
-// only change settings via this reducer
-export const settingsReducer = (settings: Settings, action: SettingsAction) => {
+export const updateSettings = async (
+  settings: Settings,
+  action: SettingsAction
+) => {
   switch (action.type) {
-    case "settings/ready":
-      return action.payload as Settings;
-    case "summarizer/select":
+    case "summarizers/select":
       settings = {
         ...settings,
         selectedSummarizer: action.payload as string,
       };
-      // FIXME: this might fail, how to handle this?
-      saveSettings(settings);
-      return settings;
-    case "summarizer/notion/setSpaceId":
-      let summarizers = settings.summarizers || {};
+      break;
 
+    case "summarizers/notion/setSpaceId":
       settings = {
         ...settings,
         summarizers: {
-          ...summarizers,
+          ...settings.summarizers,
           notion: {
-            ...summarizers.notion,
+            ...settings.summarizers?.notion,
             spaceId: action.payload as string,
           },
         },
       };
 
-      saveSettings(settings);
-      return settings;
+      break;
+    case "exporters/orgmode/setTemplate":
+      settings = {
+        ...settings,
+        exporters: {
+          ...settings.exporters,
+          orgmode: {
+            ...settings.exporters?.orgmode,
+            template: action.payload as string,
+          },
+        },
+      };
+      break;
   }
+
+  await saveSettings(settings);
+  return settings;
 };
 
 export const loadSettings = async (): Promise<Settings> => {

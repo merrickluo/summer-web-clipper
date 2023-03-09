@@ -1,28 +1,40 @@
 import { fetchNotionSpaces } from "@lib/api/notion";
 import { addMessageListener, BackgroundMessage } from "@lib/browser";
-import { loadSettings } from "@lib/settings";
+import { loadSettings, Settings } from "@lib/settings";
 import { selectedSummarizer } from "@lib/summarizers";
+import { findExporter } from "@src/lib/exporters";
 
-addMessageListener((msg: BackgroundMessage): Promise<any> => {
+addMessageListener(async (msg: BackgroundMessage): Promise<any> => {
+  let settings: Settings;
   switch (msg.action) {
     case "summarize":
-      return new Promise(async (resolve, reject) => {
-        const settings = await loadSettings();
+      settings = await loadSettings();
 
-        const summarizer = selectedSummarizer(settings);
-        if (!summarizer) {
-          reject("no available summarizer");
-          return;
-        }
+      const summarizer = selectedSummarizer(settings);
+      if (!summarizer) {
+        throw "no available summarizer";
+      }
 
-        const summary = await summarizer.summarize(
-          msg.payload.title,
-          msg.payload.content,
-          settings.summarizers?.[summarizer.id]
-        );
+      return await summarizer.summarize(
+        msg.payload.title,
+        msg.payload.content,
+        settings.summarizers?.[summarizer.id]
+      );
+    case "export":
+      settings = await loadSettings();
 
-        resolve(summary);
-      });
+      const { exporterId, article, summary } = msg.payload;
+
+      const exporter = findExporter(exporterId);
+      if (!exporter) {
+        throw "no matching exporter found";
+      }
+
+      return await exporter.export(
+        { article: article, summary: summary },
+        settings?.exporters?.[exporterId]
+      );
+
     case "notion/getSpaces":
       return fetchNotionSpaces();
   }

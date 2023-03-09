@@ -1,6 +1,6 @@
-import NotionSummarizerSettings from "@src/components/settings/summarizers/Notion";
+import NotionSummarizerSettings from "@components/settings/summarizers/Notion";
 import { fetchNotionSummary } from "../api/notion";
-import { Summarizer } from "../summarizer";
+import { Summarizer } from "../summarizers";
 
 const defaultModel = "openai-3";
 
@@ -19,6 +19,7 @@ const summarize = async (
     title,
     content
   );
+
   const lines = responseText.split("\n");
   return lines.map(parseLine).join("").trim();
 };

@@ -1,15 +1,17 @@
 import { Article } from "@lib/readbility";
-import { SiOrg } from "react-icons/si";
-import { useQuery } from "react-query";
-import Summary from "./Summary";
+import { useMutation, useQuery } from "react-query";
 import { BiRefresh } from "react-icons/bi";
 import { useMemo } from "react";
 import { loadSettings } from "@lib/settings";
 import { selectedSummarizer } from "@lib/summarizers";
 import { sendMessage } from "@lib/browser";
+import { availableExporters } from "@lib/exporters";
+
+import Summary from "./Summary";
+import Alert from "@src/components/Alert";
 
 const fetchArticle = async (): Promise<Article> => {
-  return sendMessage({ to: "current_tab" }, { action: "parse_document" });
+  return await sendMessage({ to: "current_tab" }, { action: "parse_document" });
 };
 
 const fetchSummary = async (article: Article) => {
@@ -24,9 +26,31 @@ const fetchSummary = async (article: Article) => {
   );
 };
 
+interface ExportParams {
+  exporterId: string;
+  article?: Article;
+  summary?: string;
+}
+
+const doExport = async ({ exporterId, article, summary }: ExportParams) => {
+  return await sendMessage(
+    { to: "background" },
+    {
+      action: "export",
+      payload: {
+        exporterId,
+        article: article,
+        summary: summary,
+      },
+    }
+  );
+};
+
 const Main = () => {
-  const article = useQuery("article", fetchArticle);
-  const { data: settings } = useQuery("settings", loadSettings);
+  const article = useQuery("article", fetchArticle, { retry: false });
+  const { data: settings } = useQuery("settings", loadSettings, {
+    retry: false,
+  });
 
   const hasSelectedSummarizer = useMemo(() => {
     return settings && !!selectedSummarizer(settings);
@@ -36,8 +60,11 @@ const Main = () => {
     enabled: !!article.data && hasSelectedSummarizer,
   });
 
+  const mutation = useMutation(doExport);
+
   return (
     <div className="p-3">
+      <Alert />
       <section>
         <div className="flex justify-between items-end">
           <h1 className="text-base font-bold ml-1 mt-1 max-w-xs">
@@ -60,7 +87,21 @@ const Main = () => {
       </section>
       <div className="mt-6 mb-3 mr-3 flex justify-end items-center">
         <p className="text-sm text-gray-300">Save clip to...</p>
-        <SiOrg className="w-6 h-6 ml-3" />
+        <>
+          {availableExporters.map((exp) => (
+            <exp.Icon
+              key={exp.id}
+              onClick={() => {
+                mutation.mutate({
+                  exporterId: exp.id,
+                  article: article.data,
+                  summary: summary.data,
+                });
+              }}
+              className="w-6 h-6 ml-3 hover:text-blue-600"
+            />
+          ))}
+        </>
       </div>
     </div>
   );

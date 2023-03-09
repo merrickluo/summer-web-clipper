@@ -12,8 +12,8 @@ export interface Summarizer {
   summarize(title: string, content: string, options: any): Promise<string>;
 }
 
-export const avaiableSummarizers = [NotionSummarizer];
+export const availableSummarizers = [NotionSummarizer];
 
 export const selectedSummarizer = (settings: Settings) => {
-  return avaiableSummarizers.find((s) => s.id == settings.selectedSummarizer);
+  return availableSummarizers.find((s) => s.id == settings.selectedSummarizer);
 };

@@ -1,9 +1,10 @@
 export interface ContentMessage {
-  action: "parse_document";
+  action: "parse_document" | "open_url";
+  payload?: any;
 }
 
 export interface BackgroundMessage {
-  action: "notion/getSpaces" | "summarize";
+  action: "notion/getSpaces" | "summarize" | "export";
   payload?: any;
 }
 
