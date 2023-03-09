@@ -9,6 +9,7 @@ export interface Settings {
 export type SettingsActionType =
   | "summarizers/select"
   | "summarizers/notion/setSpaceId"
+  | "summarizers/openai/setApikey"
   | "exporters/orgmode/setTemplate";
 
 export interface SettingsAction {
@@ -36,6 +37,19 @@ export const updateSettings = async (
           notion: {
             ...settings.summarizers?.notion,
             spaceId: action.payload as string,
+          },
+        },
+      };
+
+      break;
+    case "summarizers/openai/setApikey":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          openai: {
+            ...settings.summarizers?.openai,
+            apikey: action.payload as string,
           },
         },
       };

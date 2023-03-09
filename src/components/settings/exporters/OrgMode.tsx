@@ -15,7 +15,7 @@ const OrgModeSettings = ({ settings, dispatch }: SettingsFormProps) => {
     <div className="mt-2">
       <p className="ml-1 mb-1 text-xs text-gray-400">Org Protocol Template</p>
       <textarea
-        id="message"
+        id="template"
         rows={3}
         onChange={handleSetTemplate}
         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
