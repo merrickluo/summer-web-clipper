@@ -64,7 +64,6 @@ const Main = () => {
 
   return (
     <div className="p-3">
-      <Alert />
       <section>
         <div className="flex justify-between items-end">
           <h1 className="text-base font-bold ml-1 mt-1 max-w-xs">
