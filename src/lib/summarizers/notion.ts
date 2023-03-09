@@ -1,5 +1,5 @@
 import NotionSummarizerSettings from "@components/settings/summarizers/Notion";
-import { fetchNotionSummary } from "../api/notion";
+import { getCompletion } from "../api/notion";
 import { Summarizer } from "../summarizers";
 
 const defaultModel = "openai-3";
@@ -13,7 +13,7 @@ const summarize = async (
     throw "space not set.";
   }
 
-  const responseText = await fetchNotionSummary(
+  const responseText = await getCompletion(
     options.spaceId,
     defaultModel,
     title,

@@ -32,7 +32,7 @@ export const fetchNotionSpaces = async () => {
   });
 };
 
-export const fetchNotionSummary = async (
+export const getCompletion = async (
   spaceId: string,
   model: string,
   title: string,
