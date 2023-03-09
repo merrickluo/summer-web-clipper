@@ -6,13 +6,13 @@ import { useQuery } from "react-query";
 import { SettingsFormProps } from "@components/types";
 
 const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
-  const { data: spaces } = useQuery("notion/spaces", async () => {
+  const { data: spaces, isFetched } = useQuery("notion/spaces", async () => {
     return sendMessage({ to: "background" }, { action: "notion/getSpaces" });
   });
 
   const handleSelectSpace = (event: SyntheticEvent<HTMLSelectElement>) => {
     dispatch({
-      type: "summarizer/notion/setSpaceId",
+      type: "summarizers/notion/setSpaceId",
       payload: event.currentTarget.value,
     });
   };
@@ -22,17 +22,18 @@ const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
       <div className="flex items-end">
         <div>
           <p className="ml-1 mb-1 text-xs text-gray-400">Workspace</p>
-          {spaces && (
+          {isFetched && (
             <Select
               id="spaceId"
               onChange={handleSelectSpace}
               defaultValue={settings.summarizers?.notion?.spaceId}
             >
-              {spaces.map(({ id, name }: any) => (
-                <option key={id} value={id}>
-                  {name}
-                </option>
-              ))}
+              {spaces &&
+                spaces.map(({ id, name }: any) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
             </Select>
           )}
         </div>
