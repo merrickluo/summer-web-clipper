@@ -1,5 +1,6 @@
 import { SettingsFormProps } from "@src/components/types";
 import { SyntheticEvent } from "react";
+import { TbAlertCircle } from "react-icons/tb";
 
 const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { openai = {} } = {} } = settings;
@@ -26,15 +27,18 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <a
           className="underline hover:text-blue-600 ml-1"
           href="https://platform.openai.com/account/api-keys"
+          target="_blank"
         >
           OpenAI Account Settings
         </a>
         <span>.</span>
       </p>
       <p className="text-sm text-gray-500 mt-2">
-        Note that OpenAI limit the token size to 4096 per request, so if the
-        content is too long, it will be truncated, so the result might not be as
-        good.
+        <TbAlertCircle className="mb-1 mr-1 inline w-5 h-5 text-red-400" />
+        <span>
+          Note that OpenAI limit the token size to 4096 per request, so if the
+          content is too long, it will be truncated.
+        </span>
       </p>
     </div>
   );
