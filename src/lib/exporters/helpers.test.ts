@@ -1,4 +1,4 @@
-import { buildUrl } from "./orgmode";
+import { buildUrl } from "./helpers";
 
 describe("build org protocol url", () => {
   describe("with full template", () => {

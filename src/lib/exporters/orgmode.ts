@@ -1,25 +1,9 @@
 import OrgModeSettings from "@components/settings/exporters/OrgMode";
+
 import { SiOrg } from "react-icons/si";
 import { sendMessage } from "../browser";
 import { Clip, Exporter } from "../exporters";
-
-interface TemplateData {
-  title?: string;
-  url: string;
-  summary?: string;
-  text?: string;
-}
-
-export const buildUrl = (template: string, data: TemplateData) => {
-  let result = template;
-
-  for (const [key, value] of Object.entries(data)) {
-    const encodedValue = encodeURIComponent(value as string);
-    result = result.replace(`{${key}}`, encodedValue);
-  }
-
-  return result;
-};
+import { buildUrl } from "./helpers";
 
 const exportToOrgProtocol = ({ article, summary }: Clip, options: any) => {
   if (!options || !options.template) {
