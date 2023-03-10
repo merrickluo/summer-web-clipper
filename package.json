@@ -1,7 +1,7 @@
 {
   "name": "summer-web-clipper",
   "version": "0.0.2",
-  "description": "Universal web clipper with AI generated summary.",
+  "description": "An universal web clipper with AI generated summary.",
   "scripts": {
     "watch": "ts-node-esm scripts/watch.ts",
     "build": "ts-node-esm scripts/build.ts",
