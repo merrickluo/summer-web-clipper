@@ -131,3 +131,5 @@ dist
 
 # generated js files
 public/**/*.js
+
+web-ext-artifacts
