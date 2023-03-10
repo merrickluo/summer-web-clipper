@@ -26,9 +26,9 @@ jobs:
       - name: Build
         run: |
           npm ci
-          npm run build
+          npm run package
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: assets-for-download
-          path: public
+          path: web-ext-artifacts/*.zip
