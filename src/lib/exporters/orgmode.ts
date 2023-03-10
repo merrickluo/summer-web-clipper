@@ -1,7 +1,7 @@
 import OrgModeSettings from "@components/settings/exporters/OrgMode";
 
 import { SiOrg } from "react-icons/si";
-import { sendMessage } from "../browser";
+import { openNewTab } from "../browser";
 import { Clip, Exporter } from "../exporters";
 import { buildUrl } from "./helpers";
 
@@ -17,7 +17,7 @@ const exportToOrgProtocol = ({ article, summary }: Clip, options: any) => {
     summary: summary,
   });
 
-  sendMessage({ to: "current_tab" }, { action: "open_url", payload: orgUrl });
+  openNewTab(orgUrl);
 };
 
 export default {

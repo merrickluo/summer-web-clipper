@@ -1,11 +1,13 @@
 import { addMessageListener, ContentMessage } from "@lib/browser";
 import { parseDocument } from "@lib/readbility";
 
-addMessageListener(async (msg: ContentMessage) => {
+addMessageListener((msg: ContentMessage, _, respond) => {
   switch (msg.action) {
     case "parse_document":
-      return parseDocument(document);
+      respond({ type: "success", payload: parseDocument(document) });
+      return true;
     case "open_url":
       window.open(msg.payload as string, "_self");
+      return true;
   }
 });

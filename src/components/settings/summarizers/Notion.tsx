@@ -7,7 +7,10 @@ import { SettingsFormProps } from "@components/types";
 
 const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { data: spaces, isFetched } = useQuery("notion/spaces", async () => {
-    return sendMessage({ to: "background" }, { action: "notion/getSpaces" });
+    return sendMessage({
+      to: "background",
+      message: { action: "notion/getSpaces" },
+    });
   });
 
   const handleSelectSpace = (event: SyntheticEvent<HTMLSelectElement>) => {
