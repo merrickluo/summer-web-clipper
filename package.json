@@ -3,10 +3,12 @@
   "version": "0.0.2",
   "description": "An universal web clipper with AI generated summary.",
   "scripts": {
-    "watch": "ts-node-esm scripts/watch.ts",
     "build": "ts-node-esm scripts/build.ts",
+    "build:chrome": "ts-node-esm scripts/build.ts chrome",
+    "build:firefox": "ts-node-esm scripts/build.ts firefox",
     "clean": "rm -rf public/dist",
-    "package": "npm run clean && npm run build && web-ext build -s public"
+    "package:chrome": "npm run clean && npm run build:chrome && web-ext build -s public",
+    "package:firefox": "npm run clean && npm run build:firefox && web-ext build -s public"
   },
   "type": "module",
   "repository": {

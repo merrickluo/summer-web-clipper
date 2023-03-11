@@ -11,7 +11,6 @@ const manifest = {
   permissions: ["tabs", "storage"],
   content_scripts: [
     {
-      matches: ["*://*/*"],
       js: ["dist/content.js"],
       run_at: "document_idle",
     },
@@ -23,22 +22,29 @@ const manifest = {
     default_popup: "popup.html",
     default_title: "Summer Web Clipper",
   },
-  background: {
-    scripts: ["dist/background.js"],
+};
+
+const browserSettings = {
+  chrome: {
+    background: {
+      service_worker: "dist/background.js",
+    },
+  },
+  firefox: {
+    background: {
+      scripts: ["dist/background.js"],
+    },
+    browser_specific_settings: {
+      gecko: {
+        id: "summber-web-clipper@luois.me",
+      },
+    },
   },
 };
 
-const chromeBackground = {
-  service_worker: "dist/background.js",
-};
-
-export const getManifest = (browser: string) => {
-  if (browser == "chrome") {
-    return {
-      ...manifest,
-      background: chromeBackground,
-    };
-  }
-
-  return manifest;
+export const getManifest = (browser: "chrome" | "firefox") => {
+  return {
+    ...manifest,
+    ...browserSettings[browser],
+  };
 };
