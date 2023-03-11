@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AiTwotoneSetting, AiFillHome } from "react-icons/ai";
 import { QueryClient, QueryClientProvider } from "react-query";
+import ContentWrapper from "./ContentWrapper";
 
 import Header from "./Header";
 import Main from "./Main";
@@ -37,7 +38,7 @@ const Popup = () => {
     () => (
       <AiFillHome
         className="ml-auto mr-6 w-6 h-6 hover:text-blue-600"
-        onClick={handleSetPage(mainPage)}
+        onClick={handleSetPage("main")}
       />
     ),
     [handleSetPage]
@@ -47,7 +48,7 @@ const Popup = () => {
     () => (
       <AiTwotoneSetting
         className="ml-auto mr-6 w-6 h-6 hover:text-blue-600"
-        onClick={handleSetPage(settingsPage)}
+        onClick={handleSetPage("settings")}
       />
     ),
     [handleSetPage]
@@ -61,7 +62,11 @@ const Popup = () => {
       />
       <QueryClientProvider client={queryClient}>
         <>
-          {page === mainPage && <Main />}
+          {page === mainPage && (
+            <ContentWrapper>
+              <Main />
+            </ContentWrapper>
+          )}
           {page === settingsPage && <Settings />}
         </>
       </QueryClientProvider>

@@ -8,13 +8,7 @@ const manifest = {
   icons: {
     "64": "icons/icon.png",
   },
-  permissions: ["tabs", "storage"],
-  content_scripts: [
-    {
-      js: ["dist/content.js"],
-      run_at: "document_idle",
-    },
-  ],
+  permissions: ["activeTab", "storage", "scripting"],
   action: {
     default_icon: {
       "64": "icons/icon.png",

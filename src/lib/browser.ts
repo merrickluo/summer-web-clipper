@@ -58,19 +58,25 @@ export const localStorageSet = (data: any) => {
   return chrome.storage.local.set(data);
 };
 
+// only main frame, current tab
+export const injectContentScript = async () => {
+  const tab = await getCurrentTab();
+
+  return await chrome.scripting.executeScript({
+    target: { tabId: tab.id! },
+    files: ["dist/content.js"],
+  });
+};
+
+export const openNewTab = (url: string) => {
+  chrome.tabs.create({ url });
+};
+
 const getCurrentTab = async () => {
   const [tab] = await chrome.tabs.query({
     active: true,
     lastFocusedWindow: true,
   });
 
-  if (!tab) {
-    throw new Error("no active tab found");
-  }
-
   return tab;
-};
-
-export const openNewTab = (url: string) => {
-  chrome.tabs.create({ url });
 };
