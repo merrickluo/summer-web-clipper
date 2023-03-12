@@ -8,22 +8,22 @@ import { sendMessage } from "@lib/browser";
 import { availableExporters } from "@lib/exporters";
 
 import Summary from "./Summary";
-import Alert from "@src/components/Alert";
 
 const fetchArticle = async (): Promise<Article> => {
-  return await sendMessage({ to: "current_tab" }, { action: "parse_document" });
+  return await sendMessage({
+    to: "current_tab",
+    message: { action: "parse_document" },
+  });
 };
 
 const fetchSummary = async (article: Article) => {
-  // FIXME: don't understand why error all become Unexpected
-  // is it not a Promise???
-  return await sendMessage(
-    { to: "background" },
-    {
+  return await sendMessage({
+    to: "background",
+    message: {
       action: "summarize",
       payload: { title: article.title, content: article.textContent },
-    }
-  );
+    },
+  });
 };
 
 interface ExportParams {
@@ -33,17 +33,17 @@ interface ExportParams {
 }
 
 const doExport = async ({ exporterId, article, summary }: ExportParams) => {
-  return await sendMessage(
-    { to: "background" },
-    {
+  return await sendMessage({
+    to: "background",
+    message: {
       action: "export",
       payload: {
         exporterId,
         article: article,
         summary: summary,
       },
-    }
-  );
+    },
+  });
 };
 
 const Main = () => {

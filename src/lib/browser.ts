@@ -8,53 +8,75 @@ export interface BackgroundMessage {
   payload?: any;
 }
 
-type Message = ContentMessage | BackgroundMessage;
+export type MessageResponse = {
+  type: "error" | "success";
+  payload?: any;
+};
 
-// HACK: esbuild seems to have issues bundling webextesion-polyfill
-// @ts-ignore
-import browser = require("webextension-polyfill");
+type MessageListener = (
+  msg: any,
+  sender: any,
+  sendResponse: (r: MessageResponse) => void
+) => void;
 
-type MessageTarget =
-  | { to: "content_script"; tabId: number }
-  | { to: "current_tab" }
-  | { to: "background" };
+type Message =
+  | { to: "current_tab"; message: ContentMessage }
+  | { to: "background"; message: BackgroundMessage };
 
-export const sendMessage = async (
-  target: MessageTarget,
-  msg: Message
-): Promise<any> => {
+export const sendMessage = async (target: Message): Promise<any> => {
+  let resp: MessageResponse;
+
   switch (target.to) {
-    case "content_script":
-      return await browser.tabs.sendMessage(target.tabId, msg);
     case "current_tab":
       const tab = await getCurrentTab();
-      return await browser.tabs.sendMessage(tab.id!, msg);
+      resp = await chrome.tabs.sendMessage(tab.id!, target.message);
+      break;
     case "background":
-      return await browser.runtime.sendMessage(msg);
+      resp = await chrome.runtime.sendMessage(target.message);
+      break;
+  }
+
+  // most of message function here are used for react-query
+  // and it requires the function to throw, convert callback
+  // result to throw error here
+  if (resp.type == "error") {
+    throw resp.payload;
+  } else {
+    return resp.payload;
   }
 };
 
-export const addMessageListener = (callback: (msg: any) => Promise<any>) => {
-  browser.runtime.onMessage.addListener(callback);
+export const addMessageListener = (callback: MessageListener) => {
+  chrome.runtime.onMessage.addListener(callback);
 };
 
 export const localStorageGet = () => {
-  return browser.storage.local.get();
+  return chrome.storage.local.get();
 };
 
 export const localStorageSet = (data: any) => {
-  return browser.storage.local.set(data);
+  return chrome.storage.local.set(data);
+};
+
+// only main frame, current tab
+export const injectContentScript = async () => {
+  const tab = await getCurrentTab();
+
+  return await chrome.scripting.executeScript({
+    target: { tabId: tab.id! },
+    files: ["dist/content.js"],
+  });
+};
+
+export const openNewTab = (url: string) => {
+  chrome.tabs.create({ url });
 };
 
 const getCurrentTab = async () => {
-  const tabs = await browser.tabs.query({
+  const [tab] = await chrome.tabs.query({
     active: true,
     lastFocusedWindow: true,
   });
 
-  if (!tabs || tabs.length <= 0) {
-    throw new Error("no active tab found");
-  }
-
-  return tabs[0];
+  return tab;
 };

@@ -15,8 +15,8 @@ export interface Article {
 }
 
 // this needs to be run in content script
-export const parseDocument = (doc: Document): Article => {
-  const readable = isProbablyReaderable(doc);
+export const parseDocument = (): Article => {
+  const readable = isProbablyReaderable(document);
   const cloneDoc = document.cloneNode(true) as Document;
   const parsedDoc = new Readability(cloneDoc).parse();
 

@@ -1,12 +1,14 @@
 {
-  "name": "summer-web-clipper",
-  "version": "0.0.1",
-  "description": "Universal web clipper with AI generated summary.",
+  "name": "Summer Web Clipper",
+  "version": "0.1.0",
+  "description": "An universal web clipper with AI generated summary.",
   "scripts": {
-    "watch": "ts-node-esm scripts/watch.ts",
     "build": "ts-node-esm scripts/build.ts",
+    "build:chrome": "ts-node-esm scripts/build.ts chrome",
+    "build:firefox": "ts-node-esm scripts/build.ts firefox",
     "clean": "rm -rf public/dist",
-    "package": "npm run clean && npm run build && web-ext build -s public"
+    "package:chrome": "npm run clean && npm run build:chrome && web-ext build -s public",
+    "package:firefox": "npm run clean && npm run build:firefox && web-ext build -s public"
   },
   "type": "module",
   "repository": {
@@ -27,22 +29,19 @@
     "@mozilla/readability": "^0.4.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@types/webextension-polyfill": "^0.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-query": "^3.39.3",
-    "uuid": "^9.0.0",
-    "webextension-polyfill": "^0.10.0"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.1",
+    "@types/chrome": "^0.0.220",
     "@types/jest": "^29.4.0",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.13",
     "esbuild": "0.17.11",
     "esbuild-style-plugin": "^1.6.1",
-    "fs-extra": "^11.1.0",
     "jest": "^29.5.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",

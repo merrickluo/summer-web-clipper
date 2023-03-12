@@ -1,13 +1,57 @@
 import Select from "@components/Select";
 import { sendMessage } from "@lib/browser";
-import { SyntheticEvent } from "react";
+import { ReactNode, SyntheticEvent } from "react";
 import { BiLinkExternal } from "react-icons/bi";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { SettingsFormProps } from "@components/types";
+import Button from "@components/Button";
 
-const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
+const checkPermission = async () => {
+  return await chrome.permissions.contains({
+    origins: ["https://www.notion.so/*"],
+  });
+};
+
+const requestPermission = async () => {
+  return await chrome.permissions.request({
+    origins: ["https://www.notion.so/*"],
+  });
+};
+
+const HostPermissionWrapper = ({ children }: { children: ReactNode }) => {
+  const { data: permissionGranted } = useQuery(
+    "notion/permission",
+    checkPermission,
+    { retry: false }
+  );
+
+  const queryClient = useQueryClient();
+  const permission = useMutation(requestPermission, {
+    onSuccess: (granted) => {
+      queryClient.setQueryData("notion/permission", granted);
+    },
+  });
+
+  if (!permissionGranted) {
+    return (
+      <div className="mt-2">
+        <p>
+          Host permission to www.notion.so access is required to use Notion AI.
+        </p>
+        <Button onClick={() => permission.mutate()}>Grant Permission</Button>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+};
+
+const SpaceSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { data: spaces, isFetched } = useQuery("notion/spaces", async () => {
-    return sendMessage({ to: "background" }, { action: "notion/getSpaces" });
+    return sendMessage({
+      to: "background",
+      message: { action: "notion/getSpaces" },
+    });
   });
 
   const handleSelectSpace = (event: SyntheticEvent<HTMLSelectElement>) => {
@@ -50,6 +94,14 @@ const NotionSettings = ({ settings, dispatch }: SettingsFormProps) => {
         try login to notion first.
       </p>
     </div>
+  );
+};
+
+const NotionSettings = (props: SettingsFormProps) => {
+  return (
+    <HostPermissionWrapper>
+      <SpaceSettings {...props} />
+    </HostPermissionWrapper>
   );
 };
 
