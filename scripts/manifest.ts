@@ -2,7 +2,7 @@ import pkg from "../package.json" assert { type: "json" };
 
 const manifest = {
   manifest_version: 3,
-  name: pkg.name,
+  name: "Summer Web Clipper",
   description: pkg.description,
   version: pkg.version,
   icons: {
@@ -23,11 +23,13 @@ const browserSettings = {
     background: {
       service_worker: "dist/background.js",
     },
+    optional_host_permissions: ["https://www.notion.so/*"],
   },
   firefox: {
     background: {
       scripts: ["dist/background.js"],
     },
+    optional_permissions: ["https://www.notion.so/*"],
     browser_specific_settings: {
       gecko: {
         id: "summber-web-clipper@luois.me",
