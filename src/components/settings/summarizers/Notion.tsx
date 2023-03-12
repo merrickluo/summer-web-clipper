@@ -25,8 +25,6 @@ const HostPermissionWrapper = ({ children }: { children: ReactNode }) => {
     { retry: false }
   );
 
-  console.log(permissionGranted);
-
   const queryClient = useQueryClient();
   const permission = useMutation(requestPermission, {
     onSuccess: (granted) => {
