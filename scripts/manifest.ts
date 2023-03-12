@@ -2,7 +2,7 @@ import pkg from "../package.json" assert { type: "json" };
 
 const manifest = {
   manifest_version: 3,
-  name: "Summer Web Clipper",
+  name: pkg.name,
   description: pkg.description,
   version: pkg.version,
   icons: {
@@ -14,7 +14,7 @@ const manifest = {
       "64": "icons/icon.png",
     },
     default_popup: "popup.html",
-    default_title: "Summer Web Clipper",
+    default_title: pkg.name,
   },
 };
 
