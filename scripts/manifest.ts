@@ -32,7 +32,7 @@ const browserSettings = {
     optional_permissions: ["https://www.notion.so/*"],
     browser_specific_settings: {
       gecko: {
-        id: "summber-web-clipper@luois.me",
+        id: process.env.FIREFOX_ADDON_ID || "smc@luois.ninja",
       },
     },
   },

@@ -1,14 +1,14 @@
 {
   "name": "Summer Web Clipper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An universal web clipper with AI generated summary.",
   "scripts": {
-    "build": "ts-node-esm scripts/build.ts",
+    "clean": "rm -rf public/dist",
     "build:chrome": "ts-node-esm scripts/build.ts chrome",
     "build:firefox": "ts-node-esm scripts/build.ts firefox",
-    "clean": "rm -rf public/dist",
-    "package:chrome": "npm run clean && npm run build:chrome && web-ext build -s public",
-    "package:firefox": "npm run clean && npm run build:firefox && web-ext build -s public"
+    "package:chrome": "npm run clean && npm run build:chrome && web-ext build -s public -a build/chrome --overwrite-dest",
+    "package:firefox": "npm run clean && npm run build:firefox && web-ext build -s public -a build/firefox --overwrite-dest",
+    "package": "npm run package:chrome && npm run package:firefox"
   },
   "type": "module",
   "repository": {
