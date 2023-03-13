@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  build-chrome:
+  package:
     runs-on: ubuntu-latest
 
     strategy:
@@ -23,38 +23,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
 
-      - name: Package for Chrome
+      - name: build & package
         run: |
           npm ci
-          npm run package:chrome
+          npm run package
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: chrome
-          path: public
-
-  build-firefox:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
-
-      - name: Package for Firefox
-        run: |
-          npm ci
-          npm run package:firefox
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: firefox
-          path: public
+          name: summer-web-clipper
+          path: build/*
