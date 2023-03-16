@@ -1,5 +1,9 @@
 #+title: Summer Web Clipper
 
+* Get The Extension
+[[https://addons.mozilla.org/en-US/firefox/addon/summer-web-clipper/][file:images/firefox.png]]
+[[https://chrome.google.com/webstore/detail/summer-web-clipper/hicbccicghgmlcmcdfjcjpcdhpddhjni][file:images/chrome.png]]
+
 * Intro
 Summer Web Clipper is a web extension that can generate a summary of the content on the web page you're currently browsing by leveraging the power of ChatGPT or Notion AI. The summary provides a quick and accurate overview of the key points, making it easier to absorb the main ideas of the content. The extension also enables you to export the summary to the note-taking apps you like, (currently support org-mode export, more to come).
 
