@@ -3,13 +3,19 @@ import { UseQueryResult } from "react-query";
 const Summary = ({
   summary,
   valid,
+  auto,
 }: {
   summary: UseQueryResult<string>;
   valid: boolean;
+  auto: boolean;
 }) => {
-  const { error, data } = summary;
+  const { error, data, isFetching, isFetched } = summary;
   if (!valid) {
     return <p>No summary provider selected, please check the settings.</p>;
+  }
+
+  if (!auto && !(isFetched || isFetching)) {
+    return <p>Auto generation disabled, click refresh to generate summary.</p>;
   }
 
   if (error && (error as any)?.message) {

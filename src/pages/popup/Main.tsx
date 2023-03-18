@@ -57,7 +57,8 @@ const Main = () => {
   }, [settings]);
 
   const summary = useQuery("summary", () => fetchSummary(article.data!), {
-    enabled: !!article.data && hasSelectedSummarizer,
+    enabled:
+      !!article.data && hasSelectedSummarizer && settings?.general?.autoSummary,
   });
 
   const mutation = useMutation(doExport);
@@ -81,7 +82,11 @@ const Main = () => {
           />
         </div>
         <div className="w-full text-base bg-white mt-2 p-2 rounded-lg border-1 border-gray-300">
-          <Summary summary={summary} valid={!!hasSelectedSummarizer} />
+          <Summary
+            summary={summary}
+            valid={!!hasSelectedSummarizer}
+            auto={settings?.general?.autoSummary}
+          />
         </div>
       </section>
       <div className="mt-6 mb-3 mr-3 flex justify-end items-center">
