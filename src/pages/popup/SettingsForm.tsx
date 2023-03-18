@@ -1,4 +1,5 @@
 import Select from "@components/Select";
+import GeneralSettings from "@components/settings/GeneralSettings";
 import { Settings, SettingsAction } from "@lib/settings";
 import { availableSummarizers, selectedSummarizer } from "@lib/summarizers";
 import { availableExporters, findExporter } from "@src/lib/exporters";
@@ -56,6 +57,9 @@ const SettingsForm = ({
 
   return (
     <>
+      <SettingsSection title="General">
+        <GeneralSettings settings={settings} dispatch={dispatch} />
+      </SettingsSection>
       <SettingsSection title="Summary Generation">
         <>
           <p className="ml-1 mb-1 text-xs text-gray-400">Provider</p>
