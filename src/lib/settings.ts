@@ -4,9 +4,11 @@ export interface Settings {
   selectedSummarizer?: string;
   summarizers?: Record<string, any>;
   exporters?: Record<string, any>;
+  general?: Record<string, any>;
 }
 
 export type SettingsActionType =
+  | "general/setAutoSummary"
   | "summarizers/select"
   | "summarizers/notion/setSpaceId"
   | "summarizers/openai/setApikey"
@@ -22,6 +24,15 @@ export const updateSettings = async (
   action: SettingsAction
 ) => {
   switch (action.type) {
+    case "general/setAutoSummary":
+      settings = {
+        ...settings,
+        general: {
+          ...settings.general,
+          autoSummary: action.payload,
+        },
+      };
+      break;
     case "summarizers/select":
       settings = {
         ...settings,
