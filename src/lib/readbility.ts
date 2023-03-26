@@ -3,7 +3,6 @@ import { isProbablyReaderable, Readability } from "@mozilla/readability";
 export interface Doc {
   title: string;
   byline: string;
-  dir: string;
   content: string;
   textContent: string;
   length: number;
@@ -12,10 +11,13 @@ export interface Doc {
 
   readable: boolean;
   url: string;
+  language: string;
+
+  summary?: string;
 }
 
 // this needs to be run in content script
-export const parseDocument = (): Article => {
+export const parseDocument = async (): Promise<Doc> => {
   const readable = isProbablyReaderable(document);
   const cloneDoc = document.cloneNode(true) as Document;
   const parsedDoc = new Readability(cloneDoc).parse();
@@ -24,10 +26,13 @@ export const parseDocument = (): Article => {
     throw new Error("readability parse failed");
   }
 
-  const languages = await chrome.i18n.detectLanguage(parsedDoc.textContent);
-  for (const l of languages.languages) {
-    console.log(l);
+  let language = "en";
+
+  // use the first possible language
+  const langInfo = await chrome.i18n.detectLanguage(parsedDoc.textContent);
+  if (langInfo.languages.length > 1) {
+    language = langInfo.languages[0].language;
   }
 
-  return { url: window.location.href, readable, ...parsedDoc };
+  return { url: window.location.href, readable, language, ...parsedDoc };
 };
