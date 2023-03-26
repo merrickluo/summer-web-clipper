@@ -9,12 +9,7 @@ import { loadSettings } from "@lib/settings";
 import { selectedSummarizer } from "@lib/summarizers";
 import { findExporter } from "@lib/exporters";
 
-interface SummarizePayload {
-  title: string;
-  content: string;
-}
-
-const doSummarize = async ({ title, content }: SummarizePayload) => {
+const doSummarize = async (doc: Doc) => {
   const settings = await loadSettings();
 
   const summarizer = selectedSummarizer(settings);
@@ -22,11 +17,7 @@ const doSummarize = async ({ title, content }: SummarizePayload) => {
     throw new Error("no available summarizer");
   }
 
-  return await summarizer.summarize(
-    title,
-    content,
-    settings.summarizers?.[summarizer.id]
-  );
+  return await summarizer.summarize(doc, settings.summarizers?.[summarizer.id]);
 };
 
 interface ExportPayload {
@@ -59,10 +50,7 @@ const handleMessageAsync = async (
 
     switch (msg.action) {
       case "summarize":
-        payload = await doSummarize({
-          title: msg.payload.title,
-          content: msg.payload.content,
-        });
+        payload = await doSummarize(msg.payload);
 
         break;
       case "export":

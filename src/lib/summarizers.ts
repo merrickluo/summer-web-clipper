@@ -1,5 +1,6 @@
 import { SettingsFormProps } from "@components/types";
 import { FC } from "react";
+import { Doc } from "./readbility";
 import { Settings } from "./settings";
 
 import NotionSummarizer from "./summarizers/notion";
@@ -10,7 +11,7 @@ export interface Summarizer {
   name: string;
   SettingsComp: FC<SettingsFormProps>;
 
-  summarize(title: string, content: string, options: any): Promise<string>;
+  summarize(doc: Doc, options: any): Promise<string>;
 }
 
 export const availableSummarizers = [NotionSummarizer, OpenAISummarizer];

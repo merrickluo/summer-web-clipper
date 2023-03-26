@@ -21,7 +21,7 @@ const fetchSummary = async (doc: Doc) => {
     to: "background",
     message: {
       action: "summarize",
-      payload: { title: doc.title, content: doc.textContent },
+      payload: doc,
     },
   });
 };

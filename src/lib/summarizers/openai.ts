@@ -1,4 +1,5 @@
 import OpenAISettings from "@components/settings/summarizers/OpenAI";
+import { Doc } from "@lib/readbility";
 import { getCompletion } from "../api/openai";
 import { Summarizer } from "../summarizers";
 import { sanitizeContent } from "./utils";
@@ -13,11 +14,7 @@ const defaultPrompts = [
   },
 ];
 
-const summarize = async (
-  title: string,
-  content: string,
-  options: any
-): Promise<string> => {
+const summarize = async (doc: Doc, options: any): Promise<string> => {
   if (!options?.apikey) {
     throw new Error("openai api key not set.");
   }

@@ -1,14 +1,12 @@
 import NotionSummarizerSettings from "@components/settings/summarizers/Notion";
+import { Doc } from "@lib/readbility";
 import { getCompletion } from "../api/notion";
 import { Summarizer } from "../summarizers";
+import { sanitizeContent } from "./utils";
 
 const defaultModel = "openai-3";
 
-const summarize = async (
-  title: string,
-  content: string,
-  options: any
-): Promise<string> => {
+const summarize = async (doc: Doc, options: any): Promise<string> => {
   if (!options.spaceId) {
     throw new Error("space not set.");
   }
@@ -16,8 +14,8 @@ const summarize = async (
   const responseText = await getCompletion(
     options.spaceId,
     defaultModel,
-    title,
-    content
+    doc.title,
+    sanitizeContent(doc.textContent)
   );
 
   const lines = responseText.split("\n");
