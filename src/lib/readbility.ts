@@ -1,6 +1,6 @@
 import { isProbablyReaderable, Readability } from "@mozilla/readability";
 
-export interface Article {
+export interface Doc {
   title: string;
   byline: string;
   dir: string;
@@ -22,6 +22,11 @@ export const parseDocument = (): Article => {
 
   if (parsedDoc == null) {
     throw new Error("readability parse failed");
+  }
+
+  const languages = await chrome.i18n.detectLanguage(parsedDoc.textContent);
+  for (const l of languages.languages) {
+    console.log(l);
   }
 
   return { url: window.location.href, readable, ...parsedDoc };

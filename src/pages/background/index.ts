@@ -4,7 +4,7 @@ import {
   BackgroundMessage,
   MessageResponse,
 } from "@lib/browser";
-import { Article } from "@lib/readbility";
+import { Doc } from "@lib/readbility";
 import { loadSettings } from "@lib/settings";
 import { selectedSummarizer } from "@lib/summarizers";
 import { findExporter } from "@lib/exporters";
@@ -31,13 +31,13 @@ const doSummarize = async ({ title, content }: SummarizePayload) => {
 
 interface ExportPayload {
   exporterId: string;
-  article: Article;
+  doc: Doc;
   summary: string;
 }
 
 const doExport = async (payload: ExportPayload) => {
   const settings = await loadSettings();
-  const { exporterId, article, summary } = payload;
+  const { exporterId, doc, summary } = payload;
 
   const exporter = findExporter(exporterId);
   if (!exporter) {
@@ -45,7 +45,7 @@ const doExport = async (payload: ExportPayload) => {
   }
 
   return await exporter.export(
-    { article: article, summary: summary },
+    { doc: doc, summary: summary },
     settings?.exporters?.[exporterId]
   );
 };
@@ -68,7 +68,7 @@ const handleMessageAsync = async (
       case "export":
         payload = await doExport({
           exporterId: msg.payload.exporterId,
-          article: msg.payload.article,
+          doc: msg.payload.doc,
           summary: msg.payload.summary,
         });
         break;

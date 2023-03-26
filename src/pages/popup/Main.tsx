@@ -1,4 +1,4 @@
-import { Article } from "@lib/readbility";
+import { Doc } from "@lib/readbility";
 import { useMutation, useQuery } from "react-query";
 import { BiRefresh } from "react-icons/bi";
 import { useMemo } from "react";
@@ -9,37 +9,37 @@ import { availableExporters } from "@lib/exporters";
 
 import Summary from "./Summary";
 
-const fetchArticle = async (): Promise<Article> => {
+const fetchDoc = async (): Promise<Doc> => {
   return await sendMessage({
     to: "current_tab",
     message: { action: "parse_document" },
   });
 };
 
-const fetchSummary = async (article: Article) => {
+const fetchSummary = async (doc: Doc) => {
   return await sendMessage({
     to: "background",
     message: {
       action: "summarize",
-      payload: { title: article.title, content: article.textContent },
+      payload: { title: doc.title, content: doc.textContent },
     },
   });
 };
 
 interface ExportParams {
   exporterId: string;
-  article?: Article;
+  doc?: Doc;
   summary?: string;
 }
 
-const doExport = async ({ exporterId, article, summary }: ExportParams) => {
+const doExport = async ({ exporterId, doc, summary }: ExportParams) => {
   return await sendMessage({
     to: "background",
     message: {
       action: "export",
       payload: {
         exporterId,
-        article: article,
+        doc: doc,
         summary: summary,
       },
     },
@@ -47,7 +47,7 @@ const doExport = async ({ exporterId, article, summary }: ExportParams) => {
 };
 
 const Main = () => {
-  const article = useQuery("article", fetchArticle, { retry: false });
+  const doc = useQuery("doc", fetchDoc, { retry: false });
   const { data: settings } = useQuery("settings", loadSettings, {
     retry: false,
   });
@@ -56,9 +56,9 @@ const Main = () => {
     return settings && !!selectedSummarizer(settings);
   }, [settings]);
 
-  const summary = useQuery("summary", () => fetchSummary(article.data!), {
+  const summary = useQuery("summary", () => fetchSummary(doc.data!), {
     enabled:
-      !!article.data && hasSelectedSummarizer && settings?.general?.autoSummary,
+      !!doc.data && hasSelectedSummarizer && settings?.general?.autoSummary,
   });
 
   const mutation = useMutation(doExport);
@@ -68,11 +68,11 @@ const Main = () => {
       <section>
         <div className="flex justify-between items-end">
           <h1 className="text-base font-bold ml-1 mt-1 max-w-xs">
-            {article.isLoading
+            {doc.isLoading
               ? "Parsing page..."
-              : article.isError
+              : doc.isError
               ? "Failed to parse page."
-              : article.data?.title}
+              : doc.data?.title}
           </h1>
           <BiRefresh
             onClick={() => summary.refetch()}
@@ -98,7 +98,7 @@ const Main = () => {
               onClick={() => {
                 mutation.mutate({
                   exporterId: exp.id,
-                  article: article.data,
+                  doc: doc.data,
                   summary: summary.data,
                 });
               }}

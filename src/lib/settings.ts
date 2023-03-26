@@ -29,7 +29,7 @@ export const updateSettings = async (
         ...settings,
         general: {
           ...settings.general,
-          autoSummary: action.payload,
+          autoSummary: action.payload
         },
       };
       break;
