@@ -1,6 +1,9 @@
 import { SettingsFormProps } from "@src/components/types";
 import { SyntheticEvent } from "react";
-import { TbAlertCircle } from "react-icons/tb";
+import ISO6391 from "iso-639-1";
+import { topLanguages } from "@lib/languages";
+
+const tokenLimitWarning = "Content longer than 2048 token will be truncated.";
 
 const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { openai = {} } = {} } = settings;
@@ -12,16 +15,39 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   };
 
+  const handleSetLanguage = (event: SyntheticEvent<HTMLSelectElement>) => {
+    dispatch({
+      type: "summarizers/openai/setLanguage",
+      payload: event.currentTarget.value,
+    });
+  };
+
   return (
     <div className="mt-2">
-      <p className="ml-1 mb-1 text-xs text-gray-400">OpenAI API Key</p>
-      <input
-        type="password"
-        id="apikey"
-        onChange={handleSetApikey}
-        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-        defaultValue={openai.apikey || ""}
-      ></input>
+      <select
+        defaultValue={openai.language}
+        onChange={handleSetLanguage}
+        className="mt-2 select select-bordered max-w-xs"
+      >
+        <option value="">Set summary language</option>
+        {topLanguages.map((code) => (
+          <option key={code} value={code}>
+            {ISO6391.getNativeName(code)}
+          </option>
+        ))}
+      </select>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">API Key</span>
+        </label>
+        <input
+          type="password"
+          id="apikey"
+          onChange={handleSetApikey}
+          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          defaultValue={openai.apikey || ""}
+        ></input>
+      </div>
       <p className="text-sm text-gray-500 mt-2">
         <span>Find your API Key in the</span>
         <a
@@ -32,13 +58,6 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           OpenAI Account Settings
         </a>
         <span>.</span>
-      </p>
-      <p className="text-sm text-gray-500 mt-2">
-        <TbAlertCircle className="mb-1 mr-1 inline w-5 h-5 text-red-400" />
-        <span>
-          Note that OpenAI limit the token size to 4096 per request, so if the
-          content is too long, it will be truncated.
-        </span>
       </p>
     </div>
   );

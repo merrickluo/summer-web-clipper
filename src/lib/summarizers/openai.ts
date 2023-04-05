@@ -20,7 +20,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
     throw new Error("openai api key not set.");
   }
 
-  let language = doc.language;
+  let language = options.language || doc.language;
 
   return await getCompletion(options.apikey, [
     ...defaultPrompts,
