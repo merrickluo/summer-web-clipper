@@ -1,10 +1,8 @@
-import Select from "@components/Select";
 import { sendMessage } from "@lib/browser";
 import { ReactNode, SyntheticEvent } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { SettingsFormProps } from "@components/types";
-import Button from "@components/Button";
 
 const checkPermission = async () => {
   return await chrome.permissions.contains({
@@ -38,7 +36,12 @@ const HostPermissionWrapper = ({ children }: { children: ReactNode }) => {
         <p>
           Host permission to www.notion.so access is required to use Notion AI.
         </p>
-        <Button onClick={() => permission.mutate()}>Grant Permission</Button>
+        <button
+          className="btn btn-outline btn-sm"
+          onClick={() => permission.mutate()}
+        >
+          Grant Permission
+        </button>
       </div>
     );
   }
@@ -64,22 +67,23 @@ const SpaceSettings = ({ settings, dispatch }: SettingsFormProps) => {
   return (
     <div className="mt-2">
       <div className="flex items-end">
-        <div>
-          <p className="ml-1 mb-1 text-xs text-gray-400">Workspace</p>
-          {isFetched && (
-            <Select
-              id="spaceId"
-              onChange={handleSelectSpace}
-              defaultValue={settings.summarizers?.notion?.spaceId}
-            >
-              {spaces &&
-                spaces.map(({ id, name }: any) => (
-                  <option key={id} value={id}>
-                    {name}
-                  </option>
-                ))}
-            </Select>
-          )}
+        <div className="form-control w-52 max-w-xs">
+          <label className="label">
+            <span className="text-secondary text-xs label-text">Workspace</span>
+          </label>
+          <select
+            id="spaceId"
+            className="select select-bordered w-full"
+            onChange={handleSelectSpace}
+            defaultValue={settings.summarizers?.notion?.spaceId}
+          >
+            {spaces &&
+              spaces.map(({ id, name }: any) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+          </select>
         </div>
         <div className="flex text-sm ml-4 mb-1 underline">
           <BiLinkExternal className="w-4 h-4" />

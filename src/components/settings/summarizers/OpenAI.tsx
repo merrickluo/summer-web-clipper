@@ -24,21 +24,28 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
 
   return (
     <div className="mt-2">
-      <select
-        defaultValue={openai.language}
-        onChange={handleSetLanguage}
-        className="mt-2 select select-bordered max-w-xs"
-      >
-        <option value="">Set summary language</option>
-        {topLanguages.map((code) => (
-          <option key={code} value={code}>
-            {ISO6391.getNativeName(code)}
-          </option>
-        ))}
-      </select>
       <div className="form-control w-full max-w-xs">
         <label className="label">
-          <span className="label-text">API Key</span>
+          <span className="text-secondary text-xs label-text">
+            Summary Language
+          </span>
+        </label>
+        <select
+          defaultValue={openai.language}
+          onChange={handleSetLanguage}
+          className="select select-bordered w-full max-w-xs"
+        >
+          <option value="">Set summary language</option>
+          {topLanguages.map((code) => (
+            <option key={code} value={code}>
+              {ISO6391.getNativeName(code)}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="text-secondary text-xs label-text">API Key</span>
         </label>
         <input
           type="password"

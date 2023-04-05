@@ -15,7 +15,7 @@ const GeneralSettings = ({ settings, dispatch }: SettingsFormProps) => {
     <div className="form-control">
       <label className="label cursor-pointer">
         <span className="label-text text-gray-500">
-          Generate summary on open
+          Auto Generate Summary on Open
         </span>
         <input
           type="checkbox"

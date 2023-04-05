@@ -1,4 +1,3 @@
-import Select from "@components/Select";
 import GeneralSettings from "@components/settings/GeneralSettings";
 import { Settings, SettingsAction } from "@lib/settings";
 import { availableSummarizers, selectedSummarizer } from "@lib/summarizers";
@@ -18,9 +17,9 @@ interface SectionProps {
 
 const SettingsSection = ({ children, title }: SectionProps) => {
   return (
-    <section className="mt-2">
-      <h2 className="text-base text-gray-500 ml-1">{title}</h2>
-      <div className="bg-white rounded-lg mt-2 p-3 pb-2">{children}</div>
+    <section>
+      <h2 className="text-base mt-2 text-gray-500 ml-1">{title}</h2>
+      <div className="bg-white rounded-lg mt-2 px-3 py-2">{children}</div>
     </section>
   );
 };
@@ -60,11 +59,14 @@ const SettingsForm = ({
       <SettingsSection title="General">
         <GeneralSettings settings={settings} dispatch={dispatch} />
       </SettingsSection>
-      <SettingsSection title="Summary Generation">
-        <>
-          <p className="ml-1 mb-1 text-xs text-gray-400">Provider</p>
-          <Select
+      <SettingsSection title="Summary">
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="text-secondary text-xs label-text">Provider</span>
+          </label>
+          <select
             id="summarizers"
+            className="select select-bordered w-full max-w-xs"
             onChange={handleSelectSummarizer}
             defaultValue={selected?.id}
           >
@@ -74,31 +76,34 @@ const SettingsForm = ({
                 {name}
               </option>
             ))}
-          </Select>
-        </>
+          </select>
+        </div>
         {selected && (
           <selected.SettingsComp settings={settings} dispatch={dispatch} />
         )}
       </SettingsSection>
       <SettingsSection title="Export">
-        <>
-          <p className="ml-1 mb-1 text-xs text-gray-400">Exporter</p>
-          <Select
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="text-secondary text-xs label-text">Exporter</span>
+          </label>
+          <select
             id="exporters"
+            className="select select-bordered w-full max-w-xs"
             onChange={handleSelectExporter}
             defaultValue={exporter?.id}
           >
-            <option key="emtpy">Select provider</option>
+            <option key="emtpy">Select exporter</option>
             {availableExporters.map(({ id, name }) => (
               <option key={id} value={id}>
                 {name}
               </option>
             ))}
-          </Select>
+          </select>
           {exporter && (
             <exporter.SettingsComp settings={settings} dispatch={dispatch} />
           )}
-        </>
+        </div>
       </SettingsSection>
     </>
   );
