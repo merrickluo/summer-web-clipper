@@ -37,7 +37,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
 
 export default {
   id: "openai",
-  name: "ChatGPT",
+  name: "OpenAI",
   SettingsComp: OpenAISettings,
   summarize,
 } as Summarizer;
