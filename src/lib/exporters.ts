@@ -1,14 +1,14 @@
 import { SettingsFormProps } from "@components/types";
 import { FC } from "react";
 import { IconType } from "react-icons";
-import { Article } from "./readbility";
+import { Doc } from "./readbility";
 
 import OrgModeExporter from "./exporters/orgmode";
 
 export const availableExporters = [OrgModeExporter];
 
 export interface Clip {
-  article: Article; // article parsed by readbility
+  doc: Doc; // article parsed by readbility
   summary?: string; // generated summary
 }
 

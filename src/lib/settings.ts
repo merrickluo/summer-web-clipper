@@ -12,6 +12,7 @@ export type SettingsActionType =
   | "summarizers/select"
   | "summarizers/notion/setSpaceId"
   | "summarizers/openai/setApikey"
+  | "summarizers/openai/setLanguage"
   | "exporters/orgmode/setTemplate";
 
 export interface SettingsAction {
@@ -61,6 +62,19 @@ export const updateSettings = async (
           openai: {
             ...settings.summarizers?.openai,
             apikey: action.payload as string,
+          },
+        },
+      };
+
+      break;
+    case "summarizers/openai/setLanguage":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          openai: {
+            ...settings.summarizers?.openai,
+            language: action.payload as string,
           },
         },
       };

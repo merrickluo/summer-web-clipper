@@ -5,15 +5,15 @@ import { openNewTab } from "../browser";
 import { Clip, Exporter } from "../exporters";
 import { buildUrl } from "./helpers";
 
-const exportToOrgProtocol = ({ article, summary }: Clip, options: any) => {
+const exportToOrgProtocol = ({ doc, summary }: Clip, options: any) => {
   if (!options || !options.template) {
     throw new Error("missing org mode export template");
   }
 
   const orgUrl = buildUrl(options.template, {
-    url: article.url,
-    title: article.title,
-    text: article.textContent,
+    url: doc.url,
+    title: doc.title,
+    text: doc.textContent,
     summary: summary,
   });
 

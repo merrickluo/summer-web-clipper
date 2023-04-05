@@ -1,4 +1,3 @@
-import { sanitizeContent } from "@lib/summarizers/utils";
 import { v4 as uuidv4 } from "uuid";
 
 const baseUrl = "https://www.notion.so/api/v3";
@@ -42,7 +41,7 @@ export const getCompletion = async (
   const context = {
     type: "summarize",
     pageTitle: title.trim(),
-    selectedText: sanitizeContent(content),
+    selectedText: content,
   };
 
   const payload = {
