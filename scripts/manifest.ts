@@ -24,10 +24,26 @@ const browserSettings = {
       service_worker: "dist/background.js",
     },
     optional_host_permissions: ["https://www.notion.so/*"],
+    commands: {
+      _execute_action: {
+        suggested_key: {
+          default: "Ctrl+Shift+S",
+          mac: "Command+Shift+S",
+        },
+      },
+    },
   },
   firefox: {
     background: {
       scripts: ["dist/background.js"],
+    },
+    commands: {
+      _execute_action: {
+        suggested_key: {
+          default: "Ctrl+Alt+S",
+          mac: "Command+Alt+S",
+        },
+      },
     },
     optional_permissions: ["https://www.notion.so/*"],
     browser_specific_settings: {
