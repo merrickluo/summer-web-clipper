@@ -12,14 +12,16 @@ const OrgModeSettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="mt-2">
-      <p className="ml-1 mb-1 text-xs text-gray-400">Org Protocol Template</p>
+    <div className="form-control w-full max-w-xs">
+      <label className="label">
+        <span className="text-secondary text-xs label-text">Template</span>
+      </label>
       <textarea
         id="template"
         rows={3}
         onChange={handleSetTemplate}
-        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-        placeholder="Example: org-protocol://roam-ref?template=s&ref={url}&title={title}&body={summary}"
+        className="textarea textarea-bordered"
+        placeholder="org-protocol://roam-ref?template=s&ref={url}&title={title}&body={summary}"
         defaultValue={orgmode.template || ""}
       ></textarea>
     </div>
