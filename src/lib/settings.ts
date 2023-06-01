@@ -80,6 +80,19 @@ export const updateSettings = async (
       };
 
       break;
+      case "summarizers/openai/setMaxToken":
+        settings = {
+          ...settings,
+          summarizers: {
+            ...settings.summarizers,
+            openai: {
+              ...settings.summarizers?.openai,
+              maxtoken: action.payload as string,
+            },
+          },
+        };
+  
+        break;
     case "exporters/orgmode/setTemplate":
       settings = {
         ...settings,
