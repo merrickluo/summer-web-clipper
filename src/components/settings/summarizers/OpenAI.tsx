@@ -3,8 +3,6 @@ import { SyntheticEvent } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
 
-const tokenLimitWarning = "Content longer than 2048 token will be truncated.";
-
 const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { openai = {} } = {} } = settings;
 
@@ -22,14 +20,23 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   };
 
+  const handleSetMaxWords = (event: SyntheticEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "summarizers/openai/setMaxWords",
+      payload: event.currentTarget.value,
+    });
+  };
+
   return (
     <div className="mt-2">
       <div className="form-control w-full max-w-xs">
+
         <label className="label">
           <span className="text-secondary text-xs label-text">
             Summary Language
           </span>
         </label>
+
         <select
           defaultValue={openai.language}
           onChange={handleSetLanguage}
@@ -43,6 +50,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           ))}
         </select>
       </div>
+
       <div className="form-control w-full max-w-xs">
         <label className="label">
           <span className="text-secondary text-xs label-text">API Key</span>
@@ -65,6 +73,21 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           OpenAI Account Settings
         </a>
         <span>.</span>
+      </p>
+
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="text-secondary text-xs label-text">Max Words for Summerization</span>
+        </label>
+        <input
+          id="maxwords"
+          onChange={handleSetMaxWords}
+          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          defaultValue={openai.maxwords || 2048}
+        ></input>
+      </div>
+      <p className="text-sm text-gray-500 mt-2">
+        <span>Content afterwards will be truncated, napkin upper bound for GPT-3.5-turbo: (4096-96) / 100 * 75 ~= 3000</span>
       </p>
     </div>
   );

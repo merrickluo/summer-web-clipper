@@ -6,7 +6,7 @@ import { sanitizeContent } from "./utils";
 
 const defaultPrompts = [
   {
-    role: "user",
+    role: "system",
     content:
       "I want you to act like a you are a professional editor." +
       "You will summarize the document so readers can get the essence of the article, while keep it short and precise." +
@@ -21,12 +21,13 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
   }
 
   let language = options.language || doc.language;
+  let maxwords = Number(options.maxwords) || 2048;
 
   return await getCompletion(options.apikey, [
     ...defaultPrompts,
     {
       role: "user",
-      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, 2048),
+      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxwords),
     },
     {
       role: "user",
