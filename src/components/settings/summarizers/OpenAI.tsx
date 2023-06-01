@@ -3,8 +3,6 @@ import { SyntheticEvent } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
 
-const tokenLimitWarning = "Content longer than 2048 token will be truncated.";
-
 const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { openai = {} } = {} } = settings;
 
