@@ -26,7 +26,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
     ...defaultPrompts,
     {
       role: "user",
-      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, 2048),
+      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, options.maxtoken || 2048),
     },
     {
       role: "user",
