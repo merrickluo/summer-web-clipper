@@ -80,10 +80,10 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           <span className="text-secondary text-xs label-text">Max Tokens</span>
         </label>
         <input
-          id="maxtoken"
+          id="maxtokens"
           onChange={handleSetMaxTokens}
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          defaultValue={openai.maxtoken || 2048}
+          defaultValue={openai.maxtokens || 2048}
         ></input>
       </div>
       <p className="text-sm text-gray-500 mt-2">
