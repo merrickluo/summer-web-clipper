@@ -6,7 +6,7 @@ import { sanitizeContent } from "./utils";
 
 const defaultPrompts = [
   {
-    role: "user",
+    role: "system",
     content:
       "I want you to act like a you are a professional editor." +
       "You will summarize the document so readers can get the essence of the article, while keep it short and precise." +
