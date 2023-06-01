@@ -80,14 +80,14 @@ export const updateSettings = async (
       };
 
       break;
-      case "summarizers/openai/setMaxTokens":
+      case "summarizers/openai/setMaxWords":
         settings = {
           ...settings,
           summarizers: {
             ...settings.summarizers,
             openai: {
               ...settings.summarizers?.openai,
-              maxtokens: action.payload as string,
+              maxwords: action.payload as string,
             },
           },
         };

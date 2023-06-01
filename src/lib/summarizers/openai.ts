@@ -21,13 +21,13 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
   }
 
   let language = options.language || doc.language;
-  let maxtokens = Number(options.maxtokens) || 2048;
+  let maxwords = Number(options.maxwords) || 2048;
 
   return await getCompletion(options.apikey, [
     ...defaultPrompts,
     {
       role: "user",
-      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxtokens),
+      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxwords),
     },
     {
       role: "user",
