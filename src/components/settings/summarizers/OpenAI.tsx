@@ -87,7 +87,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         ></input>
       </div>
       <p className="text-sm text-gray-500 mt-2">
-        <span>Content afterwards will be truncated, napkin upper bound for GPT-3.5-turbo: (4096-96) / 100 * 75 ~= 3000</span>
+        <span>Longer content will feed to 16k context model, napkin threshold for GPT-3.5-turbo: (4096-96) / 100 * 75 ~= 3000</span>
       </p>
     </div>
   );
