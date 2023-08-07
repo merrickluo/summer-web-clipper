@@ -13,7 +13,9 @@ export type SettingsActionType =
   | "summarizers/notion/setSpaceId"
   | "summarizers/openai/setApikey"
   | "summarizers/openai/setLanguage"
-  | "exporters/orgmode/setTemplate";
+  | "exporters/orgmode/setTemplate"
+  | "summarizers/openai/setMaxWords"
+  | "summarizers/openai/setOpenAIModel";
 
 export interface SettingsAction {
   type: SettingsActionType;
