@@ -1,5 +1,5 @@
 import { SettingsFormProps } from "@src/components/types";
-import { ChangeEvent, ChangeEventHandler, SyntheticEvent } from "react";
+import { SyntheticEvent } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
 
