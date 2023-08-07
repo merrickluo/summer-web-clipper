@@ -22,8 +22,9 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
 
   let language = options.language || doc.language;
   let maxwords = Number(options.maxwords) || 2048;
+  let model = options.model || "gpt-3.5-turbo";
 
-  return await getCompletion(options.apikey, [
+  return await getCompletion(options.apikey, model, [
     ...defaultPrompts,
     {
       role: "user",

@@ -1,5 +1,5 @@
 import { SettingsFormProps } from "@src/components/types";
-import { SyntheticEvent } from "react";
+import { ChangeEvent, ChangeEventHandler, SyntheticEvent } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
 
@@ -27,6 +27,13 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   };
 
+  const handleSetOpenAIModel = (event: SyntheticEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "summarizers/openai/setOpenAIModel",
+      payload: event.currentTarget.value,
+    });
+  };
+
   return (
     <div className="mt-2">
       <div className="form-control w-full max-w-xs">
@@ -46,6 +53,25 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           {topLanguages.map((code) => (
             <option key={code} value={code}>
               {ISO6391.getNativeName(code)}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="text-secondary text-xs label-text">
+            Model
+          </span>
+        </label>
+
+        <select
+          defaultValue={openai.model}
+          onChange={handleSetOpenAIModel}
+          className="select select-bordered w-full max-w-xs">
+          {["gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k"].map((model) => (
+            <option key={model} value={model}>
+              {model}
             </option>
           ))}
         </select>
@@ -87,7 +113,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         ></input>
       </div>
       <p className="text-sm text-gray-500 mt-2">
-        <span>Longer content will feed to 16k context model, napkin threshold for GPT-3.5-turbo: (4096-96) / 100 * 75 ~= 3000</span>
+        <span>Default to 2048 words and GPT-3.5-turbo, napkin threshold: (4096-96) / 100 * 75 ~= 3000</span>
       </p>
     </div>
   );
