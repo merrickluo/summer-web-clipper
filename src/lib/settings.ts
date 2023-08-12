@@ -13,7 +13,9 @@ export type SettingsActionType =
   | "summarizers/notion/setSpaceId"
   | "summarizers/openai/setApikey"
   | "summarizers/openai/setLanguage"
-  | "exporters/orgmode/setTemplate";
+  | "exporters/orgmode/setTemplate"
+  | "summarizers/openai/setMaxWords"
+  | "summarizers/openai/setOpenAIModel";
 
 export interface SettingsAction {
   type: SettingsActionType;
@@ -79,20 +81,33 @@ export const updateSettings = async (
         },
       };
 
-      break;
-      case "summarizers/openai/setMaxWords":
-        settings = {
-          ...settings,
-          summarizers: {
-            ...settings.summarizers,
-            openai: {
-              ...settings.summarizers?.openai,
-              maxwords: action.payload as string,
-            },
+    break;
+    case "summarizers/openai/setMaxWords":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          openai: {
+            ...settings.summarizers?.openai,
+            maxwords: action.payload as string,
           },
-        };
-  
-        break;
+        },
+      };
+
+      break;
+    case "summarizers/openai/setOpenAIModel":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          openai: {
+            ...settings.summarizers?.openai,
+            model: action.payload as string,
+          },
+        },
+      };
+
+      break;
     case "exporters/orgmode/setTemplate":
       settings = {
         ...settings,

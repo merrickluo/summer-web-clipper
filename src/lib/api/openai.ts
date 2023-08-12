@@ -20,15 +20,11 @@ interface ChatMessage {
 
 export const getCompletion = async (
   apikey: string,
+  model: string,
   messages: ChatMessage[]
 ): Promise<string> => {
-  const words = messages
-    .map((x) => x.content.split(" ").length)
-    .reduce((a, b) => a + b);
-
   const payload = {
-    // see napkin math in OpenAI.tsx
-    model: words > 3000 ? "gpt-3.5-turbo-16k" : "gpt-3.5-turbo",
+    model: model,
     temperature: 0,
     messages: messages,
   };
