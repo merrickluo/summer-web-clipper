@@ -23,7 +23,10 @@ const browserSettings = {
     background: {
       service_worker: "dist/background.js",
     },
-    optional_host_permissions: ["https://www.notion.so/*"],
+    optional_host_permissions: [
+      "https://www.notion.so/*",
+      "*://api.anthropic.com/*"
+    ],
     commands: {
       _execute_action: {
         suggested_key: {
@@ -45,7 +48,10 @@ const browserSettings = {
         },
       },
     },
-    optional_permissions: ["https://www.notion.so/*"],
+    optional_permissions: [
+      "https://www.notion.so/*",
+      "*://api.anthropic.com/*"
+    ],
     browser_specific_settings: {
       gecko: {
         id: process.env.FIREFOX_ADDON_ID || "smc@luois.ninja",
