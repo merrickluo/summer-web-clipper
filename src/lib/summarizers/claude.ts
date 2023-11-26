@@ -24,7 +24,8 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
     const rsp = await api.completions.create({
         model: 'claude-2',  // majar version, means 2.1 
         max_tokens_to_sample: 1000,
-        prompt: prompt
+        prompt: prompt,
+        temperature: 0.16,
     });
     return rsp.completion;
 };
