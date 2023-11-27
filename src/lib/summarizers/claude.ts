@@ -5,10 +5,8 @@ import { sanitizeContent } from "./utils";
 import Anthropic from '@anthropic-ai/sdk';
 
 
-const systemPrompt = "I want you to act like a you are a professional editor." +
-    "You will summarize the document so readers can get the essence of the article, while keep it short and precise." +
-    "You will always use an objective tone." +
-    "You will only reply with the summary, and nothing else.";
+// Claude insists that they are an assistant, leave only task instructions then.
+const systemPrompt = "You are an professional editor, please summarize the document like Axios.";
 
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
