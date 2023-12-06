@@ -11,6 +11,7 @@ export type SettingsActionType =
   | "general/setAutoSummary"
   | "summarizers/select"
   | "summarizers/notion/setSpaceId"
+  | "summarizers/claude/setApikey"
   | "summarizers/openai/setApikey"
   | "summarizers/openai/setLanguage"
   | "exporters/orgmode/setTemplate"
@@ -51,6 +52,19 @@ export const updateSettings = async (
           notion: {
             ...settings.summarizers?.notion,
             spaceId: action.payload as string,
+          },
+        },
+      };
+
+      break;
+    case "summarizers/claude/setApikey":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          claude: {
+            ...settings.summarizers?.claude,
+            apikey: action.payload as string,
           },
         },
       };
