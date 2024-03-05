@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/merrickluo/summer-web-clipper#readme",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.10.0",
+    "@anthropic-ai/sdk": "^0.16.0",
     "@mozilla/readability": "^0.4.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
