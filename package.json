@@ -4,8 +4,8 @@
   "description": "An universal web clipper with AI generated summary.",
   "scripts": {
     "clean": "rm -rf public/dist",
-    "build:chrome": "ts-node-esm scripts/build.ts chrome",
-    "build:firefox": "ts-node-esm scripts/build.ts firefox",
+    "build:chrome": "tsx scripts/build.ts chrome",
+    "build:firefox": "tsx scripts/build.ts firefox",
     "package:chrome": "npm run clean && npm run build:chrome && web-ext build -s public -a build/chrome --overwrite-dest",
     "package:firefox": "npm run clean && npm run build:firefox && web-ext build -s public -a build/firefox --overwrite-dest",
     "package": "npm run package:chrome && npm run package:firefox"
@@ -46,7 +46,7 @@
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "ts-jest": "^29.0.5",
-    "ts-node": "^10.9.1",
-    "web-ext": "^7.5.0"
+    "tsx": "^4.7.1",
+    "web-ext": "^7.11.0"
   }
 }
