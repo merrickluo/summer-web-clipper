@@ -12,6 +12,13 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   };
 
+  const handleSetClaudeModel = (event: SyntheticEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "summarizers/claude/setClaudeModel",
+      payload: event.currentTarget.value,
+    });
+  };
+
 
   return (
     <div className="mt-2">
@@ -27,6 +34,23 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           defaultValue={claude.apikey || ""}
         ></input>
+      </div>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="text-secondary text-xs label-text">
+            Model
+          </span>
+        </label>
+        <select
+            defaultValue={claude.model}
+            onChange={handleSetClaudeModel}
+            className="select select-bordered w-full max-w-xs">
+            {["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-2"].map((model) => (
+              <option key={model} value={model}>
+                {model}
+              </option>
+            ))}
+          </select>
       </div>
       <p className="text-sm text-gray-500 mt-2">
         <span>Find your API Key in the</span>
