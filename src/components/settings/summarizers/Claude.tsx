@@ -45,7 +45,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
             defaultValue={claude.model}
             onChange={handleSetClaudeModel}
             className="select select-bordered w-full max-w-xs">
-            {["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-2"].map((model) => (
+            {["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"].map((model) => (
               <option key={model} value={model}>
                 {model}
               </option>
