@@ -6,7 +6,7 @@ import Anthropic from '@anthropic-ai/sdk';
 
 
 // Claude insists that they are an assistant, leave only task instructions then.
-const systemPrompt = "You are an professional editor, please summarize the document like Axios.";
+const systemPrompt = "You are an professional editor, please outline the most relevant content in the document, in an Axios style.";
 
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
@@ -18,14 +18,16 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
         apiKey: options.apikey,
     });
     const docXml = `<document>${doc.title}\n${sanitizeContent(doc.textContent)}</document>`;
-    const prompt = `${systemPrompt}${Anthropic.HUMAN_PROMPT}${docXml}${Anthropic.AI_PROMPT}`;
-    const rsp = await api.completions.create({
-        model: 'claude-2',  // majar version, means 2.1 
-        max_tokens_to_sample: 1000,
-        prompt: prompt,
+    const rsp = await api.messages.create({
+        model: 'claude-3-sonnet-20240229', // https://docs.anthropic.com/claude/docs/models-overview
+        max_tokens: 1024,
+        system: systemPrompt,
+        messages: [
+            {"role": "user", "content": docXml}
+        ],
         temperature: 0.16,
     });
-    return rsp.completion;
+    return rsp.content[0].text;
 };
 
 export default {
