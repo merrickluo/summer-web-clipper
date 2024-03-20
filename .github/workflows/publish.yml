@@ -44,7 +44,7 @@ jobs:
 
       - uses: wdzeng/firefox-addon@v1
         with:
-          addon-guid: { 4fb0b8e1-1d0e-4743-beb8-cfc8411e4de0 }
+          addon-guid: "{4fb0b8e1-1d0e-4743-beb8-cfc8411e4de0}"
           xpi-path: build/firefox/summer_web_clipper-${VERSION#v}.zip
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
