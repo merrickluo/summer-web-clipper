@@ -8,6 +8,7 @@ on:
 jobs:
   package:
     uses: ./.github/workflows/package.yml
+    secrets: inherit
 
   publish-chrome:
     needs: package
