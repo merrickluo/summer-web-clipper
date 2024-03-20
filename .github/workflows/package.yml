@@ -22,6 +22,7 @@ jobs:
 
       - name: build & package
         run: |
+          export FIREFOX_ADDON_ID=${FIREFOX_ADDON_ID}
           npm ci
           npm run package
         env:
