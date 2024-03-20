@@ -2,7 +2,7 @@ name: Package for browsers
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "debugging-package"]
   pull_request:
     branches: ["main"]
   workflow_call:
