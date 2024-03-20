@@ -1,4 +1,4 @@
-name: Upload to web stores
+name: Publish to web stores
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: summer-web-clipper
-          path: build/chrome/
+          path: build
 
       - uses: wdzeng/chrome-extension@v1
         with:
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: summer-web-clipper
-          path: build/firefox/
+          path: build
 
       - uses: wdzeng/firefox-addon@v1
         with:
