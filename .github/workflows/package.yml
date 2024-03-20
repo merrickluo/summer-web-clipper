@@ -24,6 +24,8 @@ jobs:
         run: |
           npm ci
           npm run package
+        env:
+          FIREFOX_ADDON_ID: ${{ secrets.FIREFOX_ADDON_ID }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
