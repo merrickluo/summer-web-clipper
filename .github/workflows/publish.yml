@@ -20,10 +20,16 @@ jobs:
           name: summer-web-clipper
           path: build
 
+      - name: Prepare file name
+        run: |
+          TAG=${{ github.ref_name }}
+          ZIP_PATH="build/chrome/summer_web_clipper-${TAG#v}.zip"
+          echo "ZIP_PATH=$ZIP_PATH" >> $GITHUB_ENV
+
       - uses: wdzeng/chrome-extension@v1
         with:
           extension-id: hicbccicghgmlcmcdfjcjpcdhpddhjni
-          zip-path: build/chrome/summer_web_clipper-${VERSION#v}.zip
+          zip-path: ${{ env.ZIP_PATH }}
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
@@ -42,10 +48,16 @@ jobs:
           name: summer-web-clipper
           path: build
 
+      - name: Prepare file name
+        run: |
+          TAG=${{ github.ref_name }}
+          XPI_PATH="build/firefox/summer_web_clipper-${TAG#v}.zip"
+          echo "XPI_PATH=$XPI_PATH" >> $GITHUB_ENV
+
       - uses: wdzeng/firefox-addon@v1
         with:
           addon-guid: "{4fb0b8e1-1d0e-4743-beb8-cfc8411e4de0}"
-          xpi-path: build/firefox/summer_web_clipper-${VERSION#v}.zip
+          xpi-path: ${{ env.XPI_PATH }}
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
         env:
