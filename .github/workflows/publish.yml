@@ -28,7 +28,7 @@ jobs:
 
       - uses: wdzeng/chrome-extension@v1
         with:
-          extension-id: hicbccicghgmlcmcdfjcjpcdhpddhjni
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
           zip-path: ${{ env.ZIP_PATH }}
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
@@ -56,7 +56,7 @@ jobs:
 
       - uses: wdzeng/firefox-addon@v1
         with:
-          addon-guid: "{4fb0b8e1-1d0e-4743-beb8-cfc8411e4de0}"
+          addon-guid: ${{ secrets.FIREFOX_ADDON_ID }}
           xpi-path: ${{ env.XPI_PATH }}
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
