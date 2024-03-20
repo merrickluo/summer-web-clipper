@@ -1,7 +1,9 @@
 name: Upload to web stores
 
 on:
-  push: tags
+  push:
+    tags:
+      - "*"
 
 jobs:
   package:
