@@ -1,0 +1,50 @@
+name: Upload to web stores
+
+on:
+  push: tags
+
+jobs:
+  package:
+    uses: ./.github/workflows/package.yml
+
+  publish-chrome:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: summber-web-clipper
+          path: build/chrome/
+
+      - uses: wdzeng/chrome-extension@v1
+        with:
+          extension-id: hicbccicghgmlcmcdfjcjpcdhpddhjni
+          zip-path: build/chrome/summer_web_clipper-${VERSION#v}.zip
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          check-credentials-only: true
+        env:
+          VERSION: ${{ github.ref_name }}
+
+  publish-firefox:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: summber-web-clipper
+          path: build/firefox/
+
+      - uses: wdzeng/firefox-addon@v1
+        with:
+          addon-guid: { 4fb0b8e1-1d0e-4743-beb8-cfc8411e4de0 }
+          xpi-path: build/firefox/summer_web_clipper-${VERSION#v}.zip
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
+        env:
+          VERSION: ${{ github.ref_name }}
