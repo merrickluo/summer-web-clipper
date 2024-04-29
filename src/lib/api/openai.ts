@@ -1,8 +1,7 @@
-const baseUrl = "https://api.openai.com";
+const openaiBase = "https://api.openai.com";
+const groqBase = "https://api.groq.com/openai";
 
-const post = (path: string, apikey: string, payload: any = {}): any => {
-  const url = `${baseUrl}${path}`;
-
+const post = (url: string, apikey: string, payload: any = {}): any => {
   return fetch(url, {
     method: "post",
     headers: {
@@ -29,7 +28,9 @@ export const getCompletion = async (
     messages: messages,
   };
 
-  const data = await post("/v1/chat/completions", apikey, payload).then(
+  const base = (model.startsWith("mixtral") || model.startsWith("llama")) ?  groqBase : openaiBase;
+  const url = base + "/v1/chat/completions";
+  const data = await post(url, apikey, payload).then(
     (r: any) => r.json()
   );
 

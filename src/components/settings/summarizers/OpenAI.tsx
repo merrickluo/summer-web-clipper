@@ -69,7 +69,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           defaultValue={openai.model}
           onChange={handleSetOpenAIModel}
           className="select select-bordered w-full max-w-xs">
-          {["gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k"].map((model) => (
+          {["gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k", "mixtral-8x7b-32768", "llama3-70b-8192"].map((model) => (
             <option key={model} value={model}>
               {model}
             </option>
@@ -97,6 +97,13 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           target="_blank"
         >
           OpenAI Account Settings
+        </a> or 
+        <a
+          className="underline hover:text-blue-600 ml-1"
+          href="https://console.groq.com/keys"
+          target="_blank"
+        >
+          Groq Dashboard
         </a>
         <span>.</span>
       </p>
@@ -109,11 +116,11 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           id="maxwords"
           onChange={handleSetMaxWords}
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          defaultValue={openai.maxwords || 2048}
+          defaultValue={openai.maxwords || 12000}
         ></input>
       </div>
       <p className="text-sm text-gray-500 mt-2">
-        <span>Default to 2048 words and GPT-3.5-turbo, napkin threshold: (4096-96) / 100 * 75 ~= 3000</span>
+        <span>Default to 12000 words and GPT-3.5-turbo-16k, napkin threshold: (16384-96) / 100 * 75 ~= 12213</span>
       </p>
     </div>
   );
