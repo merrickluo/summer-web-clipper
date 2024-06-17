@@ -2,26 +2,22 @@ import OpenAISettings from "@components/settings/summarizers/OpenAI";
 import { Doc } from "@lib/readbility";
 import { getCompletion } from "../api/openai";
 import { Summarizer } from "../summarizers";
-import { sanitizeContent } from "./utils";
+import { sanitizeContent, systemPrompt } from "./utils";
 
 const defaultPrompts = [
   {
     role: "system",
-    content:
-      "I want you to act like a you are a professional editor." +
-      "You will summarize the document so readers can get the essence of the article, while keep it short and precise." +
-      "You will always use an objective tone." +
-      "You will only reply with the summary, and nothing else.",
+    content: systemPrompt,
   },
 ];
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
   if (!options?.apikey) {
-    throw new Error("openai api key not set.");
+    throw new Error("openai/groq api key not set.");
   }
 
   let language = options.language || doc.language;
-  let maxwords = Number(options.maxwords) || 2048;
+  let maxwords = Number(options.maxwords) || 12000;
   let model = options.model || "gpt-3.5-turbo";
 
   return await getCompletion(options.apikey, model, [

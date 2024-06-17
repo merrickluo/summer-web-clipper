@@ -1,4 +1,5 @@
 import { localStorageGet, localStorageSet } from "./browser";
+import gemini from "./summarizers/gemini";
 
 export interface Settings {
   selectedSummarizer?: string;
@@ -13,6 +14,7 @@ export type SettingsActionType =
   | "summarizers/notion/setSpaceId"
   | "summarizers/claude/setApikey"
   | "summarizers/claude/setClaudeModel"
+  | "summarizers/gemini/setApikey"
   | "summarizers/openai/setApikey"
   | "summarizers/openai/setLanguage"
   | "exporters/orgmode/setTemplate"
@@ -71,19 +73,32 @@ export const updateSettings = async (
       };
 
       break;
-      case "summarizers/claude/setClaudeModel":
-        settings = {
-          ...settings,
-          summarizers: {
-            ...settings.summarizers,
-            claude: {
-              ...settings.summarizers?.claude,
-              model: action.payload as string,
-            },
+    case "summarizers/claude/setClaudeModel":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          claude: {
+            ...settings.summarizers?.claude,
+            model: action.payload as string,
           },
-        };
+        },
+      };
 
-        break;
+      break;
+    case "summarizers/gemini/setApikey":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          gemini: {
+            ...settings.summarizers?.gemini,
+            apikey: action.payload as string,
+          },
+        },
+      };
+
+      break;
     case "summarizers/openai/setApikey":
       settings = {
         ...settings,
