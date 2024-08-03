@@ -1,6 +1,6 @@
 {
   "name": "Summer Web Clipper",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "An universal web clipper with AI generated summary.",
   "scripts": {
     "clean": "rm -rf public/dist",
