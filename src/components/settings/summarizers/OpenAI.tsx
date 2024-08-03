@@ -69,7 +69,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           defaultValue={openai.model}
           onChange={handleSetOpenAIModel}
           className="select select-bordered w-full max-w-xs">
-          {["gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k", "mixtral-8x7b-32768", "llama3-70b-8192"].map((model) => (
+          {["gpt-4o-mini", "gpt-4o", "llama-3.1-8b-instant", "llama-3.1-70b-versatile"].map((model) => (
             <option key={model} value={model}>
               {model}
             </option>
@@ -120,7 +120,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         ></input>
       </div>
       <p className="text-sm text-gray-500 mt-2">
-        <span>Default to 12000 words and GPT-3.5-turbo-16k, napkin threshold: (16384-96) / 100 * 75 ~= 12213</span>
+        <span>Default to 12000 words and GPT-4o-mini, should be enough for most tabs.</span>
       </p>
     </div>
   );
