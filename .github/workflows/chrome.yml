@@ -1,0 +1,17 @@
+name: Check chrome publish token
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  check-refresh-token:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wdzeng/chrome-extension@v1
+        with:
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          check-credentials-only: true
