@@ -9,7 +9,7 @@ const getCompletion = async (
   content: string,
 ): Promise<string> => {
   const genAI = new GoogleGenerativeAI(apikey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-002"});
   const result = await model.generateContent({
     contents: [
       {
