@@ -13,6 +13,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
     const model = options.model ?? 'claude-3-haiku-20240307';
     const api = new Anthropic({
         apiKey: options.apikey,
+        dangerouslyAllowBrowser: true,
     });
     const docXml = `<document>${doc.title}\n${sanitizeContent(doc.textContent)}</document>`;
     const rsp = await api.messages.create({
