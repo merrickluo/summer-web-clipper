@@ -69,7 +69,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           defaultValue={openai.model}
           onChange={handleSetOpenAIModel}
           className="select select-bordered w-full max-w-xs">
-          {["gpt-4o-mini", "gpt-4o", "llama-3.1-8b-instant", "llama-3.1-70b-versatile"].map((model) => (
+          {["gpt-4o-mini", "gpt-4o", "llama-3.1-8b-instant", "llama-3.1-70b-versatile", "mistral-large-latest"].map((model) => (
             <option key={model} value={model}>
               {model}
             </option>
@@ -104,6 +104,13 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           target="_blank"
         >
           Groq Dashboard
+        </a> or
+        <a
+          className="underline hover:text-blue-600 ml-1"
+          href="https://console.mistral.ai/api-keys/"
+          target="_blank"
+        >
+          Mistral Console
         </a>
         <span>.</span>
       </p>

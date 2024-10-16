@@ -13,7 +13,7 @@ const defaultPrompts = [
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
   if (!options?.apikey) {
-    throw new Error("openai/groq api key not set.");
+    throw new Error("openai/groq/mistral api key not set.");
   }
 
   let language = options.language || doc.language;
