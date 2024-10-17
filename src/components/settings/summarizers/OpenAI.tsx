@@ -37,7 +37,6 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   return (
     <div className="mt-2">
       <div className="form-control w-full max-w-xs">
-
         <label className="label">
           <span className="text-secondary text-xs label-text">
             Summary Language
@@ -49,7 +48,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           onChange={handleSetLanguage}
           className="select select-bordered w-full max-w-xs"
         >
-          <option value="">Set summary language</option>
+          <option value="">Follow article</option>
           {topLanguages.map((code) => (
             <option key={code} value={code}>
               {ISO6391.getNativeName(code)}
