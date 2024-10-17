@@ -3,7 +3,6 @@ import { FC } from "react";
 import { Doc } from "./readbility";
 import { Settings } from "./settings";
 
-import NotionSummarizer from "./summarizers/notion";
 import OpenAISummarizer from "./summarizers/openai";
 import ClaudeSummarizer from "./summarizers/claude";
 import GeminiSummarizer from "./summarizers/gemini";
@@ -16,7 +15,11 @@ export interface Summarizer {
   summarize(doc: Doc, options: any): Promise<string>;
 }
 
-export const availableSummarizers = [ClaudeSummarizer, OpenAISummarizer, NotionSummarizer, GeminiSummarizer];
+export const availableSummarizers = [
+  ClaudeSummarizer,
+  OpenAISummarizer,
+  GeminiSummarizer,
+];
 
 export const selectedSummarizer = (settings: Settings) => {
   return availableSummarizers.find((s) => s.id == settings.selectedSummarizer);

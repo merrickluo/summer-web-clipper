@@ -4,7 +4,7 @@ export interface ContentMessage {
 }
 
 export interface BackgroundMessage {
-  action: "notion/getSpaces" | "summarize" | "export";
+  action: "summarize" | "export";
   payload?: any;
 }
 

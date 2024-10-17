@@ -1,4 +1,3 @@
-import { fetchNotionSpaces } from "@lib/api/notion";
 import {
   addMessageListener,
   BackgroundMessage,
@@ -59,10 +58,6 @@ const handleMessageAsync = async (
           doc: msg.payload.doc,
           summary: msg.payload.summary,
         });
-        break;
-
-      case "notion/getSpaces":
-        payload = await fetchNotionSpaces();
         break;
     }
 
