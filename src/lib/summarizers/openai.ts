@@ -35,7 +35,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
 
 export default {
   id: "openai",
-  name: "OpenAI",
+  name: "OpenAI Compatible",
   SettingsComp: OpenAISettings,
   summarize,
 } as Summarizer;
