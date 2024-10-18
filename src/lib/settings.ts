@@ -11,7 +11,6 @@ export interface Settings {
 export type SettingsActionType =
   | "general/setAutoSummary"
   | "summarizers/select"
-  | "summarizers/notion/setSpaceId"
   | "summarizers/claude/setApikey"
   | "summarizers/claude/setClaudeModel"
   | "summarizers/gemini/setApikey"
@@ -47,19 +46,6 @@ export const updateSettings = async (
       };
       break;
 
-    case "summarizers/notion/setSpaceId":
-      settings = {
-        ...settings,
-        summarizers: {
-          ...settings.summarizers,
-          notion: {
-            ...settings.summarizers?.notion,
-            spaceId: action.payload as string,
-          },
-        },
-      };
-
-      break;
     case "summarizers/claude/setApikey":
       settings = {
         ...settings,
@@ -124,7 +110,7 @@ export const updateSettings = async (
         },
       };
 
-    break;
+      break;
     case "summarizers/openai/setMaxWords":
       settings = {
         ...settings,

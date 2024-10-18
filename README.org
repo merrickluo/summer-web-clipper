@@ -5,7 +5,7 @@
 [[https://chrome.google.com/webstore/detail/summer-web-clipper/hicbccicghgmlcmcdfjcjpcdhpddhjni][file:images/chrome.png]]
 
 * Intro
-Summer Web Clipper is a web extension that can generate a summary of the content on the web page you're currently browsing by leveraging the power of ChatGPT or Notion AI. The summary provides a quick and accurate overview of the key points, making it easier to absorb the main ideas of the content. The extension also enables you to export the summary to the note-taking apps you like, (currently support org-mode export, more to come).
+Summer Web Clipper is a web extension that can generate a summary of the content on the web page you're currently browsing by leveraging the power of LLM. The summary provides a quick and accurate overview of the key points, making it easier to absorb the main ideas of the content. The extension also enables you to export the summary to the note-taking apps you like, (currently support org-mode export, more to come).
 
 The extension is particularly useful for those who need to read and process a lot of information quickly, such as students, researchers, or professionals. With our browser extension, you can streamline your research process, save time, and retain information more efficiently.
 
