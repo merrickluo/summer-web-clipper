@@ -43,7 +43,6 @@ export const parseDocument = async (isYoutube): Promise<Doc> => {
   return { url: window.location.href, readable, language, ...parsedDoc };
 };
 
-// see: https://github.com/Kakulukian/youtube-transcript/blob/master/src/index.ts
 const getYoutubeTranscript = async (): Promise<Doc> => {
   const resp = await YoutubeTranscript.fetchTranscript(window.location.href);
   if (resp.length <= 0) {
@@ -55,7 +54,7 @@ const getYoutubeTranscript = async (): Promise<Doc> => {
 
   console.debug("got Youtube transcript: ", textContent);
 
-  // TODO: maybe fill other attributes. right now only langauge, title, textContent is used.
+  // TODO: maybe fill other attributes. right now only language, title, textContent is used.
   return {
     url: window.location.href,
     readable: true,
