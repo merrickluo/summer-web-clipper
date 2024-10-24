@@ -1,5 +1,10 @@
 import { addMessageListener, ContentMessage } from "@lib/browser";
 import { parseDocument } from "@lib/readbility";
+import { createRoot } from "react-dom/client";
+
+import Overlay from "./Overlay";
+
+import "./style.css";
 
 if (!window.contentInjected) {
   window.contentInjected = true;
@@ -20,4 +25,10 @@ if (!window.contentInjected) {
         return true;
     }
   });
+
+  const contentRoot = document.createElement("div");
+  document.body.appendChild(contentRoot);
+
+  const root = createRoot(contentRoot);
+  root.render(<Overlay />);
 }

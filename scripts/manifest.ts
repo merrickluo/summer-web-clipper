@@ -16,6 +16,12 @@ const manifest = {
     default_popup: "popup.html",
     default_title: pkg.name,
   },
+  content_scripts: [
+    {
+      matches: ["<all_urls>"],
+      css: ["dist/content.css"],
+    },
+  ],
 };
 
 const browserSettings = {
