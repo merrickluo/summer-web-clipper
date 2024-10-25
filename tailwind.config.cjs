@@ -9,6 +9,9 @@ module.exports = {
         primary: colors.slate["700"],
         secondary: colors.gray["400"],
       },
+      spacing: {
+        "1/2": "50%",
+      },
     },
   },
   plugins: [require("daisyui")],
