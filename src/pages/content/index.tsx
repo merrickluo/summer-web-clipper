@@ -2,12 +2,13 @@ import { addMessageListener, ContentMessage } from "@lib/browser";
 import { parseDocument } from "@lib/readbility";
 import { createRoot } from "react-dom/client";
 
-import Overlay from "./Overlay";
-
 import "./style.css";
+import Root from "./root";
 
-if (!window.contentInjected) {
-  window.contentInjected = true;
+const injectContentScript = () => {
+  if (window.contentInjected) {
+    return;
+  }
 
   const RE_YOUTUBE =
     /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
@@ -30,5 +31,7 @@ if (!window.contentInjected) {
   document.body.appendChild(contentRoot);
 
   const root = createRoot(contentRoot);
-  root.render(<Overlay />);
-}
+  root.render(<Root />);
+};
+
+injectContentScript();
