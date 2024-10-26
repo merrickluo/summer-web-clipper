@@ -4,8 +4,8 @@ import pkg from "package.json";
 import Icon from "@assets/Icon";
 
 interface HeaderProps {
-  subtitle: string;
-  actions: ReactNode | ReactNode[];
+  subtitle?: string;
+  actions?: ReactNode | ReactNode[];
 }
 
 const Header = ({ subtitle, actions }: HeaderProps) => {

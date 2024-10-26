@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import "./style.css";
 import Root from "./root";
 
-const injectContentScript = () => {
+const addEventListeners = () => {
   if (window.contentInjected) {
     return;
   }
@@ -26,12 +26,18 @@ const injectContentScript = () => {
         return true;
     }
   });
-
-  const contentRoot = document.createElement("div");
-  document.body.appendChild(contentRoot);
-
-  const root = createRoot(contentRoot);
-  root.render(<Root />);
 };
 
-injectContentScript();
+addEventListeners();
+
+let rootId = "summer-web-clipper-root";
+let contentRoot = document.getElementById(rootId);
+if (!contentRoot) {
+  contentRoot = document.createElement("div");
+  contentRoot.id = rootId;
+}
+document.body.appendChild(contentRoot);
+
+// FIXME: avoid duplicated rendering
+let root = createRoot(contentRoot);
+root.render(<Root />);
