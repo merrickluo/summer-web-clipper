@@ -13,7 +13,6 @@ const manifest = {
     default_icon: {
       "64": "icons/icon.png",
     },
-    default_popup: "popup.html",
     default_title: pkg.name,
   },
   content_scripts: [
