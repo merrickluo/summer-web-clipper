@@ -13,6 +13,9 @@ module.exports = {
         "1/2": "50%",
         "3/4": "75%",
       },
+      zIndex: {
+        "999": "999",
+      },
     },
   },
   plugins: [require("daisyui")],
