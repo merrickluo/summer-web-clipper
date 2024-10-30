@@ -5,7 +5,7 @@ import stylePlugin from "esbuild-style-plugin";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
-const pages = ["content", "background"];
+const pages = ["content", "background", "options"];
 const files = ["index.tsx", "index.ts"];
 
 export function loadBuildOptions(debug = false): BuildOptions[] {

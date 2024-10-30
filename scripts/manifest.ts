@@ -15,6 +15,9 @@ const manifest = {
     },
     default_title: pkg.name,
   },
+  options_ui: {
+    page: "options.html",
+  },
   content_scripts: [
     {
       matches: ["<all_urls>"],
