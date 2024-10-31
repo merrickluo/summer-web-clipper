@@ -5,7 +5,7 @@ import stylePlugin from "esbuild-style-plugin";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
-const pages = ["popup", "content", "background"];
+const pages = ["content", "background", "options"];
 const files = ["index.tsx", "index.ts"];
 
 export function loadBuildOptions(debug = false): BuildOptions[] {
@@ -32,6 +32,7 @@ export function loadBuildOptions(debug = false): BuildOptions[] {
               require("postcss-import"),
               require("tailwindcss"),
               require("autoprefixer"),
+              require("@thedutchcoder/postcss-rem-to-px"),
             ],
           },
         }),

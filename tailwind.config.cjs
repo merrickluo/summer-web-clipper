@@ -9,6 +9,13 @@ module.exports = {
         primary: colors.slate["700"],
         secondary: colors.gray["400"],
       },
+      spacing: {
+        "1/2": "50%",
+        "3/4": "75%",
+      },
+      zIndex: {
+        "999": "999",
+      },
     },
   },
   plugins: [require("daisyui")],

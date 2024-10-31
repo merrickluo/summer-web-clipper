@@ -14,7 +14,7 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
   return (
     <div className="mt-2">
 
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full">
         <label className="label">
           <span className="text-secondary text-xs label-text">API Key</span>
         </label>

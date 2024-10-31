@@ -1,8 +1,14 @@
 import { addMessageListener, ContentMessage } from "@lib/browser";
 import { parseDocument } from "@lib/readbility";
+import { createRoot } from "react-dom/client";
 
-if (!window.contentInjected) {
-  window.contentInjected = true;
+import "./style.css";
+import Root from "./root";
+
+const addEventListeners = () => {
+  if (window.contentInjected) {
+    return;
+  }
 
   const RE_YOUTUBE =
     /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
@@ -20,4 +26,18 @@ if (!window.contentInjected) {
         return true;
     }
   });
+};
+
+addEventListeners();
+
+let rootId = "summer-web-clipper-root";
+let contentRoot = document.getElementById(rootId);
+if (!contentRoot) {
+  contentRoot = document.createElement("div");
+  contentRoot.id = rootId;
 }
+document.body.appendChild(contentRoot);
+
+// FIXME: avoid duplicated rendering
+let root = createRoot(contentRoot);
+root.render(<Root />);

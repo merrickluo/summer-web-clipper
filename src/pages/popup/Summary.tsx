@@ -23,7 +23,7 @@ const Summary = ({
   }
 
   if (data) {
-    return <p style={{whiteSpace: 'pre-line'}}>{data}</p>;
+    return <p className="whitespace-pre-line">{data}</p>;
   }
 
   return <p>Generating summary, please be patient...</p>;

@@ -23,7 +23,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
   return (
     <div className="mt-2">
 
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full">
         <label className="label">
           <span className="text-secondary text-xs label-text">API Key</span>
         </label>
@@ -35,7 +35,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
           defaultValue={claude.apikey || ""}
         ></input>
       </div>
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full">
         <label className="label">
           <span className="text-secondary text-xs label-text">
             Model
@@ -44,7 +44,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
         <select
             defaultValue={claude.model}
             onChange={handleSetClaudeModel}
-            className="select select-bordered w-full max-w-xs">
+            className="select select-bordered w-full">
             {["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"].map((model) => (
               <option key={model} value={model}>
                 {model}

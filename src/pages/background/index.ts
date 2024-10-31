@@ -1,6 +1,7 @@
 import {
   addMessageListener,
   BackgroundMessage,
+  injectContentScript,
   MessageResponse,
 } from "@lib/browser";
 import { Doc } from "@lib/readbility";
@@ -71,4 +72,8 @@ addMessageListener((msg, _, sendResponse) => {
   handleMessageAsync(msg, sendResponse);
   // indicates we need to call sendResponse asynchronously
   return true;
+});
+
+chrome.action.onClicked.addListener((_) => {
+  injectContentScript();
 });
