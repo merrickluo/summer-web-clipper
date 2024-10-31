@@ -36,7 +36,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
 
   return (
     <div className="mt-2">
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full">
         <label className="label">
           <span className="text-secondary text-xs label-text">
             Summary Language
@@ -46,7 +46,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <select
           defaultValue={openai.language}
           onChange={handleSetLanguage}
-          className="select select-bordered w-full max-w-xs"
+          className="select select-bordered w-full"
         >
           <option value="">Follow article</option>
           {topLanguages.map((code) => (
@@ -57,18 +57,23 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </select>
       </div>
 
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full">
         <label className="label">
-          <span className="text-secondary text-xs label-text">
-            Model
-          </span>
+          <span className="text-secondary text-xs label-text">Model</span>
         </label>
 
         <select
           defaultValue={openai.model}
           onChange={handleSetOpenAIModel}
-          className="select select-bordered w-full max-w-xs">
-          {["gpt-4o-mini", "gpt-4o", "llama-3.1-8b-instant", "llama-3.1-70b-versatile", "mistral-large-latest"].map((model) => (
+          className="select select-bordered w-full"
+        >
+          {[
+            "gpt-4o-mini",
+            "gpt-4o",
+            "llama-3.1-8b-instant",
+            "llama-3.1-70b-versatile",
+            "mistral-large-latest",
+          ].map((model) => (
             <option key={model} value={model}>
               {model}
             </option>
@@ -76,7 +81,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </select>
       </div>
 
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full">
         <label className="label">
           <span className="text-secondary text-xs label-text">API Key</span>
         </label>
@@ -96,14 +101,16 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           target="_blank"
         >
           OpenAI Account Settings
-        </a> or 
+        </a>{" "}
+        or
         <a
           className="underline hover:text-blue-600 ml-1"
           href="https://console.groq.com/keys"
           target="_blank"
         >
           Groq Dashboard
-        </a> or
+        </a>{" "}
+        or
         <a
           className="underline hover:text-blue-600 ml-1"
           href="https://console.mistral.ai/api-keys/"
@@ -114,9 +121,11 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <span>.</span>
       </p>
 
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full">
         <label className="label">
-          <span className="text-secondary text-xs label-text">Max Words for Summerization</span>
+          <span className="text-secondary text-xs label-text">
+            Max Words for Summerization
+          </span>
         </label>
         <input
           id="maxwords"
@@ -126,7 +135,10 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         ></input>
       </div>
       <p className="text-sm text-gray-500 mt-2">
-        <span>Default to 12000 words and GPT-4o-mini, should be enough for most tabs.</span>
+        <span>
+          Default to 12000 words and GPT-4o-mini, should be enough for most
+          tabs.
+        </span>
       </p>
     </div>
   );

@@ -14,9 +14,7 @@ const GeneralSettings = ({ settings, dispatch }: SettingsFormProps) => {
   return (
     <div className="form-control">
       <label className="label cursor-pointer">
-        <span className="label-text text-gray-500">
-          Auto Generate Summary on Open
-        </span>
+        <span>Auto Generate Summary on Open</span>
         <input
           type="checkbox"
           className="toggle"
