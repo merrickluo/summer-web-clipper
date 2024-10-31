@@ -80,3 +80,28 @@ const getCurrentTab = async () => {
 
   return tab;
 };
+
+const isFirefox = () => {
+  if (typeof browser === "undefined") {
+    return false;
+  }
+
+  return !!browser.menus;
+};
+
+// This is workaround for Firefox doesn't show options by default.
+export const createOptionsButton = () => {
+  if (!isFirefox()) {
+    return;
+  }
+
+  let r = browser.menus.create({
+    id: "open_settings",
+    title: "Options",
+    contexts: ["action"],
+  });
+
+  browser.menus.onClicked.addListener(() => {
+    chrome.runtime.openOptionsPage();
+  });
+};
