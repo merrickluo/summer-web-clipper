@@ -49,7 +49,7 @@ const Options = () => {
     <main className="">
       <Header subtitle="Settings" />
       <div className="flex flex-row mt-10">
-        <nav className="min-w-80">
+        <nav className="w-1/3">
           {settingPages.map(({ title, Icon }) => (
             <MenuItem
               key={title}
