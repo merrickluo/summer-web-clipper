@@ -1,7 +1,7 @@
 import * as esbuild from "esbuild";
 import fs from "fs";
 
-import { loadBuildOptions } from "./buildOptions.js";
+import { loadBuildOptions } from "./build_options.js";
 import { getManifest } from "./manifest.js";
 
 const browserTargets = ["chrome", "firefox"];

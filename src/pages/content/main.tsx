@@ -6,7 +6,7 @@ import { loadSettings } from "@lib/settings";
 import { selectedSummarizer } from "@lib/summarizers";
 import { sendMessage } from "@lib/browser";
 import { availableExporters } from "@lib/exporters";
-import Summary from "@pages/popup/Summary";
+import Summary from "@components/summary";
 
 const RE_YOUTUBE =
   /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import pkg from "package.json";
 
-import Icon from "@assets/Icon";
+import Icon from "@assets/icon";
 
 interface HeaderProps {
   subtitle?: string;

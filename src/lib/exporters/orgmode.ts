@@ -1,4 +1,4 @@
-import OrgModeSettings from "@components/settings/exporters/OrgMode";
+import OrgModeSettings from "@components/settings/exporters/orgmode";
 
 import { SiOrg } from "react-icons/si";
 import { openNewTab } from "../browser";

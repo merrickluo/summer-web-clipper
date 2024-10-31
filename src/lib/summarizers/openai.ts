@@ -1,4 +1,4 @@
-import OpenAISettings from "@components/settings/summarizers/OpenAI";
+import OpenAISettings from "@components/settings/summarizers/openai";
 import { Doc } from "@lib/readbility";
 import { getCompletion } from "../api/openai";
 import { Summarizer } from "../summarizers";

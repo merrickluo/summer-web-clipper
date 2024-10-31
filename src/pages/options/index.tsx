@@ -5,12 +5,12 @@ import { GiArtificialIntelligence } from "react-icons/gi";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import "./style.css";
-import Header from "@pages/popup/Header";
 import SettingWrapper from "./setting_wrapper";
 import MenuItem from "@components/menu_item";
 import GeneralSettings from "@components/settings/general_settings";
 import ExportSettings from "@components/settings/export_settings";
 import SummarySettings from "@components/settings/summary_settings";
+import Header from "@components/header";
 
 const queryClient = new QueryClient({
   defaultOptions: {
