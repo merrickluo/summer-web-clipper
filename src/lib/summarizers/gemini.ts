@@ -1,24 +1,24 @@
-import  { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { sanitizeContent, systemPrompt } from "./utils";
 import { Summarizer } from "../summarizers";
-import GeminiSettings from "@components/settings/summarizers/Gemini";
-
+import GeminiSettings from "@components/settings/summarizers/gemini";
 
 const getCompletion = async (
   apikey: string,
-  content: string,
+  content: string
 ): Promise<string> => {
   const genAI = new GoogleGenerativeAI(apikey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-002"});
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-002" });
   const result = await model.generateContent({
     contents: [
       {
         role: "user",
         parts: [
           {
-            text: content
-          }],
-      }
+            text: content,
+          },
+        ],
+      },
     ],
     systemInstruction: systemPrompt,
   });

@@ -1,10 +1,10 @@
 import { SettingsFormProps } from "@src/components/types";
-import { SyntheticEvent } from "react";
+import { ReactEventHandler } from "react";
 
 const OrgModeSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { exporters: { orgmode = {} } = {} } = settings;
 
-  const handleSetTemplate = (event: SyntheticEvent<HTMLTextAreaElement>) => {
+  const handleSetTemplate: ReactEventHandler<HTMLTextAreaElement> = (event) => {
     dispatch({
       type: "exporters/orgmode/setTemplate",
       payload: event.currentTarget.value,

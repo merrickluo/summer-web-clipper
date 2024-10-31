@@ -5,12 +5,12 @@ import { GiArtificialIntelligence } from "react-icons/gi";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import "./style.css";
-import Header from "@pages/popup/Header";
 import SettingWrapper from "./setting_wrapper";
 import MenuItem from "@components/menu_item";
 import GeneralSettings from "@components/settings/general_settings";
 import ExportSettings from "@components/settings/export_settings";
 import SummarySettings from "@components/settings/summary_settings";
+import Header from "@components/header";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,7 +49,7 @@ const Options = () => {
     <main className="">
       <Header subtitle="Settings" />
       <div className="flex flex-row mt-10">
-        <nav className="min-w-80">
+        <nav className="w-1/3">
           {settingPages.map(({ title, Icon }) => (
             <MenuItem
               key={title}

@@ -1,9 +1,10 @@
-import Overlay from "@components/overlay";
-import Header from "@pages/popup/Header";
+import { useMemo, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Main from "./main";
 import { AiOutlineClose } from "react-icons/ai";
-import { useCallback, useMemo, useRef, useState } from "react";
+
+import Header from "@components/header";
+import Overlay from "@components/overlay";
+import Main from "./main";
 
 const queryClient = new QueryClient({
   defaultOptions: {
