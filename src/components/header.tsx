@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header = ({ subtitle, actions }: HeaderProps) => {
   return (
-    <div className="bg-white rounded-t-lg h-16 w-full flex items-center border-b border-gray-300">
+    <header className="bg-white rounded-t-lg h-16 w-full flex items-center border-b border-gray-300">
       <div className="flex ml-3 items-center w-full">
         <Icon className="w-10 h-10" />
         <div className="ml-2">
@@ -20,7 +20,7 @@ const Header = ({ subtitle, actions }: HeaderProps) => {
         </div>
         {actions}
       </div>
-    </div>
+    </header>
   );
 };
 
