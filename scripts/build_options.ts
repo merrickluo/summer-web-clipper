@@ -32,7 +32,6 @@ export function loadBuildOptions(debug = false): BuildOptions[] {
               require("postcss-import"),
               require("tailwindcss"),
               require("autoprefixer"),
-              require("@thedutchcoder/postcss-rem-to-px"),
             ],
           },
         }),
