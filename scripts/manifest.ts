@@ -46,6 +46,7 @@ const browserSettings = {
     background: {
       scripts: ["dist/background.js"],
     },
+    permissions: ["activeTab", "storage", "scripting", "menus"],
     commands: {
       _execute_action: {
         suggested_key: {

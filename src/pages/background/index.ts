@@ -1,6 +1,7 @@
 import {
   addMessageListener,
   BackgroundMessage,
+  createOptionsButton,
   injectContentScript,
   MessageResponse,
 } from "@lib/browser";
@@ -77,3 +78,5 @@ addMessageListener((msg, _, sendResponse) => {
 chrome.action.onClicked.addListener((_) => {
   injectContentScript();
 });
+
+createOptionsButton();
