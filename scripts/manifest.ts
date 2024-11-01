@@ -25,6 +25,12 @@ const manifest = {
       css: ["dist/content.css"],
     },
   ],
+  web_accessible_resources: [
+    {
+      matches: ["<all_urls>"],
+      resources: ["index.html", "dist/index.js", "dist/index.css"],
+    },
+  ],
 };
 
 const browserSettings = {

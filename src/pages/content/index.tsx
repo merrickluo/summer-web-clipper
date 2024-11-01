@@ -1,23 +1,17 @@
 import { addMessageListener, ContentMessage } from "@lib/browser";
 import { parseDocument } from "@lib/readbility";
-import { createRoot } from "react-dom/client";
 
 import "./style.css";
-import Root from "./root";
 
 const addEventListeners = () => {
   if (window.contentInjected) {
     return;
   }
 
-  const RE_YOUTUBE =
-    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
-  const isYoutube = window.location.href.match(RE_YOUTUBE);
-
   addMessageListener((msg: ContentMessage, _, respond) => {
     switch (msg.action) {
       case "parse_document":
-        parseDocument(isYoutube).then((doc) => {
+        parseDocument(msg.payload.isYoutube).then((doc) => {
           respond({ type: "success", payload: doc });
         });
         return true;
@@ -30,14 +24,18 @@ const addEventListeners = () => {
 
 addEventListeners();
 
-let rootId = "summer-web-clipper-root";
-let contentRoot = document.getElementById(rootId);
-if (!contentRoot) {
-  contentRoot = document.createElement("div");
-  contentRoot.id = rootId;
+let containerId = "swc-frame";
+let oldContainer = document.getElementById(containerId);
+if (oldContainer) {
+  oldContainer.remove();
 }
-document.body.appendChild(contentRoot);
 
-// FIXME: avoid duplicated rendering
-let root = createRoot(contentRoot);
-root.render(<Root />);
+const container = document.createElement("div");
+container.id = containerId;
+
+document.body.appendChild(container);
+
+const frame = document.createElement("iframe");
+frame.src = chrome.runtime.getURL("index.html");
+
+container.appendChild(frame);

@@ -2,8 +2,8 @@ import {
   addMessageListener,
   BackgroundMessage,
   createOptionsButton,
-  injectContentScript,
   MessageResponse,
+  injectContentScript,
 } from "@lib/browser";
 import { Doc } from "@lib/readbility";
 import { loadSettings } from "@lib/settings";
