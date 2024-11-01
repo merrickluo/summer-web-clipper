@@ -46,10 +46,10 @@ const Options = () => {
   );
 
   return (
-    <main className="">
+    <div>
       <Header subtitle="Settings" />
       <div className="flex flex-row mt-10">
-        <nav className="w-1/3">
+        <div className="w-1/3">
           {settingPages.map(({ title, Icon }) => (
             <MenuItem
               key={title}
@@ -59,7 +59,7 @@ const Options = () => {
               onClick={handleMenuClick}
             />
           ))}
-        </nav>
+        </div>
         <div className="w-full px-20">
           <QueryClientProvider client={queryClient}>
             <SettingWrapper
@@ -69,7 +69,7 @@ const Options = () => {
           </QueryClientProvider>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
