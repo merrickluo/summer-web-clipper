@@ -9,6 +9,7 @@ const addEventListeners = () => {
   }
 
   addMessageListener((msg: ContentMessage, _, respond) => {
+    console.log("content: message received.", msg);
     switch (msg.action) {
       case "parse_document":
         parseDocument().then((doc) => {

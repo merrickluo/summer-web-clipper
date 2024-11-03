@@ -10,8 +10,8 @@ import Summary from "@components/summary";
 
 const fetchDoc = async (): Promise<Doc> => {
   return await sendMessage({
-    to: "current_tab",
-    message: { action: "parse_document" },
+    to: "background",
+    message: { action: "parse" },
   });
 };
 

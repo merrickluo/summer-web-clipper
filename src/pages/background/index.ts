@@ -4,6 +4,7 @@ import {
   createOptionsButton,
   MessageResponse,
   injectContentScript,
+  sendMessage,
 } from "@lib/browser";
 import { Doc } from "@lib/readbility";
 import { loadSettings } from "@lib/settings";
@@ -50,6 +51,20 @@ const handleMessageAsync = async (
     let payload: any;
 
     switch (msg.action) {
+      case "parse":
+        console.log("background: received parse action");
+        payload = await sendMessage({
+          to: "current_tab",
+          message: {
+            action: "parse_document",
+          },
+        });
+
+        console.log("background: payload received", payload);
+
+        console.log(sendResponse);
+
+        break;
       case "summarize":
         payload = await doSummarize(msg.payload);
 
@@ -65,6 +80,7 @@ const handleMessageAsync = async (
 
     sendResponse({ type: "success", payload });
   } catch (e) {
+    console.log("background: exception", e);
     return sendResponse({ type: "error", payload: e });
   }
 };

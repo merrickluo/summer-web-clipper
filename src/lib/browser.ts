@@ -4,7 +4,7 @@ export interface ContentMessage {
 }
 
 export interface BackgroundMessage {
-  action: "summarize" | "export";
+  action: "summarize" | "export" | "parse";
   payload?: any;
 }
 
@@ -33,6 +33,7 @@ export const sendMessage = async (target: Message): Promise<any> => {
       break;
     case "background":
       resp = await chrome.runtime.sendMessage(target.message);
+      console.log("no response? :", resp);
       break;
   }
 
