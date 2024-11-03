@@ -11,13 +11,12 @@ const addEventListeners = () => {
   addMessageListener((msg: ContentMessage, _, respond) => {
     switch (msg.action) {
       case "parse_document":
-        parseDocument(msg.payload.isYoutube).then((doc) => {
+        parseDocument().then((doc) => {
           respond({ type: "success", payload: doc });
         });
-        return true;
-      case "open_url":
-        window.open(msg.payload as string, "_self");
-        return true;
+        break;
+      default:
+        console.warn("content: unknown message received: ", msg);
     }
   });
 };

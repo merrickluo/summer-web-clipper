@@ -19,8 +19,8 @@ export interface Doc {
 }
 
 // this needs to be run in content script
-export const parseDocument = async (isYoutube): Promise<Doc> => {
-  if (isYoutube) {
+export const parseDocument = async (): Promise<Doc> => {
+  if (isYoutube()) {
     return getYoutubeTranscript();
   }
 
@@ -63,4 +63,11 @@ const getYoutubeTranscript = async (): Promise<Doc> => {
     language,
     textContent,
   };
+};
+
+const RE_YOUTUBE =
+  /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+
+export const isYoutube = (): boolean => {
+  return window.location.href.match(RE_YOUTUBE);
 };

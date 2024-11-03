@@ -8,20 +8,10 @@ import { sendMessage } from "@lib/browser";
 import { availableExporters } from "@lib/exporters";
 import Summary from "@components/summary";
 
-const RE_YOUTUBE =
-  /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
-
 const fetchDoc = async (): Promise<Doc> => {
-  const isYoutube = window.location.href.match(RE_YOUTUBE);
-
   return await sendMessage({
     to: "current_tab",
-    message: {
-      action: "parse_document",
-      payload: {
-        isYoutube,
-      },
-    },
+    message: { action: "parse_document" },
   });
 };
 
