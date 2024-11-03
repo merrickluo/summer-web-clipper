@@ -13,7 +13,16 @@ const RE_YOUTUBE =
 
 const fetchDoc = async (): Promise<Doc> => {
   const isYoutube = window.location.href.match(RE_YOUTUBE);
-  return parseDocument(isYoutube);
+
+  return await sendMessage({
+    to: "current_tab",
+    message: {
+      action: "parse_document",
+      payload: {
+        isYoutube,
+      },
+    },
+  });
 };
 
 const fetchSummary = async (doc: Doc) => {

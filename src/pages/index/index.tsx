@@ -1,10 +1,13 @@
 import { useMemo, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AiOutlineClose } from "react-icons/ai";
+import { createRoot } from "react-dom/client";
 
 import Header from "@components/header";
 import Overlay from "@components/overlay";
 import Main from "./main";
+
+import "./style.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,4 +49,5 @@ const Root = () => {
   );
 };
 
-export default Root;
+const root = createRoot(document.getElementById("root")!);
+root.render(<Root />);
