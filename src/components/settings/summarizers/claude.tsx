@@ -42,15 +42,16 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
           </span>
         </label>
         <select
-            defaultValue={claude.model}
-            onChange={handleSetClaudeModel}
-            className="select select-bordered w-full">
-            {["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"].map((model) => (
+          defaultValue={claude.model}
+          onChange={handleSetClaudeModel}
+          className="select select-bordered w-full">
+          {["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307",
+            "claude-3-5-sonnet-latest", "claude-3-5-haiku-latest"].map((model) => (
               <option key={model} value={model}>
                 {model}
               </option>
             ))}
-          </select>
+        </select>
       </div>
       <p className="text-sm text-gray-500 mt-2">
         <span>Find your API Key in the</span>
