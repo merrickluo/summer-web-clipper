@@ -13,7 +13,7 @@ const GeneralSettings = ({ settings, dispatch }: SettingsFormProps) => {
 
   return (
     <div className="form-control">
-      <label className="label cursor-pointer">
+      <label className="swc-label swc-cursor-pointer">
         <span>Auto Generate Summary on Open</span>
         <input
           type="checkbox"

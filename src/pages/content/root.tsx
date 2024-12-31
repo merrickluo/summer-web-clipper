@@ -21,7 +21,7 @@ const Root = () => {
   const closeOverlayAction = useMemo(
     () => (
       <AiOutlineClose
-        className="ml-auto mr-6 w-6 h-6 hover:text-blue-600"
+        className="swc-ml-auto swc-mr-6 swc-w-6 swc-h-6 hover:swc-text-blue-600"
         onClick={() => {
           setHidden(true);
         }}
@@ -37,7 +37,7 @@ const Root = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Overlay>
-        <div className="flex flex-col h-full">
+        <div className="swc-flex swc-flex-col swc-h-full">
           <Header actions={closeOverlayAction} />
           <Main />
         </div>

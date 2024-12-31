@@ -1,6 +1,6 @@
 const Overlay = ({ children }) => {
   return (
-    <div className="fixed z-999 bottom-2 right-2 h-3/5 w-1/3 rounded-lg border border-gray-300 bg-gray-50 shadow">
+    <div className="swc-fixed swc-z-999 swc-bottom-2 swc-right-2 swc-h-3/5 swc-w-1/3 swc-rounded-lg swc-border swc-border-gray-300 swc-bg-gray-50 swc-shadow">
       {children}
     </div>
   );

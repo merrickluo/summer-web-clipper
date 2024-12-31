@@ -19,4 +19,5 @@ module.exports = {
     },
   },
   plugins: [require("daisyui")],
+  prefix: "swc-",
 };

@@ -12,9 +12,9 @@ const OrgModeSettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="form-control w-full">
+    <div className="form-control swc-w-full">
       <label className="label">
-        <span className="text-secondary text-xs label-text">Template</span>
+        <span className="text-secondary swc-text-xs label-text">Template</span>
       </label>
       <textarea
         id="template"

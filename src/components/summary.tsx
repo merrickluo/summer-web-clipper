@@ -23,7 +23,7 @@ const Summary = ({
   }
 
   if (data) {
-    return <p className="whitespace-pre-line">{data}</p>;
+    return <p className="swc-whitespace-pre-line">{data}</p>;
   }
 
   return <p>Generating summary, please be patient...</p>;
