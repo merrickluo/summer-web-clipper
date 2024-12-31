@@ -70,8 +70,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           {[
             "gpt-4o-mini",
             "gpt-4o",
-            "llama-3.1-8b-instant",
-            "llama-3.1-70b-versatile",
+            "llama-3.3-70b-versatile",
             "mistral-large-latest",
           ].map((model) => (
             <option key={model} value={model}>
