@@ -24,7 +24,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
     <div className="swc-mt-2">
 
       <div className="form-control swc-w-full">
-        <label className="label">
+        <label className="swc-label">
           <span className="swc-text-secondary swc-text-xs label-text">API Key</span>
         </label>
         <input
@@ -36,8 +36,8 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
         ></input>
       </div>
       <div className="form-control swc-w-full">
-        <label className="label">
-          <span className="swc-text-secondary swc-text-xs label-text">
+        <label className="swc-label">
+          <span className="swc-text-secondary swc-text-xs swc-label-text">
             Model
           </span>
         </label>

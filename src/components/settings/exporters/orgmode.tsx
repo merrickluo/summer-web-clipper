@@ -13,14 +13,14 @@ const OrgModeSettings = ({ settings, dispatch }: SettingsFormProps) => {
 
   return (
     <div className="form-control swc-w-full">
-      <label className="label">
-        <span className="text-secondary swc-text-xs label-text">Template</span>
+      <label className="swc-label">
+        <span className="swc-text-secondary swc-text-xs label-text">Template</span>
       </label>
       <textarea
         id="template"
         rows={3}
         onChange={handleSetTemplate}
-        className="textarea textarea-bordered"
+        className="swc-textarea swc-textarea-bordered"
         placeholder="org-protocol://roam-ref?template=s&ref={url}&title={title}&body={summary}"
         defaultValue={orgmode.template || ""}
       ></textarea>

@@ -37,7 +37,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   return (
     <div className="swc-mt-2">
       <div className="form-control swc-w-full">
-        <label className="label">
+        <label className="swc-label">
           <span className="swc-text-secondary swc-text-xs label-text">
             Summary Language
           </span>
@@ -58,8 +58,8 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
       </div>
 
       <div className="form-control swc-w-full">
-        <label className="label">
-          <span className="swc-text-secondary swc-text-xs label-text">Model</span>
+        <label className="swc-label">
+          <span className="swc-text-secondary swc-text-xs swc-label-text">Model</span>
         </label>
 
         <select
@@ -82,8 +82,8 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
       </div>
 
       <div className="form-control swc-w-full">
-        <label className="label">
-          <span className="swc-text-secondary swc-text-xs label-text">API Key</span>
+        <label className="swc-label">
+          <span className="swc-text-secondary swc-text-xs swc-label-text">API Key</span>
         </label>
         <input
           type="password"
@@ -122,8 +122,8 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
       </p>
 
       <div className="form-control swc-w-full">
-        <label className="label">
-          <span className="text-secondary swc-text-xs label-text">
+        <label className="swc-label">
+          <span className="swc-text-secondary swc-text-xs swc-label-text">
             Max Words for Summerization
           </span>
         </label>

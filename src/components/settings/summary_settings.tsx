@@ -18,8 +18,8 @@ const SummarySettings = ({ settings, dispatch }: SettingsFormProps) => {
   return (
     <div>
       <div className="form-control swc-w-full">
-        <label className="label">
-          <span className="text-secondary swc-text-xs label-text">Provider</span>
+        <label className="swc-label">
+          <span className="swc-text-secondary swc-text-xs label-text">Provider</span>
         </label>
         <select
           id="summarizers"
