@@ -80,7 +80,7 @@ const Main = () => {
           }`}
         />
       </div>
-      <div className="swc-w-full swc-flex-1 swc-text-base swc-bg-white swc-mt-2 swc-p-2 swc-rounded-lg swc-border-1 swc-border-gray-300">
+      <div className="swc-flex-1 swc-text-base swc-bg-white swc-mt-2 swc-p-2 swc-rounded-lg swc-border-1 swc-border-gray-300">
         <Summary
           summary={summary}
           valid={!!hasSelectedSummarizer}
