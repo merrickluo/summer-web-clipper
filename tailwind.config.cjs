@@ -2,6 +2,9 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+  corePlugins: {
+    preflight: false,
+  },
   content: ["./src/**/*.tsx", "./public/**/*.html"],
   theme: {
     extend: {
