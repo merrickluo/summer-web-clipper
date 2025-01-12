@@ -15,13 +15,13 @@ const ExportSettings = ({ settings, dispatch }: SettingsFormProps) => {
   );
 
   return (
-    <div className="form-control w-full">
-      <label className="label">
-        <span className="text-secondary text-xs label-text">Exporter</span>
+    <div className="form-control swc-w-full">
+      <label className="swc-label">
+        <span className="swc-text-secondary swc-text-xs label-text">Exporter</span>
       </label>
       <select
         id="exporters"
-        className="select select-bordered w-full"
+        className="swc-select swc-select-bordered swc-w-full"
         onChange={handleSelectExporter}
         defaultValue={selected?.id}
       >

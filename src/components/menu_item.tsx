@@ -16,11 +16,11 @@ const MenuItem = ({ icon, title, selected, onClick }: MenuItemProps) => {
 
   return (
     <div
-      className={(selected ? "bg-blue-200 " : "") + "p-2 rounded-lg my-2"}
+      className={(selected ? "swc-bg-blue-200 " : "") + "swc-p-2 swc-rounded-lg swc-my-2"}
       onClick={handleClick}
     >
-      <div className="flex flex-row justify-start items-center cursor-pointer select-none">
-        <div className="p-1 mr-4 text-2xl">{icon}</div>
+      <div className="swc-flex swc-flex-row swc-justify-start swc-items-center swc-cursor-pointer swc-select-none">
+        <div className="swc-p-1 swc-mr-4 swc-text-2xl">{icon}</div>
         <h1 className="">{title}</h1>
       </div>
     </div>

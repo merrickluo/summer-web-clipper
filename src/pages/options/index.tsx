@@ -48,8 +48,8 @@ const Options = () => {
   return (
     <main className="">
       <Header subtitle="Settings" />
-      <div className="flex flex-row mt-10">
-        <nav className="w-1/3">
+      <div className="swc-flex swc-flex-row swc-mt-10">
+        <nav className="swc-w-1/4">
           {settingPages.map(({ title, Icon }) => (
             <MenuItem
               key={title}
@@ -60,7 +60,7 @@ const Options = () => {
             />
           ))}
         </nav>
-        <div className="w-full px-20">
+        <div className="swc-w-2/3 swc-px-20">
           <QueryClientProvider client={queryClient}>
             <SettingWrapper
               title={selectedPage.title}

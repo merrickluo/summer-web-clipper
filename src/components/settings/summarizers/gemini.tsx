@@ -12,24 +12,24 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="mt-2">
+    <div className="swc-mt-2">
 
-      <div className="form-control w-full">
-        <label className="label">
-          <span className="text-secondary text-xs label-text">API Key</span>
+      <div className="form-control swc-w-full">
+        <label className="swc-label">
+          <span className="swc-text-secondary swc-text-xs label-text">API Key</span>
         </label>
         <input
           type="password"
           id="apikey"
           onChange={handleSetApikey}
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
           defaultValue={gemini.apikey || ""}
         ></input>
       </div>
-      <p className="text-sm text-gray-500 mt-2">
+      <p className="swc-text-sm swc-text-gray-500 swc-mt-2">
         <span>Find your API Key in the</span>
         <a
-          className="underline hover:text-blue-600 ml-1"
+          className="swc-underline hover:swc-text-blue-600 swc-ml-1"
           href="https://console.cloud.google.com/vertex-ai/generative"
           target="_blank"
         >

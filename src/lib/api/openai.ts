@@ -1,6 +1,7 @@
 const openaiBase = "https://api.openai.com";
 const groqBase = "https://api.groq.com/openai";
 const mistralBase = "https://api.mistral.ai";
+const deepseekBase = "https://api.deepseek.com";
 
 const post = (url: string, apikey: string, payload: any = {}): any => {
   return fetch(url, {
@@ -29,9 +30,14 @@ export const getCompletion = async (
     messages: messages,
   };
 
-  const base = model.startsWith("mistral") 
-    ? mistralBase
-    : (model.startsWith("llama") ? groqBase : openaiBase);
+  let base = openaiBase;
+  if (model.startsWith("mistral")) {
+    base = mistralBase;
+  } else if (model.startsWith("llama")) {
+    base = groqBase;
+  } else if (model.startsWith("deepseek")) {
+    base = deepseekBase;
+  }
   const url = base + "/v1/chat/completions";
   const data = await post(url, apikey, payload).then(
     (r: any) => r.json()
