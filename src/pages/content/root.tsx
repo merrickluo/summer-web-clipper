@@ -38,7 +38,7 @@ const Root = () => {
     <QueryClientProvider client={queryClient}>
       <Overlay>
         <div className="swc-flex swc-flex-col swc-h-full">
-          <Header actions={closeOverlayAction} />
+          <Header actions={closeOverlayAction} subtitle="Summary" />
           <Main />
         </div>
       </Overlay>
