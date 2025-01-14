@@ -3,7 +3,7 @@ const colors = require("tailwindcss/colors");
 
 module.exports = {
   corePlugins: {
-    preflight: false,
+    preflight: true,
   },
   content: ["./src/**/*.tsx", "./public/**/*.html"],
   theme: {
