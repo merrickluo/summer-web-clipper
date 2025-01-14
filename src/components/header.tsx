@@ -15,9 +15,11 @@ const Header = ({ subtitle, actions }: HeaderProps) => {
       <div className="swc-flex swc-ml-3 swc-items-center swc-w-full">
         <Icon className="swc-w-10 swc-h-10" />
         <div className="swc-flex swc-flex-col swc-ml-2">
-          <span className="swc-text-lg">{pkg.name}</span>
-          <span className="swc-text-xs swc-ml-2">{pkg.version}</span>
-          <p className="swc-text-sm">{subtitle}</p>
+          <div className="swc-flex swc-items-center">
+            <span className="swc-text-lg">{pkg.name}</span>
+            <span className="swc-text-xs swc-ml-2">{pkg.version}</span>
+          </div>
+          <span className="swc-text-sm">{subtitle}</span>
         </div>
         {actions}
       </div>
