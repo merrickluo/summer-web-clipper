@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
-const plugin = require("tailwindcss/plugin");
-const fs = require("fs");
-const path = require("path");
-const postcss = require("postcss");
+const {
+  scopedPreflightStyles,
+  isolateInsideOfContainer,
+} = require("tailwindcss-scoped-preflight");
 
 // preflight is disabled because we inject css to the page
 // using preflight will affect page display.
@@ -30,22 +30,10 @@ module.exports = {
     },
   },
   plugins: [
-    require("daisyui"),
-    plugin(({ addBase }) => {
-      const preflightStyles = postcss.parse(
-        fs.readFileSync(
-          require.resolve("tailwindcss/lib/css/preflight.css"),
-          "utf8"
-        )
-      );
-
-      // Scope the selectors to specific components
-      preflightStyles.walkRules((rule) => {
-        rule.selector = ".swc-preflight " + rule.selector;
-      });
-
-      addBase(preflightStyles.nodes);
+    scopedPreflightStyles({
+      isolationStrategy: isolateInsideOfContainer(".swc-preflight"),
     }),
+    require("daisyui"),
   ],
   prefix: "swc-",
 };
