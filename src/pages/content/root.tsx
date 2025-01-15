@@ -21,7 +21,7 @@ const Root = () => {
   const closeOverlayAction = useMemo(
     () => (
       <AiOutlineClose
-        className="swc-ml-auto swc-mr-6 swc-w-6 swc-h-6 hover:swc-text-blue-600 "
+        className="swc-ml-auto swc-mr-6 swc-w-6 swc-h-6 hover:swc-text-blue-600"
         onClick={() => {
           setHidden(true);
         }}

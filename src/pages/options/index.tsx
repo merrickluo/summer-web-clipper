@@ -46,7 +46,7 @@ const Options = () => {
   );
 
   return (
-    <main className="">
+    <main>
       <Header subtitle="Options" />
       <div className="swc-flex swc-flex-row swc-mt-10">
         <nav className="swc-w-1/4">
