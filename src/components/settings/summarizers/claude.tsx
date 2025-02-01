@@ -1,7 +1,6 @@
 import { SettingsFormProps } from "@src/components/types";
 import { SyntheticEvent } from "react";
 
-
 const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { claude = {} } = {} } = settings;
 
@@ -19,13 +18,13 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   };
 
-
   return (
     <div className="swc-mt-2">
-
-      <div className="form-control swc-w-full">
+      <div className="swc-form-control swc-w-full">
         <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs label-text">API Key</span>
+          <span className="swc-text-secondary swc-text-xs swc-label-text">
+            API Key
+          </span>
         </label>
         <input
           type="password"
@@ -35,7 +34,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
           defaultValue={claude.apikey || ""}
         ></input>
       </div>
-      <div className="form-control swc-w-full">
+      <div className="swc-form-control swc-w-full">
         <label className="swc-label">
           <span className="swc-text-secondary swc-text-xs swc-label-text">
             Model
@@ -44,13 +43,19 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
         <select
           defaultValue={claude.model}
           onChange={handleSetClaudeModel}
-          className="swc-select swc-select-bordered swc-w-full">
-          {["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307",
-            "claude-3-5-sonnet-latest", "claude-3-5-haiku-latest"].map((model) => (
-              <option key={model} value={model}>
-                {model}
-              </option>
-            ))}
+          className="swc-select swc-select-bordered swc-w-full"
+        >
+          {[
+            "claude-3-sonnet-20240229",
+            "claude-3-opus-20240229",
+            "claude-3-haiku-20240307",
+            "claude-3-5-sonnet-latest",
+            "claude-3-5-haiku-latest",
+          ].map((model) => (
+            <option key={model} value={model}>
+              {model}
+            </option>
+          ))}
         </select>
       </div>
       <p className="swc-text-sm swc-text-gray-500 swc-mt-2">
@@ -64,7 +69,6 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
         </a>
         <span>.</span>
       </p>
-
     </div>
   );
 };

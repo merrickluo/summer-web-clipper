@@ -13,10 +13,11 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
 
   return (
     <div className="swc-mt-2">
-
-      <div className="form-control swc-w-full">
+      <div className="swc-form-control swc-w-full">
         <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs label-text">API Key</span>
+          <span className="swc-text-secondary swc-text-xs swc-label-text">
+            API Key
+          </span>
         </label>
         <input
           type="password"
@@ -37,7 +38,6 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
         </a>
         <span>.</span>
       </p>
-
     </div>
   );
 };

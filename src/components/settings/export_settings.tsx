@@ -15,9 +15,11 @@ const ExportSettings = ({ settings, dispatch }: SettingsFormProps) => {
   );
 
   return (
-    <div className="form-control swc-w-full">
+    <div className="swc-form-control swc-w-full">
       <label className="swc-label">
-        <span className="swc-text-secondary swc-text-xs label-text">Exporter</span>
+        <span className="swc-text-secondary swc-text-xs swc-label-text">
+          Exporter
+        </span>
       </label>
       <select
         id="exporters"

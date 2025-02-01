@@ -46,8 +46,8 @@ const Options = () => {
   );
 
   return (
-    <main className="">
-      <Header subtitle="Settings" />
+    <main>
+      <Header subtitle="Options" />
       <div className="swc-flex swc-flex-row swc-mt-10">
         <nav className="swc-w-1/4">
           {settingPages.map(({ title, Icon }) => (
