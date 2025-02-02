@@ -41,15 +41,16 @@ const defaultPrompts = [
 ];
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
-  if (!options?.apikey) {
-    throw new Error("api key not set.");
+  if (!options?.baseURL || !options?.apikey || !options?.model) {
+    throw new Error(
+      "OpenAI backend is not properly configured, pls review it in Options."
+    );
   }
 
   let language = options.language || doc.language;
   let maxwords = Number(options.maxwords) || 12000;
-  let model = options.model || "gpt-4o-mini";
 
-  return await getCompletion(options.apikey, model, [
+  return await getCompletion(options.baseURL, options.apikey, options.model, [
     ...defaultPrompts,
     {
       role: "user",
