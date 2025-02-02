@@ -49,16 +49,16 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
 
   let language = options.language || doc.language;
   let maxwords = Number(options.maxwords) || 12000;
+  let languagePrompt = `summarize the above document in ${language}.`;
 
   return await getCompletion(options.baseURL, options.apikey, options.model, [
     ...defaultPrompts,
     {
       role: "user",
-      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxwords),
-    },
-    {
-      role: "user",
-      content: `summarize the above document in ${language}.`,
+      content: sanitizeContent(
+        `${doc.title}\n${doc.textContent}\n${languagePrompt}`,
+        maxwords
+      ),
     },
   ]);
 };
