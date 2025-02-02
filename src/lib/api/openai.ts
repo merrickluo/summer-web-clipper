@@ -15,7 +15,7 @@ interface ChatMessage {
 }
 
 export const getCompletion = async (
-  baseURL: string,
+  baseurl: string,
   apikey: string,
   model: string,
   messages: ChatMessage[]
@@ -26,7 +26,7 @@ export const getCompletion = async (
     messages: messages,
   };
 
-  const url = baseURL + "/v1/chat/completions";
+  const url = baseurl + "/v1/chat/completions";
   const data = await post(url, apikey, payload).then((r: any) => r.json());
 
   return data?.choices?.[0].message?.content;

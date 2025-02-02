@@ -145,7 +145,7 @@ export const updateSettings = async (
           ...settings.summarizers,
           openai: {
             ...settings.summarizers?.openai,
-            baseURL: action.payload as string,
+            baseurl: action.payload as string,
           },
         },
       };

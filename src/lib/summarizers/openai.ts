@@ -6,29 +6,29 @@ import { sanitizeContent, systemPrompt } from "./utils";
 
 interface OpenAIProvider {
   name: string;
-  baseURL: string;
+  baseurl: string;
   models: string[];
 }
 
 export const providers: OpenAIProvider[] = [
   {
     name: "openai",
-    baseURL: "https://api.openai.com",
+    baseurl: "https://api.openai.com",
     models: ["gpt-4o-mini", "gpt-4o", "o3-mini", "o1", "o1-mini"],
   },
   {
     name: "groq",
-    baseURL: "https://api.groq.com/openai",
+    baseurl: "https://api.groq.com/openai",
     models: ["llama-3.3-70b-versatile"],
   },
   {
     name: "mistral",
-    baseURL: "https://api.mistral.ai",
+    baseurl: "https://api.mistral.ai",
     models: ["mistral-large-latest"],
   },
   {
     name: "deepseek",
-    baseURL: "https://api.deepseek.com",
+    baseurl: "https://api.deepseek.com",
     models: ["deepseek-chat", "deepseek-reasoner"],
   },
 ];
@@ -41,7 +41,7 @@ const defaultPrompts = [
 ];
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
-  if (!options?.baseURL || !options?.apikey || !options?.model) {
+  if (!options?.baseurl || !options?.apikey || !options?.model) {
     throw new Error(
       "OpenAI backend is not properly configured, pls review it in Options."
     );
@@ -51,7 +51,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
   let maxwords = Number(options.maxwords) || 12000;
   let languagePrompt = `summarize the above document in ${language}.`;
 
-  return await getCompletion(options.baseURL, options.apikey, options.model, [
+  return await getCompletion(options.baseurl, options.apikey, options.model, [
     ...defaultPrompts,
     {
       role: "user",

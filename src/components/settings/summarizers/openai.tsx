@@ -9,7 +9,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
 
   const selectedProvider = useMemo(() => {
     return providers.find((p) => {
-      return p.baseURL === openai.baseURL;
+      return p.baseurl === openai.baseurl;
     });
   }, [openai]);
 
@@ -80,7 +80,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
 
         <input
           type="text"
-          defaultValue={openai.baseURL}
+          defaultValue={openai.baseurl}
           onChange={handleSetBaseURL}
           className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
           list="baseurl-options"
@@ -88,7 +88,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         />
         <datalist id="baseurl-options">
           {providers.map((p) => (
-            <option key={p.name} value={p.baseURL} />
+            <option key={p.name} value={p.baseurl} />
           ))}
         </datalist>
       </div>
