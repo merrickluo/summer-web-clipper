@@ -3,6 +3,18 @@ import { SyntheticEvent } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
 
+const availableModels = [
+  "gpt-4o-mini",
+  "gpt-4o",
+  "o3-mini",
+  "o1",
+  "o1-mini",
+  "deepseek-chat",
+  "deepseek-reasoner",
+  "llama-3.3-70b-versatile",
+  "mistral-large-latest",
+];
+
 const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { openai = {} } = {} } = settings;
 
@@ -64,23 +76,19 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           </span>
         </label>
 
-        <select
+        <input
+          type="text"
           defaultValue={openai.model}
           onChange={handleSetOpenAIModel}
-          className="swc-select swc-select-bordered swc-w-full"
-        >
-          {[
-            "gpt-4o-mini",
-            "gpt-4o",
-            "deepseek-chat",
-            "llama-3.3-70b-versatile",
-            "mistral-large-latest",
-          ].map((model) => (
-            <option key={model} value={model}>
-              {model}
-            </option>
+          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          list="model-options"
+          autoComplete="off"
+        />
+        <datalist id="model-options">
+          {availableModels.map((model) => (
+            <option key={model} value={model} />
           ))}
-        </select>
+        </datalist>
       </div>
 
       <div className="swc-form-control swc-w-full">
