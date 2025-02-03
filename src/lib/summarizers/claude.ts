@@ -20,7 +20,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
     const rsp = await api.messages.create({
         model: model, // https://docs.anthropic.com/claude/docs/models-overview
         max_tokens: 1024,
-        system: systemPrompt,
+        system: systemPrompt(doc.language),
         messages: [{ role: "user", content: docXml }],
         temperature: 0.16,
     });

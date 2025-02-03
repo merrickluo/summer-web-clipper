@@ -2,13 +2,16 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { sanitizeContent, systemPrompt } from "./utils";
 import { Summarizer } from "../summarizers";
 import GeminiSettings from "@components/settings/summarizers/gemini";
+import { Doc } from "@lib/readbility";
 
 const getCompletion = async (
   apikey: string,
+  language: string,
   content: string
 ): Promise<string> => {
   const genAI = new GoogleGenerativeAI(apikey);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-002" });
+
   const result = await model.generateContent({
     contents: [
       {
@@ -20,7 +23,7 @@ const getCompletion = async (
         ],
       },
     ],
-    systemInstruction: systemPrompt,
+    systemInstruction: systemPrompt(language),
   });
   return result.response.text();
 };
@@ -31,7 +34,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
   }
 
   const sanitized = sanitizeContent(`${doc.title}\n${doc.textContent}`, 20000);
-  return await getCompletion(options.apikey, sanitized);
+  return await getCompletion(options.apikey, doc.language, sanitized);
 };
 
 export default {

@@ -33,13 +33,6 @@ export const providers: OpenAIProvider[] = [
   },
 ];
 
-const defaultPrompts = [
-  {
-    role: "system",
-    content: systemPrompt,
-  },
-];
-
 const summarize = async (doc: Doc, options: any): Promise<string> => {
   if (!options?.baseurl || !options?.apikey || !options?.model) {
     throw new Error(
@@ -49,16 +42,15 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
 
   let language = options.language || doc.language;
   let maxwords = Number(options.maxwords) || 12000;
-  let languagePrompt = `summarize the above document in ${language}.`;
 
   return await getCompletion(options.baseurl, options.apikey, options.model, [
-    ...defaultPrompts,
+    {
+      role: "system",
+      content: systemPrompt(language),
+    },
     {
       role: "user",
-      content: sanitizeContent(
-        `${doc.title}\n${doc.textContent}\n${languagePrompt}`,
-        maxwords
-      ),
+      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxwords),
     },
   ]);
 };
