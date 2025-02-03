@@ -1,14 +1,28 @@
 import { SettingsFormProps } from "@src/components/types";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useMemo } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
+import { providers } from "@lib/summarizers/openai";
 
 const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { openai = {} } = {} } = settings;
 
+  const selectedProvider = useMemo(() => {
+    return providers.find((p) => {
+      return p.baseurl === openai.baseurl;
+    });
+  }, [openai]);
+
   const handleSetApikey = (event: SyntheticEvent<HTMLInputElement>) => {
     dispatch({
       type: "summarizers/openai/setApikey",
+      payload: event.currentTarget.value,
+    });
+  };
+
+  const handleSetBaseURL = (event: SyntheticEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "summarizers/openai/setBaseURL",
       payload: event.currentTarget.value,
     });
   };
@@ -60,27 +74,46 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
       <div className="swc-form-control swc-w-full">
         <label className="swc-label">
           <span className="swc-text-secondary swc-text-xs swc-label-text">
+            Base URL
+          </span>
+        </label>
+
+        <input
+          type="text"
+          defaultValue={openai.baseurl}
+          onChange={handleSetBaseURL}
+          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          list="baseurl-options"
+          autoComplete="off"
+        />
+        <datalist id="baseurl-options">
+          {providers.map((p) => (
+            <option key={p.name} value={p.baseurl} />
+          ))}
+        </datalist>
+      </div>
+
+      <div className="swc-form-control swc-w-full">
+        <label className="swc-label">
+          <span className="swc-text-secondary swc-text-xs swc-label-text">
             Model
           </span>
         </label>
 
-        <select
+        <input
+          type="text"
           defaultValue={openai.model}
           onChange={handleSetOpenAIModel}
-          className="swc-select swc-select-bordered swc-w-full"
-        >
-          {[
-            "gpt-4o-mini",
-            "gpt-4o",
-            "deepseek-chat",
-            "llama-3.3-70b-versatile",
-            "mistral-large-latest",
-          ].map((model) => (
-            <option key={model} value={model}>
-              {model}
-            </option>
-          ))}
-        </select>
+          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          list="model-options"
+          autoComplete="off"
+        />
+        <datalist id="model-options">
+          {selectedProvider &&
+            selectedProvider.models.map((model) => (
+              <option key={model} value={model} />
+            ))}
+        </datalist>
       </div>
 
       <div className="swc-form-control swc-w-full">

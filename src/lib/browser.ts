@@ -40,7 +40,7 @@ export const sendMessage = async (target: Message): Promise<any> => {
   // and it requires the function to throw, convert callback
   // result to throw error here
   if (resp.type == "error") {
-    throw resp.payload;
+    throw new Error(resp.payload);
   } else {
     return resp.payload;
   }

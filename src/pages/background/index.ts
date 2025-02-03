@@ -65,7 +65,15 @@ const handleMessageAsync = async (
 
     sendResponse({ type: "success", payload });
   } catch (e) {
-    return sendResponse({ type: "error", payload: e });
+    let payload = "unknown error";
+
+    if (typeof e === "string") {
+      payload = e;
+    } else if (e instanceof Error) {
+      payload = e.message;
+    }
+
+    return sendResponse({ type: "error", payload: payload });
   }
 };
 

@@ -4,31 +4,53 @@ import { getCompletion } from "../api/openai";
 import { Summarizer } from "../summarizers";
 import { sanitizeContent, systemPrompt } from "./utils";
 
-const defaultPrompts = [
+interface OpenAIProvider {
+  name: string;
+  baseurl: string;
+  models: string[];
+}
+
+export const providers: OpenAIProvider[] = [
   {
-    role: "system",
-    content: systemPrompt,
+    name: "openai",
+    baseurl: "https://api.openai.com",
+    models: ["gpt-4o-mini", "gpt-4o", "o3-mini", "o1", "o1-mini"],
+  },
+  {
+    name: "groq",
+    baseurl: "https://api.groq.com/openai",
+    models: ["llama-3.3-70b-versatile"],
+  },
+  {
+    name: "mistral",
+    baseurl: "https://api.mistral.ai",
+    models: ["mistral-large-latest"],
+  },
+  {
+    name: "deepseek",
+    baseurl: "https://api.deepseek.com",
+    models: ["deepseek-chat", "deepseek-reasoner"],
   },
 ];
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
-  if (!options?.apikey) {
-    throw new Error("openai/groq/mistral api key not set.");
+  if (!options?.baseurl || !options?.apikey || !options?.model) {
+    throw new Error(
+      "OpenAI backend is not properly configured, pls review it in Options."
+    );
   }
 
   let language = options.language || doc.language;
   let maxwords = Number(options.maxwords) || 12000;
-  let model = options.model || "gpt-4o-mini";
 
-  return await getCompletion(options.apikey, model, [
-    ...defaultPrompts,
+  return await getCompletion(options.baseurl, options.apikey, options.model, [
     {
-      role: "user",
-      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxwords),
+      role: "system",
+      content: systemPrompt(language),
     },
     {
       role: "user",
-      content: `summarize the above document in ${language}.`,
+      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxwords),
     },
   ]);
 };

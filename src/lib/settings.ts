@@ -18,7 +18,8 @@ export type SettingsActionType =
   | "summarizers/openai/setLanguage"
   | "exporters/orgmode/setTemplate"
   | "summarizers/openai/setMaxWords"
-  | "summarizers/openai/setOpenAIModel";
+  | "summarizers/openai/setOpenAIModel"
+  | "summarizers/openai/setBaseURL";
 
 export interface SettingsAction {
   type: SettingsActionType;
@@ -135,7 +136,19 @@ export const updateSettings = async (
           },
         },
       };
-
+      break;
+    case "summarizers/openai/setBaseURL":
+      console.log("set base url: ", action);
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          openai: {
+            ...settings.summarizers?.openai,
+            baseurl: action.payload as string,
+          },
+        },
+      };
       break;
     case "exporters/orgmode/setTemplate":
       settings = {
