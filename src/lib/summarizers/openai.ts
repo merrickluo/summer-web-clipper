@@ -14,7 +14,7 @@ export const providers: OpenAIProvider[] = [
   {
     name: "openai",
     baseurl: "https://api.openai.com",
-    models: ["gpt-4o-mini", "gpt-4o", "o3-mini", "o1", "o1-mini"],
+    models: ["gpt-4.1-mini", "gpt-4.1", "o4-mini", "o3"],
   },
   {
     name: "groq",
