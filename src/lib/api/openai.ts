@@ -20,11 +20,17 @@ export const getCompletion = async (
   model: string,
   messages: ChatMessage[]
 ): Promise<string> => {
-  const payload = {
-    model: model,
-    temperature: 0,
-    messages: messages,
+  let payload = {
+    'model': model,
+    'messages': messages,
+    // reasoning model and beta feature
+    'temperature': 0,
+    'service_tier': 'auto',
   };
+  if (model.startsWith("o4-mini")) {
+    payload['service_tier'] = 'flex';
+    payload['temperature'] = 1;
+  }
 
   const url = baseurl + "/v1/chat/completions";
   const data = await post(url, apikey, payload).then((r: any) => r.json());

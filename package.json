@@ -54,6 +54,6 @@
     "tailwindcss-scoped-preflight": "^3.4.10",
     "ts-jest": "^29.0.5",
     "tsx": "^4.19.1",
-    "web-ext": "^8.3.0"
+    "web-ext": "^8.5.0"
   }
 }
