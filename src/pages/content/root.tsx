@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AiOutlineClose } from "react-icons/ai";
 
 import Header from "@components/header";
