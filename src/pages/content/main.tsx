@@ -1,5 +1,5 @@
 import { Doc, parseDocument } from "@lib/readbility";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { BiRefresh } from "react-icons/bi";
 import { useMemo } from "react";
 import { loadSettings } from "@lib/settings";
@@ -47,21 +47,20 @@ const doExport = async ({ exporterId, doc, summary }: ExportParams) => {
 };
 
 const Main = () => {
-  const doc = useQuery("doc", fetchDoc, { retry: false });
-  const { data: settings } = useQuery("settings", loadSettings, {
-    retry: false,
-  });
+  const doc = useQuery({ queryKey: ["doc"], queryFn: fetchDoc, retry: false });
+  const { data: settings } = useQuery({ queryKey: ["settings"], queryFn: loadSettings, retry: false });
 
   const hasSelectedSummarizer = useMemo(() => {
     return settings && !!selectedSummarizer(settings);
   }, [settings]);
 
-  const summary = useQuery("summary", () => fetchSummary(doc.data!), {
-    enabled:
-      !!doc.data && hasSelectedSummarizer && settings?.general?.autoSummary,
+  const summary = useQuery({ 
+    queryKey: ["summary"], 
+    queryFn: () => fetchSummary(doc.data!), 
+    enabled: !!doc.data && hasSelectedSummarizer && settings?.general?.autoSummary,
   });
 
-  const mutation = useMutation(doExport);
+  const mutation = useMutation({ mutationFn: doExport });
 
   return (
     <div className="swc-p-3 swc-overflow-y-auto swc-flex swc-flex-col">

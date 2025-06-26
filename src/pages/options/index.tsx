@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AiOutlineExport, AiOutlineSetting } from "react-icons/ai";
 import { GiArtificialIntelligence } from "react-icons/gi";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "./style.css";
 import SettingWrapper from "./setting_wrapper";
@@ -40,7 +40,9 @@ const Options = () => {
         return p.title == title;
       });
 
-      setSelectedPage(page);
+      if (page) {
+        setSelectedPage(page);
+      }
     },
     [setSelectedPage]
   );

@@ -5,7 +5,7 @@ import {
   SettingsAction,
   updateSettings,
 } from "@lib/settings";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface SettingWrapperProps {
   title: string;
@@ -14,25 +14,23 @@ interface SettingWrapperProps {
 
 const SettingWrapper = ({ title, Content }: SettingWrapperProps) => {
   const queryClient = useQueryClient();
-  const { isLoading, data, error } = useQuery<Settings>(
-    "settings",
-    loadSettings
-  );
+  const { isLoading, data, error } = useQuery<Settings>({
+    queryKey: ["settings"],
+    queryFn: loadSettings,
+  });
 
-  const { mutate: dispatch } = useMutation(
-    async (action: SettingsAction) => {
+  const { mutate: dispatch } = useMutation({
+    mutationFn: async (action: SettingsAction) => {
       if (!data) {
         return;
       }
 
       return await updateSettings(data, action);
     },
-    {
-      onSuccess: (data) => {
-        queryClient.setQueryData("settings", data);
-      },
-    }
-  );
+    onSuccess: (newData) => {
+      queryClient.setQueryData(["settings"], newData);
+    },
+  });
 
   if (isLoading || !data) {
     return <div>Loading Settings</div>;
