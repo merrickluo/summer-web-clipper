@@ -14,6 +14,7 @@ export type SettingsActionType =
   | "summarizers/claude/setApikey"
   | "summarizers/claude/setClaudeModel"
   | "summarizers/gemini/setApikey"
+  | "summarizers/gemini/setGeminiModel"
   | "summarizers/openai/setApikey"
   | "summarizers/openai/setLanguage"
   | "exporters/orgmode/setTemplate"
@@ -81,6 +82,19 @@ export const updateSettings = async (
           gemini: {
             ...settings.summarizers?.gemini,
             apikey: action.payload as string,
+          },
+        },
+      };
+
+      break;
+    case "summarizers/gemini/setGeminiModel":
+      settings = {
+        ...settings,
+        summarizers: {
+          ...settings.summarizers,
+          gemini: {
+            ...settings.summarizers?.gemini,
+            model: action.payload as string,
           },
         },
       };
