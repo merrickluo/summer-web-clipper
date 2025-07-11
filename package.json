@@ -50,7 +50,7 @@
     "esbuild-style-plugin": "^1.6.3",
     "jest": "^29.5.0",
     "postcss": "^8.4.21",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.11",
     "tailwindcss-scoped-preflight": "^3.4.10",
     "ts-jest": "^29.0.5",
     "tsx": "^4.19.1",
