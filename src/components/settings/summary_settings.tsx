@@ -17,15 +17,15 @@ const SummarySettings = ({ settings, dispatch }: SettingsFormProps) => {
 
   return (
     <div>
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
+      <div className="swc:form-control swc:w-full">
+        <label className="swc:label">
+          <span className="swc:text-secondary swc:text-xs swc:label-text">
             Provider
           </span>
         </label>
         <select
           id="summarizers"
-          className="swc-select swc-select-bordered swc-w-full"
+          className="swc:select swc:select-bordered swc:w-full"
           onChange={handleSelectSummarizer}
           defaultValue={selected?.id}
         >

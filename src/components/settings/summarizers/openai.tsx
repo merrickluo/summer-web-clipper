@@ -49,10 +49,10 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="swc-mt-2">
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
+    <div className="swc:mt-2">
+      <div className="swc:form-control swc:w-full">
+        <label className="swc:label">
+          <span className="swc:text-secondary swc:text-xs swc:label-text">
             Summary Language
           </span>
         </label>
@@ -60,7 +60,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <select
           defaultValue={openai.language}
           onChange={handleSetLanguage}
-          className="swc-select swc-select-bordered swc-w-full"
+          className="swc:select swc:select-bordered swc:w-full"
         >
           <option value="">Follow article</option>
           {topLanguages.map((code) => (
@@ -71,9 +71,9 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </select>
       </div>
 
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
+      <div className="swc:form-control swc:w-full">
+        <label className="swc:label">
+          <span className="swc:text-secondary swc:text-xs swc:label-text">
             Base URL
           </span>
         </label>
@@ -82,7 +82,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           type="text"
           defaultValue={openai.baseurl}
           onChange={handleSetBaseURL}
-          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          className="swc:block swc:p-2.5 swc:w-full swc:text-sm swc:text-gray-900 swc:bg-gray-50 swc:rounded-lg swc:border swc:border-gray-300 focus:swc:ring-blue-500 focus:swc:border-blue-500"
           list="baseurl-options"
           autoComplete="off"
         />
@@ -93,9 +93,9 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </datalist>
       </div>
 
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
+      <div className="swc:form-control swc:w-full">
+        <label className="swc:label">
+          <span className="swc:text-secondary swc:text-xs swc:label-text">
             Model
           </span>
         </label>
@@ -104,7 +104,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           type="text"
           defaultValue={openai.model}
           onChange={handleSetOpenAIModel}
-          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          className="swc:block swc:p-2.5 swc:w-full swc:text-sm swc:text-gray-900 swc:bg-gray-50 swc:rounded-lg swc:border swc:border-gray-300 focus:swc:ring-blue-500 focus:swc:border-blue-500"
           list="model-options"
           autoComplete="off"
         />
@@ -116,9 +116,9 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </datalist>
       </div>
 
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
+      <div className="swc:form-control swc:w-full">
+        <label className="swc:label">
+          <span className="swc:text-secondary swc:text-xs swc:label-text">
             API Key
           </span>
         </label>
@@ -126,14 +126,14 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           type="password"
           id="apikey"
           onChange={handleSetApikey}
-          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          className="swc:block swc:p-2.5 swc:w-full swc:text-sm swc:text-gray-900 swc:bg-gray-50 swc:rounded-lg swc:border swc:border-gray-300 focus:swc:ring-blue-500 focus:swc:border-blue-500"
           defaultValue={openai.apikey || ""}
         ></input>
       </div>
-      <p className="swc-text-sm swc-text-gray-500 swc-mt-2">
+      <p className="swc:text-sm swc:text-gray-500 swc:mt-2">
         <span>Find your API Key in the</span>
         <a
-          className="swc-underline hover:swc-text-blue-600 swc-ml-1"
+          className="swc:underline hover:swc:text-blue-600 swc:ml-1"
           href="https://platform.openai.com/account/api-keys"
           target="_blank"
         >
@@ -141,7 +141,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </a>{" "}
         or
         <a
-          className="swc-underline hover:swc-text-blue-600 swc-ml-1"
+          className="swc:underline hover:swc:text-blue-600 swc:ml-1"
           href="https://console.groq.com/keys"
           target="_blank"
         >
@@ -149,7 +149,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </a>{" "}
         or
         <a
-          className="swc-underline hover:swc-text-blue-600 swc-ml-1"
+          className="swc:underline hover:swc:text-blue-600 swc:ml-1"
           href="https://console.mistral.ai/api-keys/"
           target="_blank"
         >
@@ -158,20 +158,20 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <span>.</span>
       </p>
 
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
+      <div className="swc:form-control swc:w-full">
+        <label className="swc:label">
+          <span className="swc:text-secondary swc:text-xs swc:label-text">
             Max Words for Summerization
           </span>
         </label>
         <input
           id="maxwords"
           onChange={handleSetMaxWords}
-          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          className="swc:block swc:p-2.5 swc:w-full swc:text-sm swc:text-gray-900 swc:bg-gray-50 swc:rounded-lg swc:border swc:border-gray-300 focus:swc:ring-blue-500 focus:swc:border-blue-500"
           defaultValue={openai.maxwords || 12000}
         ></input>
       </div>
-      <p className="swc-text-sm swc-text-gray-500 swc-mt-2">
+      <p className="swc:text-sm swc:text-gray-500 swc:mt-2">
         <span>
           Default to 12000 words and GPT-4o-mini, should be enough for most
           tabs.

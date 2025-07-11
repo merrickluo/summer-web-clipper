@@ -64,9 +64,9 @@ const Main = () => {
   const mutation = useMutation(doExport);
 
   return (
-    <div className="swc-p-3 swc-overflow-y-auto swc-flex swc-flex-col">
-      <div className="swc-flex swc-justify-between swc-items-end">
-        <h1 className="swc-p-0 swc-text-base swc-font-bold swc-ml-1 swc-mt-1">
+    <div className="swc:p-3 swc:overflow-y-auto swc:flex swc:flex-col">
+      <div className="swc:flex swc:justify-between swc:items-end">
+        <h1 className="swc:p-0 swc:text-base swc:font-bold swc:ml-1 swc:mt-1">
           {doc.isLoading
             ? "Parsing page..."
             : doc.isError
@@ -75,20 +75,20 @@ const Main = () => {
         </h1>
         <BiRefresh
           onClick={() => summary.refetch()}
-          className={`swc-w-6 swc-h-6 hover:swc-text-blue-600 swc-mr-2 ${
-            summary.isFetching ? "swc-animate-spin" : ""
+          className={`swc:w-6 swc:h-6 hover:swc:text-blue-600 swc:mr-2 ${
+            summary.isFetching ? "swc:animate-spin" : ""
           }`}
         />
       </div>
-      <div className="swc-flex-1 swc-text-base swc-bg-white swc-mt-2 swc-p-2 swc-rounded-lg swc-border-1 swc-border-gray-300">
+      <div className="swc:flex-1 swc:text-base swc:bg-white swc:mt-2 swc:p-2 swc:rounded-lg swc:border-1 swc:border-gray-300">
         <Summary
           summary={summary}
           valid={!!hasSelectedSummarizer}
           auto={settings?.general?.autoSummary}
         />
       </div>
-      <div className="swc-mt-6 swc-mb-3 swc-mr-3 swc-flex swc-justify-end swc-items-center">
-        <p className="swc-text-sm swc-text-gray-300">Save clip to...</p>
+      <div className="swc:mt-6 swc:mb-3 swc:mr-3 swc:flex swc:justify-end swc:items-center">
+        <p className="swc:text-sm swc:text-gray-300">Save clip to...</p>
         <>
           {availableExporters.map((exp) => (
             <exp.Icon
@@ -100,7 +100,7 @@ const Main = () => {
                   summary: summary.data,
                 });
               }}
-              className="swc-w-6 swc-h-6 swc-ml-3 hover:swc-text-blue-600"
+              className="swc:w-6 swc:h-6 swc:ml-3 hover:swc:text-blue-600"
             />
           ))}
         </>
