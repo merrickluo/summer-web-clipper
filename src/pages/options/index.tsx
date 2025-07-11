@@ -4,7 +4,7 @@ import { AiOutlineExport, AiOutlineSetting } from "react-icons/ai";
 import { GiArtificialIntelligence } from "react-icons/gi";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import "./style.css";
+import "../style.css";
 import SettingWrapper from "./setting_wrapper";
 import MenuItem from "@components/menu_item";
 import GeneralSettings from "@components/settings/general_settings";
@@ -42,7 +42,7 @@ const Options = () => {
 
       setSelectedPage(page);
     },
-    [setSelectedPage]
+    [setSelectedPage],
   );
 
   return (

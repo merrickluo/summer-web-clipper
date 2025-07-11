@@ -1,0 +1,13 @@
+@import "tailwindcss" prefix(swc);
+
+@plugin "daisyui";
+
+@theme {
+    --color-primary: #334155; /* slate-700 */
+    --color-secondary: #9ca3af; /* gray-400 */
+
+    --spacing-1\/2: 50%;
+    --spacing-3\/4: 75%;
+
+    --z-index-999: 999;
+}
