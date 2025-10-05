@@ -1,27 +1,14 @@
 @layer theme, base, components, utilities;
 
-@import "tailwindcss/theme.css" layer(theme) prefix(swc);
-/* @import "tailwindcss/preflight.css" layer(base); */
-@import "tailwindcss/utilities.css" layer(utilities) prefix(swc);
+@import "tailwindcss/theme.css" layer(theme) prefix(swc) important;
+@import "tailwindcss/utilities.css" layer(utilities) prefix(swc) important;
 
 @layer base {
-    [data-swc-preflight] {
-        @import "tailwindcss/preflight.css";
-    }
-
     #swc-root {
-        @import "tailwindcss/preflight.css";
+        @import "tailwindcss/preflight.css" important;
     }
 }
 
 @plugin "daisyui";
 
-@theme {
-    --color-primary: #334155; /* slate-700 */
-    --color-secondary: #9ca3af; /* gray-400 */
-
-    --spacing-1\/2: 50%;
-    --spacing-3\/4: 75%;
-
-    --z-index-999: 999;
-}
+@import "../style.css";
