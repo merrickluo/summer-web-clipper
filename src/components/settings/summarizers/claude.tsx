@@ -42,11 +42,9 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
           className="swc:select swc:select-bordered swc:w-full"
         >
           {[
-            "claude-3-sonnet-20240229",
-            "claude-3-opus-20240229",
-            "claude-3-haiku-20240307",
-            "claude-3-5-sonnet-latest",
             "claude-3-5-haiku-latest",
+            "claude-sonnet-4-5-20250929",
+            "claude-opus-4-1-20250805",
           ].map((model) => (
             <option key={model} value={model}>
               {model}
