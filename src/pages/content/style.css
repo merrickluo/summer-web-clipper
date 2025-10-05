@@ -9,6 +9,8 @@
     }
 }
 
-@plugin "daisyui";
+@plugin "daisyui" {
+    root: "#swc-root";
+}
 
 @import "../style.css";
