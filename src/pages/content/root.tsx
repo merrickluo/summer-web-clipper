@@ -27,7 +27,7 @@ const Root = () => {
         }}
       />
     ),
-    [setHidden]
+    [setHidden],
   );
 
   if (hidden) {
