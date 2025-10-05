@@ -29,9 +29,7 @@ export function loadBuildOptions(debug = false): BuildOptions[] {
         stylePlugin({
           postcss: {
             plugins: [
-              require("postcss-import"),
-              require("tailwindcss"),
-              require("autoprefixer"),
+              require("@tailwindcss/postcss"),
               require("@thedutchcoder/postcss-rem-to-px"),
             ],
           },

@@ -20,19 +20,29 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="swc-mt-2">
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
-            Model
-          </span>
-        </label>
+    <fieldset className="swc:fieldset swc:mt-2">
+      <legend className="swc:fieldset-legend swc:text-secondary">Gemini</legend>
+
+      <label className="swc:floating-label swc:mt-4">
+        <span>API Key</span>
+
+        <input
+          type="password"
+          id="apikey"
+          onChange={handleSetApikey}
+          className="swc:block swc:p-2.5 swc:w-full swc:text-sm swc:text-gray-900 swc:bg-gray-50 swc:rounded-lg swc:border swc:border-gray-300 focus:swc:ring-blue-500 focus:swc:border-blue-500"
+          defaultValue={gemini.apikey || ""}
+        ></input>
+      </label>
+
+      <label className="swc:floating-label swc:mt-4">
+        <span>Model</span>
 
         <input
           type="text"
           defaultValue={gemini.model || DEFAULT_GEMINI_MODEL}
           onChange={handleSetGeminiModel}
-          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
+          className="swc:input swc:w-full"
           list="model-options"
           autoComplete="off"
         />
@@ -41,26 +51,12 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
             <option key={model} value={model} />
           ))}
         </datalist>
-      </div>
+      </label>
 
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
-            API Key
-          </span>
-        </label>
-        <input
-          type="password"
-          id="apikey"
-          onChange={handleSetApikey}
-          className="swc-block swc-p-2.5 swc-w-full swc-text-sm swc-text-gray-900 swc-bg-gray-50 swc-rounded-lg swc-border swc-border-gray-300 focus:swc-ring-blue-500 focus:swc-border-blue-500"
-          defaultValue={gemini.apikey || ""}
-        ></input>
-      </div>
-      <p className="swc-text-sm swc-text-gray-500 swc-mt-2">
+      <p className="swc:text-sm swc:text-gray-500 swc:mt-2">
         <span>Find your API Key in the</span>
         <a
-          className="swc-underline hover:swc-text-blue-600 swc-ml-1"
+          className="swc:underline hover:swc:text-blue-600 swc:ml-1"
           href="https://aistudio.google.com/app/apikey"
           target="_blank"
         >
@@ -68,7 +64,7 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
         </a>
         <span>.</span>
       </p>
-    </div>
+    </fieldset>
   );
 };
 

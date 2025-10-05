@@ -11,29 +11,30 @@ const ExportSettings = ({ settings, dispatch }: SettingsFormProps) => {
         findExporter(event.currentTarget.value) || availableExporters[0];
       setSelected(exporter);
     },
-    [setSelected]
+    [setSelected],
   );
 
   return (
-    <div className="swc-form-control swc-w-full">
-      <label className="swc-label">
-        <span className="swc-text-secondary swc-text-xs swc-label-text">
-          Exporter
-        </span>
-      </label>
-      <select
-        id="exporters"
-        className="swc-select swc-select-bordered swc-w-full"
-        onChange={handleSelectExporter}
-        defaultValue={selected?.id}
-      >
-        <option key="emtpy">Select exporter</option>
-        {availableExporters.map(({ id, name }) => (
-          <option key={id} value={id}>
-            {name}
-          </option>
-        ))}
-      </select>
+    <div className="swc:w-full">
+      <fieldset className="swc:fieldset swc:w-full">
+        <label className="swc:input swc:w-full">
+          <span className="swc:label">Exporter</span>
+          <select
+            id="exporters"
+            onChange={handleSelectExporter}
+            className="swc:w-full"
+            defaultValue={selected?.id}
+          >
+            <option key="emtpy">Select exporter</option>
+            {availableExporters.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+
       {selected && (
         <selected.SettingsComp settings={settings} dispatch={dispatch} />
       )}

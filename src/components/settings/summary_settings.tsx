@@ -12,31 +12,28 @@ const SummarySettings = ({ settings, dispatch }: SettingsFormProps) => {
         payload: event.currentTarget.value,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   return (
     <div>
-      <div className="swc-form-control swc-w-full">
-        <label className="swc-label">
-          <span className="swc-text-secondary swc-text-xs swc-label-text">
-            Provider
-          </span>
+      <fieldset className="swc:fieldset swc:w-full">
+        <label className="swc:select swc:w-full">
+          <span className="swc:label">Provider</span>
+          <select
+            id="summarizers"
+            onChange={handleSelectSummarizer}
+            defaultValue={selected?.id}
+          >
+            <option key="empty">Select provider</option>
+            {availableSummarizers.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
         </label>
-        <select
-          id="summarizers"
-          className="swc-select swc-select-bordered swc-w-full"
-          onChange={handleSelectSummarizer}
-          defaultValue={selected?.id}
-        >
-          <option key="empty">Select provider</option>
-          {availableSummarizers.map(({ id, name }) => (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          ))}
-        </select>
-      </div>
+      </fieldset>
       {selected && (
         <selected.SettingsComp settings={settings} dispatch={dispatch} />
       )}

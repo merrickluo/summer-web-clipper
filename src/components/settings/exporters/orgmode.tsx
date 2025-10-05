@@ -12,21 +12,23 @@ const OrgModeSettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="swc-form-control swc-w-full">
-      <label className="swc-label">
-        <span className="swc-text-secondary swc-text-xs swc-label-text">
-          Template
-        </span>
+    <fieldset className="swc:fieldset swc:mt-2">
+      <legend className="swc:fieldset-legend swc:text-secondary">
+        Org Mode
+      </legend>
+
+      <label className="swc:floating-label">
+        <span>Template</span>
+        <textarea
+          id="template"
+          rows={3}
+          onChange={handleSetTemplate}
+          className="swc:textarea swc:w-full"
+          placeholder="org-protocol://roam-ref?template=s&ref={url}&title={title}&body={summary}"
+          defaultValue={orgmode.template || ""}
+        ></textarea>
       </label>
-      <textarea
-        id="template"
-        rows={3}
-        onChange={handleSetTemplate}
-        className="swc-textarea swc-textarea-bordered"
-        placeholder="org-protocol://roam-ref?template=s&ref={url}&title={title}&body={summary}"
-        defaultValue={orgmode.template || ""}
-      ></textarea>
-    </div>
+    </fieldset>
   );
 };
 

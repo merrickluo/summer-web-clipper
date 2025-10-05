@@ -1,3 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme) prefix(swc) important;
+@import "tailwindcss/utilities.css" layer(utilities) prefix(swc) important;
+
+@layer base {
+    #swc-root {
+        @import "tailwindcss/preflight.css" important;
+    }
+}
+
+@plugin "daisyui" {
+    root: "#swc-root";
+}
+
+@import "../style.css";

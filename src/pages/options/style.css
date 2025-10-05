@@ -1,3 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" prefix(swc);
+@plugin "daisyui";
+
+@import "../style.css";
+
+/* form labels */
+@utility floating-label {
+    span {
+        @apply swc:text-secondary;
+    }
+}

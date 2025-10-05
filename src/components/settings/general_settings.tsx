@@ -12,17 +12,17 @@ const GeneralSettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="swc-form-control">
-      <label className="swc-label swc-cursor-pointer">
-        <span>Auto Generate Summary on Open</span>
+    <fieldset className="swc:fieldset">
+      <label className="swc:label swc:cursor-pointer">
         <input
           type="checkbox"
-          className="swc-toggle"
+          className="swc:toggle"
           defaultChecked={general.autoSummary}
           onChange={handleChangeAutoSummary}
         />
+        <span className="swc:text-base">Auto Generate Summary on Open</span>
       </label>
-    </div>
+    </fieldset>
   );
 };
 
