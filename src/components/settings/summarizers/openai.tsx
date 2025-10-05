@@ -74,6 +74,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <span>Base URL</span>
         <input
           type="text"
+          placeholder="https://api.openai.com"
           defaultValue={openai.baseurl}
           onChange={handleSetBaseURL}
           className="swc:input swc:w-full"
