@@ -9,7 +9,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
         throw new Error("Claude API key not set");
     }
 
-    const model = options.model ?? "claude-3-haiku-20240307";
+    const model = options.model ?? "claude-3-5-haiku-latest";
     const api = new Anthropic({
         apiKey: options.apikey,
         dangerouslyAllowBrowser: true,
@@ -19,12 +19,20 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
     )}</document>`;
     const rsp = await api.messages.create({
         model: model, // https://docs.anthropic.com/claude/docs/models-overview
-        max_tokens: 1024,
+        max_tokens: 1536,
         system: systemPrompt(doc.language),
         messages: [{ role: "user", content: docXml }],
         temperature: 0.16,
+
     });
-    return rsp.content[0].text;
+    let summary = '';
+    for (const block of rsp.content) {
+        // no thinking block yet, make lint happy
+        if (block.type === "text") {
+            summary = block.text;
+        }
+    }
+    return summary;
 };
 
 export default {

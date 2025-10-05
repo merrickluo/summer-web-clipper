@@ -27,7 +27,7 @@ export const getCompletion = async (
     'temperature': 0,
     'service_tier': 'auto',
   };
-  if (model.startsWith("o4-mini")) {
+  if (model === "o3" || model === "o4-mini" || model.startsWith("gpt-5")) {
     payload['service_tier'] = 'flex';
     payload['temperature'] = 1;
   }
