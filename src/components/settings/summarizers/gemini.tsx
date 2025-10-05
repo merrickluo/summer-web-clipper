@@ -1,5 +1,6 @@
 import { SettingsFormProps } from "@src/components/types";
 import { SyntheticEvent } from "react";
+import { geminiModels, DEFAULT_GEMINI_MODEL } from "@lib/summarizers/gemini";
 
 const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { gemini = {} } = {} } = settings;
@@ -11,12 +12,20 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   };
 
+  const handleSetGeminiModel = (event: SyntheticEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "summarizers/gemini/setGeminiModel",
+      payload: event.currentTarget.value,
+    });
+  };
+
   return (
     <fieldset className="swc:fieldset swc:mt-2">
       <legend className="swc:fieldset-legend swc:text-secondary">Gemini</legend>
 
       <label className="swc:floating-label swc:mt-4">
         <span>API Key</span>
+
         <input
           type="password"
           id="apikey"
@@ -26,14 +35,32 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
         ></input>
       </label>
 
+      <label className="swc:floating-label swc:mt-4">
+        <span>Model</span>
+
+        <input
+          type="text"
+          defaultValue={gemini.model || DEFAULT_GEMINI_MODEL}
+          onChange={handleSetGeminiModel}
+          className="swc:input swc:w-full"
+          list="model-options"
+          autoComplete="off"
+        />
+        <datalist id="model-options">
+          {geminiModels.map((model) => (
+            <option key={model} value={model} />
+          ))}
+        </datalist>
+      </label>
+
       <p className="swc:text-sm swc:text-gray-500 swc:mt-2">
         <span>Find your API Key in the</span>
         <a
           className="swc:underline hover:swc:text-blue-600 swc:ml-1"
-          href="https://console.cloud.google.com/vertex-ai/generative"
+          href="https://aistudio.google.com/app/apikey"
           target="_blank"
         >
-          Google Cloud Console
+          Google AI Studio
         </a>
         <span>.</span>
       </p>
