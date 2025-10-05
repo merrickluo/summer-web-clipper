@@ -2,7 +2,7 @@ import { addMessageListener, ContentMessage } from "@lib/browser";
 import { parseDocument } from "@lib/readbility";
 import { createRoot } from "react-dom/client";
 
-import "../style.css";
+import "./style.css";
 import Root from "./root";
 
 const addEventListeners = () => {
@@ -30,7 +30,7 @@ const addEventListeners = () => {
 
 addEventListeners();
 
-let rootId = "summer-web-clipper-root";
+let rootId = "swc-root";
 let contentRoot = document.getElementById(rootId);
 if (!contentRoot) {
   contentRoot = document.createElement("div");
