@@ -19,27 +19,23 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
   };
 
   return (
-    <div className="swc:mt-2">
-      <div className="swc:form-control swc:w-full">
-        <label className="swc:label">
-          <span className="swc:text-secondary swc:text-xs swc:label-text">
-            API Key
-          </span>
-        </label>
+    <fieldset className="swc:fieldset swc:mt-3">
+      <legend className="swc:fieldset-legend swc:text-secondary">
+        Claude AI
+      </legend>
+
+      <label className="swc:floating-label swc:mt-4">
+        <span>API Key</span>
         <input
           type="password"
           id="apikey"
+          className="swc:input swc:w-full"
           onChange={handleSetApikey}
-          className="swc:block swc:p-2.5 swc:w-full swc:text-sm swc:text-gray-900 swc:bg-gray-50 swc:rounded-lg swc:border swc:border-gray-300 focus:swc:ring-blue-500 focus:swc:border-blue-500"
           defaultValue={claude.apikey || ""}
-        ></input>
-      </div>
-      <div className="swc:form-control swc:w-full">
-        <label className="swc:label">
-          <span className="swc:text-secondary swc:text-xs swc:label-text">
-            Model
-          </span>
-        </label>
+        />
+      </label>
+      <label className="swc:floating-label swc:mt-4">
+        <span>Model</span>
         <select
           defaultValue={claude.model}
           onChange={handleSetClaudeModel}
@@ -57,7 +53,8 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
             </option>
           ))}
         </select>
-      </div>
+      </label>
+
       <p className="swc:text-sm swc:text-gray-500 swc:mt-2">
         <span>Find your API Key in the</span>
         <a
@@ -69,7 +66,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
         </a>
         <span>.</span>
       </p>
-    </div>
+    </fieldset>
   );
 };
 
