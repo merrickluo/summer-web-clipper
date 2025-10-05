@@ -2,3 +2,10 @@
 @plugin "daisyui";
 
 @import "../style.css";
+
+/* form labels */
+@utility floating-label {
+    span {
+        @apply swc:text-secondary;
+    }
+}
