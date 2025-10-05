@@ -3,11 +3,12 @@ import { availableExporters, findExporter } from "@lib/exporters";
 import { SyntheticEvent, useCallback, useState } from "react";
 
 const ExportSettings = ({ settings, dispatch }: SettingsFormProps) => {
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState(availableExporters[0]);
 
   const handleSelectExporter = useCallback(
     (event: SyntheticEvent<HTMLSelectElement>) => {
-      const exporter = findExporter(event.currentTarget.value);
+      const exporter =
+        findExporter(event.currentTarget.value) || availableExporters[0];
       setSelected(exporter);
     },
     [setSelected],
