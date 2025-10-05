@@ -61,7 +61,7 @@ const Main = () => {
   const summary = useQuery({
     queryKey: ["summary"],
     queryFn: () => fetchSummary(doc.data!),
-    enabled: settings?.general?.autoSummary,
+    enabled: !!settings?.general?.autoSummary,
   });
 
   const mutation = useMutation({ mutationFn: doExport });
