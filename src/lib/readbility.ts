@@ -1,5 +1,4 @@
 import { isProbablyReaderable, Readability } from "@mozilla/readability";
-import { YoutubeTranscript } from "youtube-transcript";
 
 export interface Doc {
   title: string;
@@ -44,23 +43,25 @@ export const parseDocument = async (isYoutube): Promise<Doc> => {
 };
 
 const getYoutubeTranscript = async (): Promise<Doc> => {
-  const resp = await YoutubeTranscript.fetchTranscript(window.location.href);
-  if (resp.length <= 0) {
-    throw new Error("transcript not found");
+  const response = await chrome.runtime.sendMessage({
+    action: "fetch_youtube_transcript",
+    payload: window.location.href
+  });
+
+  if (response.type === "error") {
+    throw new Error(response.payload);
   }
 
-  const language = resp[0].lang || "en";
-  const textContent = resp.map((it) => it.text).join(" ");
-
-  console.debug("got Youtube transcript: ", textContent);
-
-  // TODO: maybe fill other attributes. right now only language, title, textContent is used.
+  const data = response.payload;
+  const result = data.transcriptionResults[0];
+  const textContent = result.transcript.map((s: any) => s.text).join(" ");
+  
   return {
     url: window.location.href,
     readable: true,
     youtube: true,
-    title: document.title,
-    language,
+    title: result.videoTitle || document.title,
+    language: "en",
     textContent,
   };
 };

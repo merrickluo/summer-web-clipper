@@ -4,7 +4,7 @@ export interface ContentMessage {
 }
 
 export interface BackgroundMessage {
-  action: "summarize" | "export";
+  action: "summarize" | "export" | "fetch_youtube_transcript";
   payload?: any;
 }
 
