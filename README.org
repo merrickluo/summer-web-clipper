@@ -30,11 +30,10 @@ Most long blog or articles on the internet don't have a summary, which can make 
 
 ** Build
 - run =npm install=
-- run =npm run build:firefox -- --watch= or =npm run build:chrome -- --watch=
+- run =make dev-firefox= or =make dev-chrome=
 - use web-ext: =npx web-ext run -s public/=, or load =public/= folder manually in the browser
 
 * Release
-to release version 0.3.3:
-- =npm version 0.3.3 -m "ci: release 0.3.3"=
-- =git push --tag v0.3.3=
+to release version x.y.z:
+- =make release version=x.y.z=
 - check github action
