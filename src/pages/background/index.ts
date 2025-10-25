@@ -42,6 +42,17 @@ const doExport = async (payload: ExportPayload) => {
   );
 };
 
+const fetchYoutubeTranscript = async (url: string) => {
+  const body = JSON.stringify({ videoUrl: url });  
+  const response = await fetch("https://www.transcribr.io/api/fetch-video", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: body
+  });
+
+  return response.json();
+};
+
 const handleMessageAsync = async (
   msg: BackgroundMessage,
   sendResponse: (response: MessageResponse) => void
@@ -60,6 +71,9 @@ const handleMessageAsync = async (
           doc: msg.payload.doc,
           summary: msg.payload.summary,
         });
+        break;
+      case "fetch_youtube_transcript":
+        payload = await fetchYoutubeTranscript(msg.payload);
         break;
     }
 
