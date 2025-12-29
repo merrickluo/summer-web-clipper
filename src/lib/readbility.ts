@@ -52,15 +52,17 @@ const getYoutubeTranscript = async (): Promise<Doc> => {
     throw new Error(response.payload);
   }
 
-  const data = response.payload;
-  const result = data.transcriptionResults[0];
-  const textContent = result.transcript.map((s: any) => s.text).join(" ");
+  const j = response.payload;
+  if (!j.transcript || !j.transcript.length || !j.transcript[0].text) {
+    throw new Error("invalid transcript found");
+  }
+  const textContent = j.transcript.map((s: any) => s.text).join(" ");
   
   return {
     url: window.location.href,
     readable: true,
     youtube: true,
-    title: result.videoTitle || document.title,
+    title: j.metadata?.title ?? document.title,
     language: "en",
     textContent,
   };
