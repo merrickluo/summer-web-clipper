@@ -24,12 +24,11 @@ export const getCompletion = async (
     'model': model,
     'messages': messages,
     // reasoning model and beta feature
-    'temperature': 0,
     'service_tier': 'auto',
   };
+  // https://platform.openai.com/docs/pricing?latest-pricing=flex
   if (model === "o3" || model === "o4-mini" || model.startsWith("gpt-5")) {
     payload['service_tier'] = 'flex';
-    payload['temperature'] = 1;
   }
 
   const url = baseurl + "/v1/chat/completions";

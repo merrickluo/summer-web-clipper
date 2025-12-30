@@ -43,8 +43,8 @@ const doExport = async (payload: ExportPayload) => {
 };
 
 const fetchYoutubeTranscript = async (url: string) => {
-  const body = JSON.stringify({ videoUrl: url });  
-  const response = await fetch("https://www.transcribr.io/api/fetch-video", {
+  const body = JSON.stringify({ url: url });  
+  const response = await fetch("https://www.youtranscripts.com/api/transcript/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: body
