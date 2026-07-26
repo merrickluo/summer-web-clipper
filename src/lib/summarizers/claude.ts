@@ -9,7 +9,7 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
         throw new Error("Claude API key not set");
     }
 
-    const model = options.model ?? "claude-3-5-haiku-latest";
+    const model = options.model ?? "claude-haiku-4-5-20251001";
     const api = new Anthropic({
         apiKey: options.apikey,
         dangerouslyAllowBrowser: true,
@@ -22,8 +22,6 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
         max_tokens: 1536,
         system: systemPrompt(doc.language),
         messages: [{ role: "user", content: docXml }],
-        temperature: 0.16,
-
     });
     let summary = '';
     for (const block of rsp.content) {
