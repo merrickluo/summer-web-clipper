@@ -2,7 +2,34 @@ import { SettingsFormProps } from "@src/components/types";
 import { useMemo } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
-import { providers } from "@lib/summarizers/openai";
+
+const providers = [
+  {
+    baseurl: "https://api.openai.com",
+    models: ["gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna"],
+  },
+  {
+    baseurl: "https://api.groq.com/openai",
+    models: [
+      "openai/gpt-oss-120b",
+      "llama-3.3-70b-versatile",
+      "openai/gpt-oss-20b",
+      "llama-3.1-8b-instant",
+    ],
+  },
+  {
+    baseurl: "https://api.mistral.ai",
+    models: [
+      "mistral-medium-3-5",
+      "mistral-large-2512",
+      "mistral-small-2603",
+    ],
+  },
+  {
+    baseurl: "https://api.deepseek.com",
+    models: ["deepseek-v4-pro", "deepseek-v4-flash"],
+  },
+];
 
 const serviceTiers = [
   { label: "Omit", value: "" },
@@ -62,7 +89,7 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         />
         <datalist id="baseurl-options">
           {providers.map((p) => (
-            <option key={p.name} value={p.baseurl} />
+            <option key={p.baseurl} value={p.baseurl} />
           ))}
         </datalist>
       </label>

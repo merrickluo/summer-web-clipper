@@ -1,6 +1,12 @@
 import { SettingsFormProps } from "@src/components/types";
 import { SyntheticEvent } from "react";
-import { geminiModels, DEFAULT_GEMINI_MODEL } from "@lib/summarizers/gemini";
+
+const geminiModels = [
+  "gemini-3.5-flash-lite",
+  "gemini-3.6-flash",
+  "gemini-3.5-flash",
+  "gemini-3.1-pro-preview",
+];
 
 const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { gemini = {} } = {} } = settings;
@@ -40,7 +46,7 @@ const GeminiSettings = ({ settings, dispatch }: SettingsFormProps) => {
 
         <input
           type="text"
-          defaultValue={gemini.model || DEFAULT_GEMINI_MODEL}
+          defaultValue={gemini.model || geminiModels[0]}
           onChange={handleSetGeminiModel}
           className="swc:input swc:w-full"
           list="model-options"

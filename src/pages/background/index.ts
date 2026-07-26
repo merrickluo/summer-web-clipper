@@ -7,13 +7,24 @@ import {
 } from "@lib/browser";
 import { Doc } from "@lib/readbility";
 import { loadSettings } from "@lib/settings";
-import { selectedSummarizer } from "@lib/summarizers";
-import { findExporter } from "@lib/exporters";
+import OrgModeExporter from "@lib/exporters/orgmode";
+import ClaudeSummarizer from "@lib/summarizers/claude";
+import GeminiSummarizer from "@lib/summarizers/gemini";
+import OpenAISummarizer from "@lib/summarizers/openai";
+
+const availableSummarizers = [
+  ClaudeSummarizer,
+  GeminiSummarizer,
+  OpenAISummarizer,
+];
+const availableExporters = [OrgModeExporter];
 
 const doSummarize = async (doc: Doc) => {
   const settings = await loadSettings();
 
-  const summarizer = selectedSummarizer(settings);
+  const summarizer = availableSummarizers.find(
+    ({ id }) => id === settings.selectedSummarizer,
+  );
   if (!summarizer) {
     throw new Error("no available summarizer");
   }
@@ -31,7 +42,7 @@ const doExport = async (payload: ExportPayload) => {
   const settings = await loadSettings();
   const { exporterId, doc, summary } = payload;
 
-  const exporter = findExporter(exporterId);
+  const exporter = availableExporters.find(({ id }) => id === exporterId);
   if (!exporter) {
     throw new Error("no matching exporter found");
   }

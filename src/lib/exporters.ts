@@ -1,26 +1,15 @@
-import { SettingsFormProps } from "@components/types";
-import { FC } from "react";
-import { IconType } from "react-icons";
-import { Doc } from "./readbility";
+import OrgModeSettings from "@components/settings/exporters/orgmode";
+import { SiOrg } from "react-icons/si";
 
-import OrgModeExporter from "./exporters/orgmode";
+export const availableExporters = [
+  {
+    id: "orgmode",
+    name: "Org Mode",
+    SettingsComp: OrgModeSettings,
+    Icon: SiOrg,
+  },
+];
 
-export const availableExporters = [OrgModeExporter];
-
-export interface Clip {
-  doc: Doc; // article parsed by readbility
-  summary?: string; // generated summary
-}
-
-export interface Exporter {
-  id: string;
-  name: string;
-  SettingsComp: FC<SettingsFormProps>;
-  Icon: IconType;
-
-  export(clip: Clip, options: any): Promise<void> | void;
-}
-
-export const findExporter = (exporterId: string): Exporter | undefined => {
-  return availableExporters.find((exp) => exp.id == exporterId);
+export const findExporter = (exporterId: string) => {
+  return availableExporters.find(({ id }) => id === exporterId);
 };

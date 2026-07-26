@@ -1,6 +1,4 @@
-import ClaudeSettings from "@components/settings/summarizers/claude";
 import { Doc } from "@lib/readbility";
-import { Summarizer } from "../summarizers";
 import { sanitizeContent, systemPrompt } from "./utils";
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -35,7 +33,5 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
 
 export default {
     id: "claude",
-    name: "Claude AI",
-    SettingsComp: ClaudeSettings,
     summarize,
-} as Summarizer;
+};
