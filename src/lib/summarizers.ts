@@ -1,26 +1,16 @@
-import { SettingsFormProps } from "@components/types";
-import { FC } from "react";
-import { Doc } from "./readbility";
-import { Settings } from "./settings";
-
-import OpenAISummarizer from "./summarizers/openai";
-import ClaudeSummarizer from "./summarizers/claude";
-import GeminiSummarizer from "./summarizers/gemini";
-
-export interface Summarizer {
-  id: string;
-  name: string;
-  SettingsComp: FC<SettingsFormProps>;
-
-  summarize(doc: Doc, options: any): Promise<string>;
-}
+import ClaudeSettings from "@components/settings/summarizers/claude";
+import GeminiSettings from "@components/settings/summarizers/gemini";
+import OpenAISettings from "@components/settings/summarizers/openai";
+import type { Settings } from "./settings";
 
 export const availableSummarizers = [
-  ClaudeSummarizer,
-  OpenAISummarizer,
-  GeminiSummarizer,
+  { id: "claude", name: "Claude AI", SettingsComp: ClaudeSettings },
+  { id: "openai", name: "OpenAI Compatible", SettingsComp: OpenAISettings },
+  { id: "gemini", name: "Gemini", SettingsComp: GeminiSettings },
 ];
 
 export const selectedSummarizer = (settings: Settings) => {
-  return availableSummarizers.find((s) => s.id == settings.selectedSummarizer);
+  return availableSummarizers.find(
+    ({ id }) => id === settings.selectedSummarizer,
+  );
 };

@@ -1,20 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { sanitizeContent, systemPrompt } from "./utils";
-import { Summarizer } from "../summarizers";
-import GeminiSettings from "@components/settings/summarizers/gemini";
 import { Doc } from "@lib/readbility";
+import { sanitizeContent, systemPrompt } from "./utils";
 
-export const geminiModels = [
-  "gemini-2.5-pro",
-  "gemini-2.5-flash",
-  "gemini-2.5-flash-lite-preview-06-17",
-  "gemini-2.0-flash",
-  "gemini-1.5-flash",
-  "gemini-1.5-pro",
-  "gemini-pro",
-];
-
-export const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17";
+const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite";
 
 const getCompletion = async (
   apikey: string,
@@ -53,7 +41,5 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
 
 export default {
   id: "gemini",
-  name: "Gemini",
-  SettingsComp: GeminiSettings,
   summarize,
-} as Summarizer;
+};

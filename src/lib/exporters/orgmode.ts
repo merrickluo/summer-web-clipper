@@ -1,9 +1,11 @@
-import OrgModeSettings from "@components/settings/exporters/orgmode";
-
-import { SiOrg } from "react-icons/si";
 import { openNewTab } from "../browser";
-import { Clip, Exporter } from "../exporters";
+import { Doc } from "../readbility";
 import { buildUrl } from "./helpers";
+
+interface Clip {
+  doc: Doc;
+  summary?: string;
+}
 
 const exportToOrgProtocol = ({ doc, summary }: Clip, options: any) => {
   if (!options || !options.template) {
@@ -22,9 +24,5 @@ const exportToOrgProtocol = ({ doc, summary }: Clip, options: any) => {
 
 export default {
   id: "orgmode",
-  name: "Org Mode",
   export: exportToOrgProtocol,
-
-  SettingsComp: OrgModeSettings,
-  Icon: SiOrg,
-} as Exporter;
+};

@@ -11,7 +11,7 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   };
 
-  const handleSetClaudeModel = (event: SyntheticEvent<HTMLInputElement>) => {
+  const handleSetClaudeModel = (event: SyntheticEvent<HTMLSelectElement>) => {
     dispatch({
       type: "summarizers/claude/setClaudeModel",
       payload: event.currentTarget.value,
@@ -42,9 +42,9 @@ const ClaudeSettings = ({ settings, dispatch }: SettingsFormProps) => {
           className="swc:select swc:select-bordered swc:w-full"
         >
           {[
-            "claude-3-5-haiku-latest",
-            "claude-sonnet-4-5-20250929",
-            "claude-opus-4-1-20250805",
+            "claude-haiku-4-5-20251001",
+            "claude-sonnet-5",
+            "claude-opus-5",
           ].map((model) => (
             <option key={model} value={model}>
               {model}

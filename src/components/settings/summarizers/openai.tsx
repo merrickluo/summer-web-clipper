@@ -1,8 +1,41 @@
 import { SettingsFormProps } from "@src/components/types";
-import { SyntheticEvent, useMemo } from "react";
+import { useMemo } from "react";
 import ISO6391 from "iso-639-1";
 import { topLanguages } from "@lib/languages";
-import { providers } from "@lib/summarizers/openai";
+
+const providers = [
+  {
+    baseurl: "https://api.openai.com",
+    models: ["gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna"],
+  },
+  {
+    baseurl: "https://api.groq.com/openai",
+    models: [
+      "openai/gpt-oss-120b",
+      "llama-3.3-70b-versatile",
+      "openai/gpt-oss-20b",
+      "llama-3.1-8b-instant",
+    ],
+  },
+  {
+    baseurl: "https://api.mistral.ai",
+    models: [
+      "mistral-medium-3-5",
+      "mistral-large-2512",
+      "mistral-small-2603",
+    ],
+  },
+  {
+    baseurl: "https://api.deepseek.com",
+    models: ["deepseek-v4-pro", "deepseek-v4-flash"],
+  },
+];
+
+const serviceTiers = [
+  { label: "Omit", value: "" },
+  { label: "Flex", value: "flex" },
+  { label: "Priority", value: "priority" },
+];
 
 const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
   const { summarizers: { openai = {} } = {} } = settings;
@@ -13,39 +46,8 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
     });
   }, [openai]);
 
-  const handleSetApikey = (event: SyntheticEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "summarizers/openai/setApikey",
-      payload: event.currentTarget.value,
-    });
-  };
-
-  const handleSetBaseURL = (event: SyntheticEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "summarizers/openai/setBaseURL",
-      payload: event.currentTarget.value,
-    });
-  };
-
-  const handleSetLanguage = (event: SyntheticEvent<HTMLSelectElement>) => {
-    dispatch({
-      type: "summarizers/openai/setLanguage",
-      payload: event.currentTarget.value,
-    });
-  };
-
-  const handleSetMaxWords = (event: SyntheticEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "summarizers/openai/setMaxWords",
-      payload: event.currentTarget.value,
-    });
-  };
-
-  const handleSetOpenAIModel = (event: SyntheticEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "summarizers/openai/setOpenAIModel",
-      payload: event.currentTarget.value,
-    });
+  const updateOpenAI = (payload: Record<string, string | boolean>) => {
+    dispatch({ type: "summarizers/openai/update", payload });
   };
 
   return (
@@ -58,7 +60,9 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <span>Summary Language</span>
         <select
           defaultValue={openai.language}
-          onChange={handleSetLanguage}
+          onChange={(event) =>
+            updateOpenAI({ language: event.currentTarget.value })
+          }
           className="swc:select swc:select-bordered swc:w-full"
         >
           <option value="">Follow article</option>
@@ -76,14 +80,16 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
           type="text"
           placeholder="https://api.openai.com"
           defaultValue={openai.baseurl}
-          onChange={handleSetBaseURL}
+          onChange={(event) =>
+            updateOpenAI({ baseurl: event.currentTarget.value })
+          }
           className="swc:input swc:w-full"
           list="baseurl-options"
           autoComplete="off"
         />
         <datalist id="baseurl-options">
           {providers.map((p) => (
-            <option key={p.name} value={p.baseurl} />
+            <option key={p.baseurl} value={p.baseurl} />
           ))}
         </datalist>
       </label>
@@ -94,7 +100,9 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <input
           type="text"
           defaultValue={openai.model}
-          onChange={handleSetOpenAIModel}
+          onChange={(event) =>
+            updateOpenAI({ model: event.currentTarget.value })
+          }
           className="swc:input swc:w-full"
           list="model-options"
           autoComplete="off"
@@ -112,7 +120,9 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         <input
           type="password"
           id="apikey"
-          onChange={handleSetApikey}
+          onChange={(event) =>
+            updateOpenAI({ apikey: event.currentTarget.value })
+          }
           className="swc:input swc:w-full"
           defaultValue={openai.apikey || ""}
         ></input>
@@ -146,20 +156,36 @@ const OpenAISettings = ({ settings, dispatch }: SettingsFormProps) => {
         </p>
       </label>
 
-      <label className="swc:floating-label swc:mt-4">
-        <span>Max Words for Summerization</span>
+      <div className="swc:mt-4">
+        <span className="swc:label">Service Tier</span>
+        <div className="swc:join">
+          {serviceTiers.map(({ label, value }) => (
+            <input
+              key={label}
+              type="radio"
+              name="service-tier"
+              value={value}
+              aria-label={label}
+              className="swc:join-item swc:btn"
+              defaultChecked={(openai.serviceTier || "") === value}
+              onChange={(event) =>
+                updateOpenAI({ serviceTier: event.currentTarget.value })
+              }
+            />
+          ))}
+        </div>
+      </div>
+
+      <label className="swc:label swc:cursor-pointer swc:mt-4">
         <input
-          id="maxwords"
-          onChange={handleSetMaxWords}
-          className="swc:input swc:w-full"
-          defaultValue={openai.maxwords || 12000}
-        ></input>
-        <p className="swc:text-sm swc:text-gray-500 swc:mt-2">
-          <span>
-            Default to 12000 words and GPT-4o-mini, should be enough for most
-            tabs.
-          </span>
-        </p>
+          type="checkbox"
+          className="swc:checkbox"
+          defaultChecked={!!openai.lowVerbosity}
+          onChange={(event) =>
+            updateOpenAI({ lowVerbosity: event.currentTarget.checked })
+          }
+        />
+        <span className="swc:text-base">Lower output verbosity</span>
       </label>
     </fieldset>
   );

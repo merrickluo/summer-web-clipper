@@ -1,9 +1,7 @@
 import { Doc, parseDocument } from "@lib/readbility";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { BiRefresh } from "react-icons/bi";
-import { useMemo } from "react";
 import { loadSettings } from "@lib/settings";
-import { selectedSummarizer } from "@lib/summarizers";
 import { sendMessage } from "@lib/browser";
 import { availableExporters } from "@lib/exporters";
 import Summary from "@components/summary";
@@ -54,10 +52,6 @@ const Main = () => {
     retry: false,
   });
 
-  const hasSelectedSummarizer = useMemo(() => {
-    return settings && !!selectedSummarizer(settings);
-  }, [settings]);
-
   const summary = useQuery({
     queryKey: ["summary"],
     queryFn: () => fetchSummary(doc.data!),
@@ -86,7 +80,7 @@ const Main = () => {
       <div className="swc:flex-1 swc:text-base swc:bg-white swc:mt-2 swc:p-2 swc:rounded-lg swc:border-1 swc:border-gray-300">
         <Summary
           summary={summary}
-          valid={!!hasSelectedSummarizer}
+          valid={!!settings?.selectedSummarizer}
           auto={settings?.general?.autoSummary}
         />
       </div>
