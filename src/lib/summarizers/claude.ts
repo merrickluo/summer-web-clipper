@@ -1,37 +1,52 @@
 import { Doc } from "@lib/readbility";
 import { sanitizeContent, systemPrompt } from "./utils";
-import Anthropic from "@anthropic-ai/sdk";
+
+interface ClaudeMessageResponse {
+  content: Array<{ type: string; text?: string }>;
+}
 
 const summarize = async (doc: Doc, options: any): Promise<string> => {
-    if (!options.apikey) {
-        throw new Error("Claude API key not set");
-    }
+  if (!options.apikey) {
+    throw new Error("Claude API key not set");
+  }
 
-    const model = options.model ?? "claude-haiku-4-5-20251001";
-    const api = new Anthropic({
-        apiKey: options.apikey,
-        dangerouslyAllowBrowser: true,
-    });
-    const docXml = `<document>${doc.title}\n${sanitizeContent(
-        doc.textContent
-    )}</document>`;
-    const rsp = await api.messages.create({
-        model: model, // https://docs.anthropic.com/claude/docs/models-overview
-        max_tokens: 1536,
-        system: systemPrompt(doc.language),
-        messages: [{ role: "user", content: docXml }],
-    });
-    let summary = '';
-    for (const block of rsp.content) {
-        // no thinking block yet, make lint happy
-        if (block.type === "text") {
-            summary = block.text;
-        }
+  const model = options.model ?? "claude-haiku-4-5-20251001";
+  const docXml = `<document>${doc.title}\n${sanitizeContent(
+    doc.textContent,
+  )}</document>`;
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": options.apikey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true",
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: 1536,
+      system: systemPrompt(doc.language),
+      messages: [{ role: "user", content: docXml }],
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Claude API request failed (${response.status}): ${await response.text()}`,
+    );
+  }
+
+  const message = (await response.json()) as ClaudeMessageResponse;
+  let summary = "";
+  for (const block of message.content) {
+    if (block.type === "text") {
+      summary = block.text ?? "";
     }
-    return summary;
+  }
+  return summary;
 };
 
 export default {
-    id: "claude",
-    summarize,
+  id: "claude",
+  summarize,
 };

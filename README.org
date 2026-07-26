@@ -25,11 +25,12 @@ Most long blog or articles on the internet don't have a summary, which can make 
 
 * Development
 ** Requirements
-- node.js 16+
-- npm
+- Node.js 24 LTS
+- npm 11
 
 ** Build
-- run =npm install=
+- run =nvm install && nvm use=
+- run =npm ci=
 - run =make dev-firefox= or =make dev-chrome=
 - use web-ext: =npx web-ext run -s public/=, or load =public/= folder manually in the browser
 
