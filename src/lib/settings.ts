@@ -1,5 +1,4 @@
 import { localStorageGet, localStorageSet } from "./browser";
-import gemini from "./summarizers/gemini";
 
 export interface Settings {
   selectedSummarizer?: string;
@@ -15,12 +14,8 @@ export type SettingsActionType =
   | "summarizers/claude/setClaudeModel"
   | "summarizers/gemini/setApikey"
   | "summarizers/gemini/setGeminiModel"
-  | "summarizers/openai/setApikey"
-  | "summarizers/openai/setLanguage"
-  | "exporters/orgmode/setTemplate"
-  | "summarizers/openai/setMaxWords"
-  | "summarizers/openai/setOpenAIModel"
-  | "summarizers/openai/setBaseURL";
+  | "summarizers/openai/update"
+  | "exporters/orgmode/setTemplate";
 
 export interface SettingsAction {
   type: SettingsActionType;
@@ -100,66 +95,14 @@ export const updateSettings = async (
       };
 
       break;
-    case "summarizers/openai/setApikey":
+    case "summarizers/openai/update":
       settings = {
         ...settings,
         summarizers: {
           ...settings.summarizers,
           openai: {
             ...settings.summarizers?.openai,
-            apikey: action.payload as string,
-          },
-        },
-      };
-
-      break;
-    case "summarizers/openai/setLanguage":
-      settings = {
-        ...settings,
-        summarizers: {
-          ...settings.summarizers,
-          openai: {
-            ...settings.summarizers?.openai,
-            language: action.payload as string,
-          },
-        },
-      };
-
-      break;
-    case "summarizers/openai/setMaxWords":
-      settings = {
-        ...settings,
-        summarizers: {
-          ...settings.summarizers,
-          openai: {
-            ...settings.summarizers?.openai,
-            maxwords: action.payload as string,
-          },
-        },
-      };
-
-      break;
-    case "summarizers/openai/setOpenAIModel":
-      settings = {
-        ...settings,
-        summarizers: {
-          ...settings.summarizers,
-          openai: {
-            ...settings.summarizers?.openai,
-            model: action.payload as string,
-          },
-        },
-      };
-      break;
-    case "summarizers/openai/setBaseURL":
-      console.log("set base url: ", action);
-      settings = {
-        ...settings,
-        summarizers: {
-          ...settings.summarizers,
-          openai: {
-            ...settings.summarizers?.openai,
-            baseurl: action.payload as string,
+            ...action.payload,
           },
         },
       };

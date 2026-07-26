@@ -14,25 +14,31 @@ interface ChatMessage {
   content: string;
 }
 
+interface CompletionOptions {
+  serviceTier?: "flex" | "priority";
+  lowVerbosity?: boolean;
+}
+
 export const getCompletion = async (
   baseurl: string,
   apikey: string,
   model: string,
-  messages: ChatMessage[]
+  messages: ChatMessage[],
+  options: CompletionOptions = {},
 ): Promise<string> => {
-  let payload = {
-    'model': model,
-    'messages': messages,
-    // reasoning model and beta feature
-    'service_tier': 'auto',
-  };
-  // https://platform.openai.com/docs/pricing?latest-pricing=flex
-  if (model === "o3" || model === "o4-mini" || model.startsWith("gpt-5")) {
-    payload['service_tier'] = 'flex';
+  const payload: Record<string, unknown> = { model, messages };
+
+  if (options.serviceTier) {
+    payload.service_tier = options.serviceTier;
+  }
+  if (options.lowVerbosity) {
+    payload.verbosity = "low";
   }
 
   const url = baseurl + "/v1/chat/completions";
-  const data = await post(url, apikey, payload).then((r: any) => r.json());
+  const data = await post(url, apikey, payload).then((response: Response) =>
+    response.json(),
+  );
 
   return data?.choices?.[0].message?.content;
 };

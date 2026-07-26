@@ -40,19 +40,27 @@ const summarize = async (doc: Doc, options: any): Promise<string> => {
     );
   }
 
-  let language = options.language || doc.language;
-  let maxwords = Number(options.maxwords) || 12000;
+  const language = options.language || doc.language;
 
-  return await getCompletion(options.baseurl, options.apikey, options.model, [
+  return await getCompletion(
+    options.baseurl,
+    options.apikey,
+    options.model,
+    [
+      {
+        role: "system",
+        content: systemPrompt(language),
+      },
+      {
+        role: "user",
+        content: sanitizeContent(`${doc.title}\n${doc.textContent}`),
+      },
+    ],
     {
-      role: "system",
-      content: systemPrompt(language),
+      serviceTier: options.serviceTier,
+      lowVerbosity: options.lowVerbosity,
     },
-    {
-      role: "user",
-      content: sanitizeContent(`${doc.title}\n${doc.textContent}`, maxwords),
-    },
-  ]);
+  );
 };
 
 export default {
