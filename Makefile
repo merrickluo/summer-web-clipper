@@ -22,7 +22,7 @@ ifeq ($(version),)
 	$(error version is not set)
 endif
 	npm version $(version) -m "ci: release $(version)"
-	git push --atomic v$(version) main
+	git push --atomic origin v$(version) main
 
 clean:
 	npm run clean
