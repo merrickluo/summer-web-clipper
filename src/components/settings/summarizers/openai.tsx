@@ -29,6 +29,13 @@ const providers = [
     baseurl: "https://api.deepseek.com",
     models: ["deepseek-v4-pro", "deepseek-v4-flash"],
   },
+  {
+    baseurl: "https://opencode.ai/zen/go",
+    models: [
+      "glm-5.3-flash",
+      "deepseek-v4.1-flash",
+    ],
+  },
 ];
 
 const serviceTiers = [

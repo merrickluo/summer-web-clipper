@@ -1,11 +1,36 @@
-const post = (url: string, apikey: string, payload: any = {}): any => {
+// OpenCode Go wants a stable session id per conversation,
+// derive it from the request body: text and model-id.
+const hash = async (body: string): Promise<string> => {
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(body),
+  );
+  const hex = Array.from(new Uint8Array(digest), (b) =>
+    b.toString(16).padStart(2, "0"),
+  );
+
+  return hex.join("").slice(0, 32);
+};
+
+const post = async (
+  url: string,
+  apikey: string,
+  payload: any = {},
+): Promise<Response> => {
+  const body = JSON.stringify(payload);
+  const headers: Record<string, string> = {
+    "content-type": "application/json",
+    authorization: `Bearer ${apikey}`,
+  };
+
+  if (url.includes("opencode.ai")) {
+    headers["x-opencode-session"] = `summer-${await hash(body)}`;
+  }
+
   return fetch(url, {
     method: "post",
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${apikey}`,
-    },
-    body: JSON.stringify(payload),
+    headers,
+    body,
   });
 };
 
