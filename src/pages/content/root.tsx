@@ -5,7 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Header from "@components/header";
 import Overlay from "@components/overlay";
 import type { Doc } from "@lib/readbility";
-import { refreshIfUrlChanged } from "@lib/overlay-refresh";
+import { refreshDocumentIfUrlChanged } from "@lib/overlay-refresh";
 import Main from "./main";
 
 const queryClient = new QueryClient({
@@ -40,7 +40,7 @@ const Root = () => {
       return;
     }
 
-    void refreshIfUrlChanged(
+    void refreshDocumentIfUrlChanged(
       queryClient,
       queryClient.getQueryData<Doc>(["doc"])?.url,
       window.location.href,

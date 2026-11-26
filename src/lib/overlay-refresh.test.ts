@@ -1,5 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { refreshIfUrlChanged, shouldRefreshDocument } from "./overlay-refresh";
+import {
+  refreshDocumentIfUrlChanged,
+  shouldRefreshDocument,
+} from "./overlay-refresh";
 
 const fakeClient = () => {
   const calls: (readonly unknown[])[] = [];
@@ -29,11 +32,11 @@ describe("shouldRefreshDocument", () => {
   });
 });
 
-describe("refreshIfUrlChanged", () => {
+describe("refreshDocumentIfUrlChanged", () => {
   it("returns false and leaves the client untouched at the same url", async () => {
     const client = fakeClient();
 
-    const refreshed = await refreshIfUrlChanged(
+    const refreshed = await refreshDocumentIfUrlChanged(
       client,
       "https://a.example/x",
       "https://a.example/x",
@@ -44,29 +47,29 @@ describe("refreshIfUrlChanged", () => {
     expect(client.calls).toEqual([]);
   });
 
-  it("invalidates doc then summary when the url changed", async () => {
+  it("invalidates only the document when the url changed", async () => {
     const client = fakeClient();
 
-    const refreshed = await refreshIfUrlChanged(
+    const refreshed = await refreshDocumentIfUrlChanged(
       client,
       "https://a.example/x",
       "https://a.example/y",
     );
 
     expect(refreshed).toBe(true);
-    expect(client.calls).toEqual([["doc"], ["summary"]]);
+    expect(client.calls).toEqual([["doc"]]);
   });
 
-  it("refreshes when the parsed url is undefined", async () => {
+  it("invalidates only the document when the parsed url is undefined", async () => {
     const client = fakeClient();
 
-    const refreshed = await refreshIfUrlChanged(
+    const refreshed = await refreshDocumentIfUrlChanged(
       client,
       undefined,
       "https://a.example/y",
     );
 
     expect(refreshed).toBe(true);
-    expect(client.calls).toEqual([["doc"], ["summary"]]);
+    expect(client.calls).toEqual([["doc"]]);
   });
 });
