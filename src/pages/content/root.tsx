@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -17,6 +17,15 @@ const queryClient = new QueryClient({
 
 const Root = () => {
   const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    const toggleOverlay = () => setHidden((current) => !current);
+
+    window.addEventListener("swc:toggle-overlay", toggleOverlay);
+    return () => {
+      window.removeEventListener("swc:toggle-overlay", toggleOverlay);
+    };
+  }, []);
 
   const closeOverlayAction = useMemo(
     () => (
