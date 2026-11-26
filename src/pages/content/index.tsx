@@ -5,10 +5,13 @@ import { createRoot } from "react-dom/client";
 import "./style.css";
 import Root from "./root";
 
-const addEventListeners = () => {
+const rootId = "swc-root";
+
+const init = () => {
   if (window.contentInjected) {
     return;
   }
+  window.contentInjected = true;
 
   const RE_YOUTUBE =
     /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
@@ -24,20 +27,21 @@ const addEventListeners = () => {
       case "open_url":
         window.open(msg.payload as string, "_self");
         return true;
+      case "toggle_overlay":
+        window.dispatchEvent(new CustomEvent("swc:toggle-overlay"));
+        respond({ type: "success" });
+        return true;
     }
   });
+
+  let contentRoot = document.getElementById(rootId);
+  if (!contentRoot) {
+    contentRoot = document.createElement("div");
+    contentRoot.id = rootId;
+    document.body.appendChild(contentRoot);
+  }
+
+  createRoot(contentRoot).render(<Root />);
 };
 
-addEventListeners();
-
-let rootId = "swc-root";
-let contentRoot = document.getElementById(rootId);
-if (!contentRoot) {
-  contentRoot = document.createElement("div");
-  contentRoot.id = rootId;
-}
-document.body.appendChild(contentRoot);
-
-// FIXME: avoid duplicated rendering
-let root = createRoot(contentRoot);
-root.render(<Root />);
+init();

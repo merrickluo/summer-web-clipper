@@ -2,8 +2,8 @@ import {
   addMessageListener,
   BackgroundMessage,
   createOptionsButton,
-  injectContentScript,
   MessageResponse,
+  toggleOrInjectContent,
 } from "@lib/browser";
 import { Doc } from "@lib/readbility";
 import { loadSettings } from "@lib/settings";
@@ -108,8 +108,14 @@ addMessageListener((msg, _, sendResponse) => {
   return true;
 });
 
-chrome.action.onClicked.addListener((_) => {
-  injectContentScript();
+chrome.action.onClicked.addListener((tab) => {
+  if (tab.id === undefined) {
+    return;
+  }
+
+  toggleOrInjectContent(tab.id).catch((e) => {
+    console.error("failed to toggle or inject content script", e);
+  });
 });
 
 createOptionsButton();

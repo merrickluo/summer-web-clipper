@@ -1,7 +1,10 @@
 export interface ContentMessage {
-  action: "parse_document" | "open_url";
+  action: "parse_document" | "open_url" | "toggle_overlay";
   payload?: any;
 }
+
+// Firefox exposes its extension API on `browser`; @types/chrome does not declare it.
+declare const browser: any;
 
 export interface BackgroundMessage {
   action: "summarize" | "export" | "fetch_youtube_transcript";
@@ -66,6 +69,26 @@ export const injectContentScript = async () => {
     target: { tabId: tab.id! },
     files: ["dist/content.js"],
   });
+};
+
+export type InjectionOutcome = "toggled" | "injected";
+
+// Reuse the running content script when possible, otherwise boot it.
+export const toggleOrInjectContent = async (
+  tabId: number
+): Promise<InjectionOutcome> => {
+  const message: ContentMessage = { action: "toggle_overlay" };
+
+  try {
+    await chrome.tabs.sendMessage(tabId, message);
+    return "toggled";
+  } catch (e) {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ["dist/content.js"],
+    });
+    return "injected";
+  }
 };
 
 export const openNewTab = (url: string) => {
