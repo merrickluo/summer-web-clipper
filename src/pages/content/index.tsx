@@ -20,7 +20,7 @@ const init = () => {
   addMessageListener((msg: ContentMessage, _, respond) => {
     switch (msg.action) {
       case "parse_document":
-        parseDocument(isYoutube).then((doc) => {
+        parseDocument(Boolean(isYoutube)).then((doc) => {
           respond({ type: "success", payload: doc });
         });
         return true;
