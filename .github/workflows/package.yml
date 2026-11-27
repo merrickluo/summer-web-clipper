@@ -4,7 +4,6 @@ on:
   push:
     branches: ["main"]
   pull_request:
-    branches: ["main"]
   workflow_call:
 
 jobs:
@@ -20,10 +19,17 @@ jobs:
           node-version: 24.x
           cache: npm
 
+      - name: install
+        run: npm ci
+
+      - name: typecheck & test
+        run: |
+          npx tsc --noEmit
+          npm test -- --runInBand
+
       - name: build & package
         run: |
           export FIREFOX_ADDON_ID=$(echo -n ${FIREFOX_ADDON_ID})
-          npm ci
           npm run package
         env:
           FIREFOX_ADDON_ID: ${{ secrets.FIREFOX_ADDON_ID }}
