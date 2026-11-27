@@ -1,3 +1,5 @@
+import { readJsonResponse } from "../http";
+
 // OpenCode Go wants a stable session id per conversation,
 // derive it from the request body: text and model-id.
 const hash = async (body: string): Promise<string> => {
@@ -44,6 +46,10 @@ interface CompletionOptions {
   lowVerbosity?: boolean;
 }
 
+interface ChatCompletion {
+  choices?: Array<{ message?: { content?: unknown } }>;
+}
+
 export const getCompletion = async (
   baseurl: string,
   apikey: string,
@@ -61,9 +67,16 @@ export const getCompletion = async (
   }
 
   const url = baseurl + "/v1/chat/completions";
-  const data = await post(url, apikey, payload).then((response: Response) =>
-    response.json(),
+  const response = await post(url, apikey, payload);
+  const data = await readJsonResponse<ChatCompletion>(
+    response,
+    "OpenAI-compatible",
   );
+  const content = data?.choices?.[0]?.message?.content;
 
-  return data?.choices?.[0].message?.content;
+  if (typeof content !== "string") {
+    throw new Error("OpenAI-compatible response is missing message content");
+  }
+
+  return content;
 };
