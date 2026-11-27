@@ -75,7 +75,11 @@ export const getCompletion = async (
   const content = data?.choices?.[0]?.message?.content;
 
   if (typeof content !== "string") {
-    throw new Error("OpenAI-compatible response is missing message content");
+    throw new Error(
+      `OpenAI-compatible response is missing message content: ${JSON.stringify(
+        data,
+      ).slice(0, 300)}`,
+    );
   }
 
   return content;

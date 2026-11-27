@@ -41,12 +41,15 @@ describe("getCompletion", () => {
   });
 
   test("rejects when the response has no message content", async () => {
-    fetchMock.mockResolvedValue(
-      new Response(JSON.stringify({ choices: [] })),
-    );
+    const body = { choices: [] };
+    fetchMock.mockResolvedValue(new Response(JSON.stringify(body)));
 
     await expect(
       getCompletion(baseurl, "key", "model", messages),
-    ).rejects.toThrow("OpenAI-compatible response is missing message content");
+    ).rejects.toThrow(
+      new Error(
+        `OpenAI-compatible response is missing message content: ${JSON.stringify(body)}`,
+      ),
+    );
   });
 });
