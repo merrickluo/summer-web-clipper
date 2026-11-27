@@ -1,4 +1,5 @@
 import { isProbablyReaderable, Readability } from "@mozilla/readability";
+import { normalizeLanguage, pickLanguage } from "./language";
 
 export interface Doc {
   title: string;
@@ -31,13 +32,13 @@ export const parseDocument = async (isYoutube): Promise<Doc> => {
     throw new Error("readability parse failed");
   }
 
-  let language = "en";
+  const fallback = normalizeLanguage(document.documentElement.lang) || "en";
 
   // use the first possible language
-  const langInfo = await chrome.i18n.detectLanguage(parsedDoc.textContent);
-  if (langInfo.languages.length > 1) {
-    language = langInfo.languages[0].language;
-  }
+  const langInfo = (await chrome.i18n.detectLanguage(
+    parsedDoc.textContent ?? "",
+  )) as unknown as chrome.i18n.LanguageDetectionResult;
+  const language = pickLanguage(langInfo.languages, fallback);
 
   return { url: window.location.href, readable, language, ...parsedDoc };
 };
