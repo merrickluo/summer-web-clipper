@@ -18,7 +18,7 @@ export interface Doc {
   summary?: string;
 }
 
-export interface ParsedDoc {
+interface ParsedDoc {
   title?: string | null;
   byline?: string | null;
   content?: string | null;
