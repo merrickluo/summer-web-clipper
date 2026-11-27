@@ -1,4 +1,5 @@
 import { isProbablyReaderable, Readability } from "@mozilla/readability";
+import { normalizeLanguage, pickLanguage } from "./language";
 
 export interface Doc {
   title: string;
@@ -17,8 +18,43 @@ export interface Doc {
   summary?: string;
 }
 
+interface ParsedDoc {
+  title?: string | null;
+  byline?: string | null;
+  content?: string | null;
+  textContent?: string | null;
+  length?: number | null;
+  excerpt?: string | null;
+  siteName?: string | null;
+}
+
+interface YoutubeTranscriptResponse {
+  transcript?: Array<{ text?: string }>;
+  metadata?: { title?: string };
+}
+
+const orEmpty = (value: string | null | undefined): string => value ?? "";
+
+export const normalizeDoc = (
+  parsed: ParsedDoc,
+  url: string,
+  readable: boolean,
+  language: string,
+): Doc => ({
+  title: orEmpty(parsed.title),
+  byline: orEmpty(parsed.byline),
+  content: orEmpty(parsed.content),
+  textContent: orEmpty(parsed.textContent),
+  length: parsed.length ?? 0,
+  excerpt: orEmpty(parsed.excerpt),
+  siteName: orEmpty(parsed.siteName),
+  url,
+  readable,
+  language,
+});
+
 // this needs to be run in content script
-export const parseDocument = async (isYoutube): Promise<Doc> => {
+export const parseDocument = async (isYoutube: boolean): Promise<Doc> => {
   if (isYoutube) {
     return getYoutubeTranscript();
   }
@@ -31,15 +67,15 @@ export const parseDocument = async (isYoutube): Promise<Doc> => {
     throw new Error("readability parse failed");
   }
 
-  let language = "en";
+  const fallback = normalizeLanguage(document.documentElement.lang) || "en";
 
   // use the first possible language
-  const langInfo = await chrome.i18n.detectLanguage(parsedDoc.textContent);
-  if (langInfo.languages.length > 1) {
-    language = langInfo.languages[0].language;
-  }
+  const langInfo = (await chrome.i18n.detectLanguage(
+    parsedDoc.textContent ?? "",
+  )) as unknown as chrome.i18n.LanguageDetectionResult;
+  const language = pickLanguage(langInfo.languages, fallback);
 
-  return { url: window.location.href, readable, language, ...parsedDoc };
+  return normalizeDoc(parsedDoc, window.location.href, readable, language);
 };
 
 const getYoutubeTranscript = async (): Promise<Doc> => {
@@ -52,12 +88,12 @@ const getYoutubeTranscript = async (): Promise<Doc> => {
     throw new Error(response.payload);
   }
 
-  const j = response.payload;
+  const j = response.payload as YoutubeTranscriptResponse;
   if (!j.transcript || !j.transcript.length || !j.transcript[0].text) {
     throw new Error("invalid transcript found");
   }
-  const textContent = j.transcript.map((s: any) => s.text).join(" ");
-  
+  const textContent = j.transcript.map((s) => s.text).join(" ");
+
   return {
     url: window.location.href,
     readable: true,
@@ -65,5 +101,10 @@ const getYoutubeTranscript = async (): Promise<Doc> => {
     title: j.metadata?.title ?? document.title,
     language: "en",
     textContent,
+    byline: "",
+    content: "",
+    excerpt: "",
+    siteName: "",
+    length: textContent.length,
   };
 };
