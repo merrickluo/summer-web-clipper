@@ -1,4 +1,5 @@
 import { Doc, parseDocument } from "@lib/readbility";
+import { canAutoSummarize } from "@lib/summary-query";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { BiRefresh } from "react-icons/bi";
 import { loadSettings } from "@lib/settings";
@@ -14,7 +15,11 @@ const fetchDoc = async (): Promise<Doc> => {
   return parseDocument(isYoutube);
 };
 
-const fetchSummary = async (doc: Doc) => {
+const fetchSummary = async (doc: Doc | undefined) => {
+  if (!doc) {
+    throw new Error("cannot summarize before the document is parsed");
+  }
+
   return await sendMessage({
     to: "background",
     message: {
@@ -53,9 +58,9 @@ const Main = () => {
   });
 
   const summary = useQuery({
-    queryKey: ["summary"],
-    queryFn: () => fetchSummary(doc.data!),
-    enabled: !!settings?.general?.autoSummary,
+    queryKey: ["summary", doc.data?.url],
+    queryFn: () => fetchSummary(doc.data),
+    enabled: canAutoSummarize(settings?.general?.autoSummary, doc.data),
   });
 
   const mutation = useMutation({ mutationFn: doExport });
@@ -71,7 +76,11 @@ const Main = () => {
               : doc.data?.title}
         </h1>
         <BiRefresh
-          onClick={() => summary.refetch()}
+          onClick={() => {
+            if (doc.data) {
+              summary.refetch();
+            }
+          }}
           className={`swc:w-6 swc:h-6 hover:swc:text-blue-600 swc:mr-2 ${
             summary.isFetching ? "swc:animate-spin" : ""
           }`}
