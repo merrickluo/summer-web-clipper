@@ -11,6 +11,7 @@ import OrgModeExporter from "@lib/exporters/orgmode";
 import ClaudeSummarizer from "@lib/summarizers/claude";
 import GeminiSummarizer from "@lib/summarizers/gemini";
 import OpenAISummarizer from "@lib/summarizers/openai";
+import { fetchYoutubeTranscript } from "@lib/youtube";
 
 const availableSummarizers = [
   ClaudeSummarizer,
@@ -51,17 +52,6 @@ const doExport = async (payload: ExportPayload) => {
     { doc: doc, summary: summary },
     settings?.exporters?.[exporterId]
   );
-};
-
-const fetchYoutubeTranscript = async (url: string) => {
-  const body = JSON.stringify({ url: url });  
-  const response = await fetch("https://www.youtranscripts.com/api/transcript/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: body
-  });
-
-  return response.json();
 };
 
 const handleMessageAsync = async (
